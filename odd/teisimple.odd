@@ -525,7 +525,7 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="addSpan">
                             <model behaviour="anchor">
-                                <param name="id">@xml:id</param>
+                                <param name="id" value="@xml:id"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="am">
@@ -533,7 +533,7 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="anchor">
                             <model behaviour="anchor">
-                                <param name="id">@xml:id</param>
+                                <param name="id" value="@xml:id"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="argument">
@@ -558,7 +558,7 @@
                         <elementSpec mode="change" ident="body">
                             <modelSequence>
                                 <model behaviour="index">
-                                    <param name="type">'toc'</param>
+                                    <param name="type" value="'toc'"/>
                                 </model>
                                 <model behaviour="block"/>
                             </modelSequence>
@@ -572,7 +572,7 @@
                         <elementSpec mode="change" ident="castGroup">
                             <model predicate="child::*" behaviour="list">
                                 <desc>Insert list. </desc>
-                                <param name="content">castItem|castGroup</param>
+                                <param name="content" value="castItem|castGroup"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="castItem">
@@ -582,14 +582,14 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="castList">
                             <model predicate="child::*" behaviour="list" useSourceRendition="true">
-                                <param name="content">castItem</param>
+                                <param name="content" value="castItem"/>
                                 <outputRendition>list-style: ordered;</outputRendition>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="cb">
                             <model behaviour="break">
-                                <param name="type">'column'</param>
-                                <param name="label">@n</param>
+                                <param name="type" value="'column'"/>
+                                <param name="label" value="@n"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="cell">
@@ -612,25 +612,25 @@
                                 </constraint>
                             </constraintSpec>
                             <model output="plain" predicate="sic and corr" behaviour="inline">
-                                <param name="content">corr[1]</param>
+                                <param name="content" value="corr[1]"/>
                             </model>
                             <model output="plain" predicate="abbr and expan" behaviour="inline">
-                                <param name="content">expan[1]</param>
+                                <param name="content" value="expan[1]"/>
                             </model>
                             <model output="plain" predicate="orig and reg" behaviour="inline">
-                                <param name="content">reg[1]</param>
+                                <param name="content" value="reg[1]"/>
                             </model>
                             <model predicate="sic and corr" behaviour="alternate">
-                                <param name="default">corr[1]</param>
-                                <param name="alternate">sic[1]</param>
+                                <param name="default" value="corr[1]"/>
+                                <param name="alternate" value="sic[1]"/>
                             </model>
                             <model predicate="abbr and expan" behaviour="alternate">
-                                <param name="default">expan[1]</param>
-                                <param name="alternate">abbr[1]</param>
+                                <param name="default" value="expan[1]"/>
+                                <param name="alternate" value="abbr[1]"/>
                             </model>
                             <model predicate="orig and reg" behaviour="alternate">
-                                <param name="default">reg[1]</param>
-                                <param name="alternate">orig[1]</param>
+                                <param name="default" value="reg[1]"/>
+                                <param name="alternate" value="orig[1]"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="cit">
@@ -655,11 +655,11 @@
                         <elementSpec mode="change" ident="date">
                             <model output="print" predicate="text()" behaviour="inline"/>
                             <model output="print" predicate="@when and not(text())" behaviour="inline">
-                                <param name="content">@when</param>
+                                <param name="content" value="@when"/>
                             </model>
                             <model output="web" predicate="@when" behaviour="alternate">
-                                <param name="default">.</param>
-                                <param name="alternate">@when</param>
+                                <param name="default" value="."/>
+                                <param name="alternate" value="@when"/>
                             </model>
                             <model predicate="text()" behaviour="inline"/>
                         </elementSpec>
@@ -731,8 +731,8 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="figure">
                             <model predicate="head" behaviour="figure">
-                                <param name="title">head/node()</param>
-                                <param name="content">*[not(self::head)]</param>
+                                <param name="title" value="head/node()"/>
+                                <param name="content" value="*[not(self::head)]"/>
                             </model>
                             <model behaviour="block"/>
                         </elementSpec>
@@ -762,7 +762,7 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="g">
                             <model predicate="not(text())" behaviour="glyph">
-                                <param name="uri">@ref</param>
+                                <param name="uri" value="@ref"/>
                             </model>
                             <model behaviour="inline"/>
                         </elementSpec>
@@ -771,7 +771,7 @@
                                 <outputRendition>color: grey;</outputRendition>
                             </model>
                             <model predicate="@extent" behaviour="inline">
-                                <param name="content">@extent</param>
+                                <param name="content" value="@extent"/>
                                 <outputRendition scope="before">content: '[..';</outputRendition>
                                 <outputRendition scope="after">content: '..]';</outputRendition>
                                 <outputRendition>color: grey;</outputRendition>
@@ -788,11 +788,11 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="graphic">
                             <model behaviour="graphic">
-                                <param name="url">@url</param>
-                                <param name="width">@width</param>
-                                <param name="height">@height</param>
-                                <param name="scale">@scale</param>
-                                <param name="title">desc</param>
+                                <param name="url" value="@url"/>
+                                <param name="width" value="@width"/>
+                                <param name="height" value="@height"/>
+                                <param name="scale" value="@scale"/>
+                                <param name="title" value="desc"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="group">
@@ -841,8 +841,8 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="lb">
                             <model behaviour="break" useSourceRendition="true">
-                                <param name="type">'line'</param>
-                                <param name="label">@n</param>
+                                <param name="type" value="'line'"/>
+                                <param name="label" value="@n"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="lg">
@@ -850,15 +850,15 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="list">
                             <model predicate="@rendition" behaviour="list" useSourceRendition="true">
-                                <param name="content">item</param>
+                                <param name="content" value="item"/>
                             </model>
                             <model predicate="not(@rendition)" behaviour="list">
-                                <param name="content">item</param>
+                                <param name="content" value="item"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="listBibl">
                             <model predicate="bibl" behaviour="list">
-                                <param name="content">bibl</param>
+                                <param name="content" value="bibl"/>
                             </model>
                             <model behaviour="block"/>
                         </elementSpec>
@@ -873,7 +873,7 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="note">
                             <model behaviour="note">
-                                <param name="place">@place</param>
+                                <param name="place" value="@place"/>
                                 <!--param name="label">@n</param-->
                             </model>
                         </elementSpec>
@@ -898,8 +898,8 @@
                                 </constraint>
                             </constraintSpec>
                             <model behaviour="break" useSourceRendition="true">
-                                <param name="type">'page'</param>
-                                <param name="label">(concat(if(@n) then     concat(@n,' ') else '',if(@facs) then     concat('@',@facs) else ''))</param>
+                                <param name="type" value="'page'"/>
+                                <param name="label" value="(concat(if(@n) then     concat(@n,' ') else '',if(@facs) then     concat('@',@facs) else ''))"/>
                                 <outputRendition>
 	  display: block;
 	  margin-left: 4pt;
@@ -945,11 +945,11 @@
                         <elementSpec mode="change" ident="ref">
                             <model behaviour="inline" predicate="not(@target)"/>
                             <model predicate="not(text())" behaviour="link">
-                                <param name="content">@target</param>
-                                <param name="link">@target</param>
+                                <param name="content" value="@target"/>
+                                <param name="link" value="@target"/>
                             </model>
                             <model behaviour="link">
-                                <param name="link">@target</param>
+                                <param name="link" value="@target"/>
                             </model>
                         </elementSpec>
                         <elementSpec mode="change" ident="reg">
@@ -1084,23 +1084,23 @@
                         </elementSpec>
                         <elementSpec mode="change" ident="idno">
                             <model output="web" behaviour="cells">
-                                <param name="content">(@type, .)</param>
+                                <param name="content" value="(@type, .)"/>
                             </model>
                             <model output="print" behaviour="omit"/>
                         </elementSpec>
                         <elementSpec mode="change" ident="publicationStmt">
                             <modelSequence>
                                 <model behaviour="paragraph">
-                                    <param name="content">(publisher,pubPlace)</param>
+                                    <param name="content" value="(publisher,pubPlace)"/>
                                 </model>
                                 <model behaviour="heading">
-                                    <param name="content">'Identifiers'</param>
+                                    <param name="content" value="'Identifiers'"/>
                                 </model>
                                 <model behaviour="table">
-                                    <param name="content">idno</param>
+                                    <param name="content" value="idno"/>
                                 </model>
                                 <model behaviour="paragraph">
-                                    <param name="content">availability</param>
+                                    <param name="content" value="availability"/>
                                 </model>
                             </modelSequence>
                         </elementSpec>
@@ -1120,46 +1120,46 @@
                         <elementSpec mode="change" ident="fileDesc">
                             <modelSequence predicate="$parameters?header='short'">
                                 <model behaviour="block" cssClass="header-short">
-                                    <param name="content">titleStmt</param>
+                                    <param name="content" value="titleStmt"/>
                                 </model>
                                 <model behaviour="block" cssClass="header-short">
-                                    <param name="content">editionStmt</param>
+                                    <param name="content" value="editionStmt"/>
                                 </model>
                             </modelSequence>
                             <modelSequence>
                                 <model behaviour="block">
-                                    <param name="content">titleStmt</param>
+                                    <param name="content" value="titleStmt"/>
                                 </model>
                                 <model behaviour="block">short
-                                    <param name="content">seriesStmt</param>
+                                    <param name="content" value="seriesStmt"/>
                                 </model>
                                 <model behaviour="paragraph">
-                                    <param name="content">editionStmt</param>
+                                    <param name="content" value="editionStmt"/>
                                 </model>
                                 <model output="web" behaviour="collapse">
-                                    <param name="title">'Extended Header'</param>
-                                    <param name="content">publicationStmt</param>
+                                    <param name="title" value="'Extended Header'"/>
+                                    <param name="content" value="publicationStmt"/>
                                 </model>
                                 <model output="print" behaviour="block">
-                                    <param name="content">publicationStmt</param>
+                                    <param name="content" value="publicationStmt"/>
                                 </model>
                             </modelSequence>
                         </elementSpec>
                         <elementSpec ident="titleStmt" mode="change">
                             <model output="latex" behaviour="meta">
-                                <param name="content">.</param>
+                                <param name="content" value="."/>
                             </model>
                             <model output="fo" behaviour="heading"/>
                             <modelSequence output="web" predicate="$parameters?header='short'">
                                 <model behaviour="link">
-                                    <param name="content">title[1]</param>
-                                    <param name="link">$parameters?doc</param>
+                                    <param name="content" value="title[1]"/>
+                                    <param name="link" value="$parameters?doc"/>
                                 </model>
                                 <model behaviour="block">
-                                    <param name="content">subsequence(title, 2)</param>
+                                    <param name="content" value="subsequence(title, 2)"/>
                                 </model>
                                 <model behaviour="block">
-                                    <param name="content">author</param>
+                                    <param name="content" value="author"/>
                                 </model>
                             </modelSequence>
                             <model output="web" behaviour="block"/>
@@ -1179,7 +1179,7 @@
                             </model>
                             <modelSequence predicate="parent::titleStmt/parent::fileDesc">
                                 <model predicate="preceding-sibling::title" behaviour="text">
-                                    <param name="content">' — '</param>
+                                    <param name="content" value="' — '"/>
                                 </model>
                                 <model behaviour="inline">
                                     <outputRendition>color: red; font-size: 2em;</outputRendition>
@@ -1191,7 +1191,7 @@
                                     <outputRendition>font-style: italic;</outputRendition>
                                 </model>
                                 <model predicate="ancestor::biblStruct or       ancestor::biblFull" behaviour="text">
-                                    <param name="content">', '</param>
+                                    <param name="content" value="', '"/>
                                 </model>
                             </modelSequence>
                             <modelSequence predicate="@level='s' or @level='j'">
@@ -1199,7 +1199,7 @@
                                     <outputRendition>font-style: italic;</outputRendition>
                                 </model>
                                 <model predicate="following-sibling::* and     (ancestor::biblStruct  or     ancestor::biblFull)" behaviour="text">
-                                    <param name="content">', '</param>
+                                    <param name="content" value="', '"/>
                                 </model>
                             </modelSequence>
                             <modelSequence predicate="@level='u' or @level='a'">
@@ -1207,7 +1207,7 @@
                                     <outputRendition>font-style: italic;</outputRendition>
                                 </model>
                                 <model predicate="following-sibling::* and     (ancestor::biblStruct  or     ancestor::biblFull)" behaviour="text">
-                                    <param name="content">'. '</param>
+                                    <param name="content" value="'. '"/>
                                 </model>
                             </modelSequence>
                             <model behaviour="inline">
