@@ -1,0 +1,61 @@
+<!--<link rel="import" href="../polymer/polymer.html">-->
+
+<!--
+`tei-elementSpec`
+an ODD elementSpec element
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tei-elementSpec">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding:10px;
+        background: whitesmoke;
+        margin:5px 0;
+        border:1px solid #ddd;
+        position: relative;
+      }
+      h2{
+        font-family: monospace;
+        font-weight: 700;
+      }
+/*
+      .element::before{
+        content:'elementSpec';
+        display: block;
+        font-size: 1em;
+      }
+*/
+      .test{
+        position: absolute;
+        right: 10px;
+        top:3px;
+      }
+    </style>
+    <h2 title="elementSpec">{{ident}}</h2>
+    <div>Mode: {{mode}}</div>
+
+    <button class="test">add</button>
+
+    <content></content>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'tei-elementSpec',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'tei-elementSpec',
+        },
+      },
+
+    });
+  </script>
+</dom-module>

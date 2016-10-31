@@ -1,0 +1,133 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>existdb-odd-editor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <!--<link rel="import" href="../iron-component-page/iron-component-page.html">-->
+
+
+    <link rel="import" href="existdb-odd-editor.html">
+
+  </head>
+  <body>
+    <!--<iron-component-page src="existdb-odd-editor.html"></iron-component-page>-->
+    <existdb-odd-editor>
+      <tei-schemaSpec ident="myteisimple" start="TEI teiCorpus" source="teisimple.odd">
+        <tei-elementSpec mode="change" ident="div">
+          <tei-model predicate="@type='title_page'" behaviour="block">
+            <tei-outputRendition>border: 1px solid black; padding: 5px;</tei-outputRendition>
+          </tei-model>
+          <tei-model behaviour="section" predicate="parent::body or parent::front or parent::back"/>
+          <tei-model behaviour="block" useSourceRendition="true"/>
+        </tei-elementSpec>
+        <tei-elementSpec mode="change" ident="p">
+          <tei-model behaviour="paragraph" useSourceRendition="true">
+            <tei-outputRendition>text-align: left;</tei-outputRendition>
+          </tei-model>
+        </tei-elementSpec>
+        <tei-elementSpec mode="change" ident="head">
+          <tei-model predicate="parent::figure" behaviour="block">
+            <tei-outputRendition>font-style: italic;</tei-outputRendition>
+          </tei-model>
+          <tei-model predicate="parent::table" behaviour="block">
+            <tei-outputRendition>font-style: italic;</tei-outputRendition>
+          </tei-model>
+          <tei-model predicate="parent::lg" behaviour="block">
+            <tei-outputRendition>font-style: italic;</tei-outputRendition>
+          </tei-model>
+          <tei-model predicate="parent::list" behaviour="block">
+            <tei-outputRendition>font-weight: bold;</tei-outputRendition>
+          </tei-model>
+          <tei-model predicate="not(parent::div/ancestor::div)" behaviour="heading">
+            <tei-outputRendition> color: #983722; border-bottom: 1px solid #983722;
+              margin-bottom: .5em; padding-bottom: .25em; </tei-outputRendition>
+          </tei-model>
+          <tei-model predicate="parent::div" behaviour="heading"/>
+          <tei-model behaviour="block"/>
+        </tei-elementSpec>
+        <tei-elementSpec mode="change" ident="add">
+          <tei-model behaviour="block">
+            <tei-outputRendition>color: red; text-decoration: underline;</tei-outputRendition>
+          </tei-model>
+        </tei-elementSpec>
+        <tei-elementSpec ident="name" mode="change">
+          <tei-attList>
+            <tei-attDef ident="type" mode="change">
+              <tei-valList mode="replace" type="closed">
+                <tei-valItem ident="person"/>
+                <tei-valItem ident="forename"/>
+                <tei-valItem ident="surname"/>
+                <tei-valItem ident="organisation"/>
+                <tei-valItem ident="object"/>
+                <tei-valItem ident="country"/>
+                <tei-valItem ident="place"/>
+              </tei-valList>
+            </tei-attDef>
+          </tei-attList>
+          <tei-model behaviour="block">
+            <tei-outputRendition>color: blue;</tei-outputRendition>
+          </tei-model>
+        </tei-elementSpec>
+        <tei-elementSpec mode="change" ident="choice">
+          <tei-constraintSpec ident="choiceSize" scheme="isoschematron" mode="add">
+            <tei-constraint>
+              <tei-assert xmlns="http://purl.oclc.org/dsdl/schematron" test="count(*) &gt; 1" role="ERROR"> Element "<sch:name xmlns:sch="http://purl.oclc.org/dsdl/schematron"/>" must have at
+                least two child elements.</tei-assert>
+            </tei-constraint>
+          </tei-constraintSpec>
+          <tei-constraintSpec ident="choiceContent" scheme="isoschematron" mode="add">
+            <tei-constraint>
+              <tei-assert xmlns="http://purl.oclc.org/dsdl/schematron" test="(tei:corr or tei:sic or tei:expan or     tei:abbr or tei:reg or tei:orig) and ((tei:corr and tei:sic) or (tei:expan     and tei:abbr) or (tei:reg and tei:orig))" role="ERROR"> Element "<sch:name xmlns:sch="http://purl.oclc.org/dsdl/schematron"/>" must have
+                corresponding corr/sic, expand/abbr, reg/orig </tei-assert>
+            </tei-constraint>
+          </tei-constraintSpec>
+          <tei-model output="plain" predicate="sic and corr" behaviour="inline">
+            <tei-param name="content">corr[1]</tei-param>
+          </tei-model>
+          <tei-model output="plain" predicate="abbr and expan" behaviour="inline">
+            <tei-param name="content">expan[1]</tei-param>
+          </tei-model>
+          <tei-model output="plain" predicate="orig and reg" behaviour="inline">
+            <tei-param name="content">reg[1]</tei-param>
+          </tei-model>
+          <tei-model predicate="sic and corr" behaviour="alternate">
+            <tei-param name="default">corr[1]</tei-param>
+            <tei-param name="alternate">sic[1]</tei-param>
+          </tei-model>
+          <tei-model predicate="abbr and expan" behaviour="alternate">
+            <tei-param name="default">expan[1]</tei-param>
+            <tei-param name="alternate">abbr[1]</tei-param>
+          </tei-model>
+          <tei-model predicate="orig and reg" behaviour="alternate">
+            <tei-param name="default">reg[1]</tei-param>
+            <tei-param name="alternate">orig[1]</tei-param>
+          </tei-model>
+          <tei-model predicate="unclear" behaviour="alternate">
+            <tei-param name="default">if (unclear[@cert="high"]) then unclear[@cert="high"]
+            else unclear[1]</tei-param>
+            <tei-param name="alternate">unclear[@cert!="high"]</tei-param>
+          </tei-model>
+        </tei-elementSpec>
+        <tei-moduleRef key="tei"/>
+        <tei-moduleRef key="header"/>
+        <tei-moduleRef key="tagdocs"/>
+        <tei-moduleRef key="core"/>
+        <tei-moduleRef key="gaiji"/>
+        <tei-moduleRef key="namesdates"/>
+        <tei-moduleRef key="msdescription"/>
+        <tei-moduleRef key="corpus"/>
+        <tei-moduleRef key="transcr"/>
+        <tei-moduleRef key="analysis"/>
+        <tei-moduleRef key="linking"/>
+        <tei-moduleRef key="drama"/>
+        <tei-moduleRef key="textstructure"/>
+        <tei-moduleRef key="figures"/>
+        <tei-moduleRef key="verse"/>
+      </tei-schemaSpec>
+
+    </existdb-odd-editor>
+  </body>
+</html>

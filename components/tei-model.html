@@ -1,0 +1,55 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<!--
+`tei-model`
+a ODD model element
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tei-model">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin-left: 10px;
+        border: 1px solid #ddd;
+        padding: 5px;
+        margin:5px 0;
+        border-radius: 5px;
+      }
+      td{
+        background: white;
+        padding: 2px;
+      }
+    </style>
+    <h3>Model</h3>
+    <table>
+      <tr>
+        <td>behaviour</td>
+        <td>{{behaviour}}</td>
+      </tr>
+      <tr>
+        <td>predicate</td>
+        <td>{{predicate}}</td>
+      </tr>
+    </table>
+    <content></content>
+    <!--<div class="predicate">applies to: {{predicate}}</div>-->
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'tei-model',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'tei-model',
+        },
+      },
+
+    });
+  </script>
+</dom-module>

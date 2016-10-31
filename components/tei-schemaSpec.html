@@ -1,0 +1,51 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+
+<!--
+`tei-schemaSpec`
+a wrapper element for ODD rules
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tei-schemaSpec">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+      }
+
+      paper-fab{
+        position: fixed;
+        top: 50px;
+        right: 10px;
+      }
+
+    </style>
+    <content></content>
+    <paper-fab id="addSpec" icon="add"></paper-fab>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'tei-schemaSpec',
+
+      properties: {
+      },
+
+      listeners: {
+        'addSpec.tap': 'addElementSpec'
+      },
+
+      addElementSpec: function(e){
+        var newSpec = document.createElement('tei-elementSpec');
+        this.appendChild(newSpec);
+      }
+
+    });
+  </script>
+</dom-module>

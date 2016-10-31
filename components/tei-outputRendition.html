@@ -1,0 +1,35 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<!--
+`tei-outputRendition`
+a ODD outputRendition element
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tei-outputRendition">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h4>outputRendition</h4>
+    <content></content>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'tei-outputRendition',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'tei-outputRendition',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
