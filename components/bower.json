@@ -4,7 +4,9 @@
   "main": "existdb-odd-editor.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "paper-fab": "PolymerElements/paper-fab#^1.2.1"
+    "paper-fab": "PolymerElements/paper-fab#^1.2.1",
+    "paper-card": "PolymerElements/paper-card#^1.1.4",
+    "paper-input": "PolymerElements/paper-input#^1.1.20"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

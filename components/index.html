@@ -12,7 +12,7 @@
     <link rel="import" href="existdb-odd-editor.html">
 
   </head>
-  <body>
+  <body unresolved="">
     <!--<iron-component-page src="existdb-odd-editor.html"></iron-component-page>-->
     <existdb-odd-editor>
       <tei-schemaSpec ident="myteisimple" start="TEI teiCorpus" source="teisimple.odd">
@@ -20,8 +20,8 @@
           <tei-model predicate="@type='title_page'" behaviour="block">
             <tei-outputRendition>border: 1px solid black; padding: 5px;</tei-outputRendition>
           </tei-model>
-          <tei-model behaviour="section" predicate="parent::body or parent::front or parent::back"/>
-          <tei-model behaviour="block" useSourceRendition="true"/>
+          <tei-model behaviour="section" predicate="parent::body or parent::front or parent::back"></tei-model>
+          <tei-model behaviour="block" useSourceRendition="true"></tei-model>
         </tei-elementSpec>
         <tei-elementSpec mode="change" ident="p">
           <tei-model behaviour="paragraph" useSourceRendition="true">
@@ -45,8 +45,8 @@
             <tei-outputRendition> color: #983722; border-bottom: 1px solid #983722;
               margin-bottom: .5em; padding-bottom: .25em; </tei-outputRendition>
           </tei-model>
-          <tei-model predicate="parent::div" behaviour="heading"/>
-          <tei-model behaviour="block"/>
+          <tei-model predicate="parent::div" behaviour="heading"></tei-model>
+          <tei-model behaviour="block"></tei-model>
         </tei-elementSpec>
         <tei-elementSpec mode="change" ident="add">
           <tei-model behaviour="block">
