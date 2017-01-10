@@ -1,5 +1,6 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="tei-outputRendition.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
 
 <!--
 `tei-model`
@@ -14,27 +15,77 @@ a ODD model element
       :host {
         display: block;
         margin-left: 10px;
-        border: 1px solid #ddd;
-        padding: 5px;
-        margin:5px 0;
+        padding: 10px;
+        margin:15px;
         border-radius: 5px;
+        background: var(--paper-light-blue-600);
+        position: relative;
+        padding-top:20px;
+
+        --paper-input-container-color:var(--paper-blue-100);
+        --paper-input-container-input-color: white;
+
       }
+      :host:before{
+        content: 'model';
+        position: absolute;
+        top:0;
+        left: 0;
+        background: var(--paper-orange-500);
+        color:white;
+        padding: 2px 6px;
+        font-size: 12px;
+        font-style: italic;
+        border-bottom-right-radius: 4px;
+      }
+
+
       td{
-        background: white;
+        color: white;
         padding: 2px;
       }
+
+      paper-icon-button{
+        color:white;
+      }
+      #delete{
+        position: absolute;
+        top: 20px;
+        right: 30px;
+      }
+      #add{
+        position: absolute;
+        top: 12px;
+        right: 70px;
+      }
+
     </style>
-    <h3>Model</h3>
+    <paper-menu-button id="add">
+      <paper-icon-button icon="add" class="dropdown-trigger"></paper-icon-button>
+      <paper-menu id="addmenu" class="dropdown-content">
+        <paper-item>param</paper-item>
+        <paper-item>outputRendition</paper-item>
+        <paper-item>model</paper-item>
+        <paper-item>modelGroup</paper-item>
+        <paper-item>modelSequence</paper-item>
+      </paper-menu>
+    </paper-menu-button>
+    <paper-icon-button id="delete" icon="clear"></paper-icon-button>
+
+    <paper-input label="behaviour">{{behaviour}}</paper-input>
+    <paper-input label="predicate">{{predicate}}</paper-input>
+<!--
     <table>
       <tr>
         <td>behaviour</td>
-        <td>{{behaviour}}</td>
+        <td><paper-input label="behaviour">{{behaviour}}</paper-input></td>
       </tr>
       <tr>
         <td>predicate</td>
         <td>{{predicate}}</td>
       </tr>
     </table>
+-->
     <content></content>
     <!--<div class="predicate">applies to: {{predicate}}</div>-->
   </template>

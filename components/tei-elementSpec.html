@@ -1,8 +1,11 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
 
 <link rel="import" href="tei-model.html">
 
@@ -24,6 +27,7 @@ an ODD elementSpec element
                 margin-bottom: 20px;
                 position: relative;
                 border-radius: 14px;
+                background: var(--paper-light-blue-500);
             }
 
             h2 {
@@ -31,7 +35,7 @@ an ODD elementSpec element
                 font-family: monospace;
                 font-weight: 700;
                 /*background: #03A9F4;*/
-                background: var(--paper-light-blue-500);
+                /*background: var(--paper-light-blue-500);*/
                 padding: 26px;
                 color: white;
             }
@@ -41,11 +45,10 @@ an ODD elementSpec element
                 content: 'elementSpec';
                 font-size: 12px;
                 font-style: italic;
-                background: #0288D1;
+                background: var( --paper-orange-500);
                 padding: 2px 6px;
                 top: 0;
                 left: 0;
-                font-weight: 300;
                 border-bottom-right-radius: 4px;
 
             }
@@ -69,15 +72,29 @@ an ODD elementSpec element
                 font-weight: 300;
             }
 
-            #delete {
-                width: 32px;
-                height: 32px;
+            paper-icon-button{
+                color:white;
+            }
+            #delete{
                 position: absolute;
-                right: 20px;
                 top: 20px;
+                right: 30px;
+            }
+            #add{
+                position: absolute;
+                top: 12px;
+                right: 70px;
             }
         </style>
-        <paper-fab id="delete" mini icon="clear"></paper-fab>
+        <paper-menu-button id="add">
+            <paper-icon-button icon="add" class="dropdown-trigger"></paper-icon-button>
+            <paper-menu id="addmenu" class="dropdown-content">
+                <paper-item>model</paper-item>
+                <paper-item>modelGroup</paper-item>
+                <paper-item>modelSequence</paper-item>
+            </paper-menu>
+        </paper-menu-button>
+        <paper-icon-button id="delete" icon="clear"></paper-icon-button>
         <h2>{{ident}} <span id="mode" class="mode"></span></h2>
         <!--<div>Mode: {{mode}}</div>-->
         <content></content>
@@ -103,19 +120,32 @@ an ODD elementSpec element
             },
 
             listeners: {
-                'delete.tap': 'deleteElementSpec'
+                'delete.tap': 'deleteElementSpec',
             },
 
             attached: function () {
+                this.listen(this.$.addmenu, 'tap', 'addModelItem');
+
                 if (this.mode == 'add') {
                     this.$.mode.textContent = 'added'
                 } else {
                     this.$.mode.textContent = 'changed'
                 }
             },
+
+            detached: function () {
+                this.unlisten(this.$.addmenu, 'tap', 'addModelItem');
+            },
             
             deleteElementSpec: function (e) {
                 this.fire('deleteElementSpec',this);
+            },
+
+            addModelItem: function (e) {
+                console.log(e.target.innerText.trim())
+                var selection = e.target.innerText.trim();
+                var newModel = document.createElement('tei-' + selection);
+                this.appendChild(newModel);
             }
             
 
