@@ -1,5 +1,8 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
 
 <link rel="import" href="tei-model.html">
 
@@ -12,68 +15,110 @@ an ODD elementSpec element
 -->
 
 <dom-module id="tei-elementSpec">
-  <template>
-    <style>
-      :host {
-        display: block;
-        background: whitesmoke;
-        border:1px solid #ddd;
-        position: relative;
-        margin-bottom:20px;
-        position: relative;
-      }
-      h2{
-        margin:0;
-        font-family: monospace;
-        font-weight: 700;
-        background: #03A9F4;
-        padding:26px;
-        color:white;
-      }
-      h2:before{
-        position: absolute;
-        content:'elementSpec';
-        font-size:12px;
-        font-style: italic;
-        background: #0288D1;
-        padding: 2px 6px;
-        top:0;
-        left: 0;
-        font-weight: 300;
-      }
-/*
-      .element::before{
-        content:'elementSpec';
-        display: block;
-        font-size: 1em;
-      }
-*/
-      .test{
-        position: absolute;
-        right: 10px;
-        top:3px;
-      }
-    </style>
-    <h2>{{ident}}</h2>
-    <div>Mode: {{mode}}</div>
-    <content></content>
+    <template>
+        <style>
+            :host {
+                display: block;
+                border: 1px solid #ddd;
+                position: relative;
+                margin-bottom: 20px;
+                position: relative;
+                border-radius: 14px;
+            }
 
-    <!--<h2 title="elementSpec">{{ident}}</h2>-->
+            h2 {
+                margin: 0;
+                font-family: monospace;
+                font-weight: 700;
+                /*background: #03A9F4;*/
+                background: var(--paper-light-blue-500);
+                padding: 26px;
+                color: white;
+            }
 
-  </template>
+            h2:before {
+                position: absolute;
+                content: 'elementSpec';
+                font-size: 12px;
+                font-style: italic;
+                background: #0288D1;
+                padding: 2px 6px;
+                top: 0;
+                left: 0;
+                font-weight: 300;
+                border-bottom-right-radius: 4px;
 
-  <script>
-    Polymer({
+            }
 
-      is: 'tei-elementSpec',
+            /*
+                  .element::before{
+                    content:'elementSpec';
+                    display: block;
+                    font-size: 1em;
+                  }
+            */
+            .test {
+                position: absolute;
+                right: 10px;
+                top: 3px;
+            }
 
-      properties: {
-        prop1: {
-          type: String,
-          value: 'tei-elementSpec',
-        },
-      },
+            .mode {
+                font-size: 12px;
+                font-style: italic;
+                font-weight: 300;
+            }
 
-    });
-  </script>
+            #delete {
+                width: 32px;
+                height: 32px;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+        </style>
+        <paper-fab id="delete" mini icon="clear"></paper-fab>
+        <h2>{{ident}} <span id="mode" class="mode"></span></h2>
+        <!--<div>Mode: {{mode}}</div>-->
+        <content></content>
+
+        <!--<h2 title="elementSpec">{{ident}}</h2>-->
+
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'tei-elementSpec',
+
+            properties: {
+                mode: {
+                    type: String,
+                    reflectToAttribute: true
+                },
+                ident: {
+                    type: String,
+                    reflectToAttribute: true
+                }
+            },
+
+            listeners: {
+                'delete.tap': 'deleteElementSpec'
+            },
+
+            attached: function () {
+                if (this.mode == 'add') {
+                    this.$.mode.textContent = 'added'
+                } else {
+                    this.$.mode.textContent = 'changed'
+                }
+            },
+            
+            deleteElementSpec: function (e) {
+                this.fire('deleteElementSpec',this);
+            }
+            
+
+        });
+    </script>
 </dom-module>
