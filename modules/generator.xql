@@ -1,31 +1,19 @@
 (:
- : Copyright 2015, Wolfgang Meier
  :
- : This software is dual-licensed:
+ :  Copyright (C) 2015 Wolfgang Meier
  :
- : 1. Distributed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
- : http://creativecommons.org/licenses/by-sa/3.0/
+ :  This program is free software: you can redistribute it and/or modify
+ :  it under the terms of the GNU General Public License as published by
+ :  the Free Software Foundation, either version 3 of the License, or
+ :  (at your option) any later version.
  :
- : 2. http://www.opensource.org/licenses/BSD-2-Clause
+ :  This program is distributed in the hope that it will be useful,
+ :  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ :  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ :  GNU General Public License for more details.
  :
- : All rights reserved. Redistribution and use in source and binary forms, with or without
- : modification, are permitted provided that the following conditions are met:
- :
- : * Redistributions of source code must retain the above copyright notice, this list of
- : conditions and the following disclaimer.
- : * Redistributions in binary form must reproduce the above copyright
- : notice, this list of conditions and the following disclaimer in the documentation
- : and/or other materials provided with the distribution.
- :
- : This software is provided by the copyright holders and contributors "as is" and any
- : express or implied warranties, including, but not limited to, the implied warranties
- : of merchantability and fitness for a particular purpose are disclaimed. In no event
- : shall the copyright holder or contributors be liable for any direct, indirect,
- : incidental, special, exemplary, or consequential damages (including, but not limited to,
- : procurement of substitute goods or services; loss of use, data, or profits; or business
- : interruption) however caused and on any theory of liability, whether in contract,
- : strict liability, or tort (including negligence or otherwise) arising in any way out
- : of the use of this software, even if advised of the possibility of such damage.
+ :  You should have received a copy of the GNU General Public License
+ :  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  :)
 xquery version "3.1";
 
@@ -86,13 +74,15 @@ declare function deploy:xconf($collection as xs:string, $odd as xs:string, $user
 
 declare function deploy:init-simple($collection as xs:string?, $userData as xs:string*, $permissions as xs:string?) {
     let $target := $collection || "/resources/odd"
-    let $odd := request:get-parameter("odd", "teisimple.odd")
+    let $odd := request:get-parameter("odd", "teipublisher.odd")
+    let $oddName := replace($odd, "^([^/\.]+)\.?.*$", "$1")
     let $mkcol := deploy:mkcol($target, $userData, $permissions)
     return (
         deploy:xconf($collection, $odd, $userData, $permissions),
-        for $file in ("elementsummary.xml", "headerelements.xml", "headeronly.xml", "simpleelements.xml", "teisimple.odd", $odd)
+        for $file in ("tei_simplePrint.odd", "teipublisher.odd", $odd)
+        let $source := doc($config:odd-root || "/" || $file)
         return (
-            xmldb:copy($config:odd-root, $target, $file),
+            xmldb:store($target, $file, $source, "application/xml"),
             if (exists($userData)) then
                 let $stored := xs:anyURI($target || "/" || $file)
                 return (
@@ -104,11 +94,22 @@ declare function deploy:init-simple($collection as xs:string?, $userData as xs:s
                 ()
         ),
         deploy:create-configuration($target),
-        deploy:mkcol($target || "/compiled", $userData, $permissions),
-        (: xmldb:copy($config:compiled-odd-root, $target || "/compiled", "teisimple.odd"), :)
         deploy:mkcol($collection || "/data", $userData, $permissions),
         deploy:mkcol($collection || "/transform", $userData, $permissions),
-        xmldb:copy($config:output-root, $collection || "/transform", "teisimple.fo.css"),
+        xmldb:copy($config:output-root, $collection || "/transform", "teipublisher.fo.css"),
+        xmldb:copy($config:output-root, $collection || "/transform", "teipublisher-print.css"),
+        if (util:binary-doc-available($config:output-root || "/" || $oddName || "-print.css")) then
+            xmldb:copy($config:output-root, $collection || "/transform", $oddName || "-print.css")
+        else
+            (),
+        if (util:binary-doc-available($config:output-root || "/" || $oddName || ".fo.css")) then
+            xmldb:copy($config:output-root, $collection || "/transform", $oddName || ".fo.css")
+        else
+            (),
+        for $file in ("master.fo.xml", "page-sequence.fo.xml")
+        let $template := repo:get-resource("http://existsolutions.com/apps/tei-publisher-lib", "content/" || $file)
+        return
+            xmldb:store($config:output-root, $file, $template, "text/xml"),
         deploy:chmod-scripts($collection)
     )
 };
@@ -197,11 +198,11 @@ declare function deploy:repo-descriptor($target as xs:string) {
             let $owner := request:get-parameter("owner", ())
             return
                 if ($owner and $owner != "") then
-                    let $group := request:get-parameter("group", $owner)
+                    let $group := request:get-parameter("group", "tei")
                     return
                         <permissions user="{$owner}"
                             password="{request:get-parameter('password', ())}"
-                            group="{if ($group != '') then $group else 'dba'}"
+                            group="{$group}"
                             mode="rw-rw-r--"/>
                 else
                     ()
@@ -388,7 +389,7 @@ declare function deploy:expand($collection as xs:string, $resource as xs:string,
 
 declare function deploy:expand-xql($target as xs:string) {
     let $name := request:get-parameter("uri", ())
-    let $odd := request:get-parameter("odd", "teisimple.odd")
+    let $odd := request:get-parameter("odd", "teipublisher.odd")
     let $defaultView := request:get-parameter("default-view", "div")
     let $data-param := request:get-parameter("data-collection", ())
     let $mainIndex := request:get-parameter("index", "tei:div")
@@ -436,6 +437,19 @@ declare function deploy:store-templates($target as xs:string, $userData as xs:st
     )
 };
 
+declare function deploy:store-libs($target as xs:string, $userData as xs:string+, $permissions as xs:string) {
+    let $path := system:get-module-load-path()
+    for $lib in ("autocomplete.xql", "index.xql", "view.xql", "navigation.xql")
+    return (
+        xmldb:copy($path, $target || "/modules", $lib),
+        deploy:chmod($target || "/modules", $userData, $permissions)
+    ),
+    let $target := $target || "/modules/lib"
+    let $source := system:get-module-load-path() || "/lib"
+    return
+        deploy:copy-templates($target, $source, $userData, $permissions)
+};
+
 declare function deploy:store($collection as xs:string?, $target as xs:string, $expathConf as element()?) {
     let $collection :=
         if (starts-with($collection, "/")) then
@@ -455,6 +469,7 @@ declare function deploy:store($collection as xs:string?, $target as xs:string, $
                 deploy:store-repo($repoConf, $collection, $userData, $permissions),
                 if (empty($expathConf)) then (
                     deploy:store-templates($collection, $userData, $permissions),
+                    deploy:store-libs($collection, $userData, $permissions),
                     deploy:store-ant($collection, $permissions),
                     deploy:expand-xql($collection)
                 ) else

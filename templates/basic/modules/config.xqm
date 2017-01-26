@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 
 (:~
  : A set of helper functions to access the application context from
@@ -7,20 +7,26 @@ xquery version "3.0";
 module namespace config="http://www.tei-c.org/tei-simple/config";
 
 import module namespace http="http://expath.org/ns/http-client" at "java:org.exist.xquery.modules.httpclient.HTTPClientModule";
+import module namespace nav="http://www.tei-c.org/tei-simple/navigation" at "navigation.xql";
+import module namespace tpu="http://www.tei-c.org/tei-publisher/util" at "lib/util.xql";
 
 declare namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace expath="http://expath.org/ns/pkg";
 declare namespace jmx="http://exist-db.org/jmx";
+declare namespace tei="http://www.tei-c.org/ns/1.0";
 
+(:~
+ : Should documents be located by xml:id or filename?
+ :)
 declare variable $config:address-by-id := false();
 
 (:
  : The default to use for determining the amount of content to be shown
  : on a single page. Possible values: 'div' for showing entire divs (see
  : the parameters below for further configuration), or 'page' to browse
- : a document by actual pages determined by TEI pb elements. 
+ : a document by actual pages determined by TEI pb elements.
  :)
 declare variable $config:default-view := "$$default-view$$";
 
@@ -29,7 +35,7 @@ declare variable $config:default-view := "$$default-view$$";
  :)
 declare variable $config:search-default := "$$default-search$$";
 
-(: 
+(:
  : Defines which nested divs will be displayed as single units on one
  : page (using pagination by div). Divs which are nested
  : deeper than $pagination-depth will always appear in their parent div.
@@ -47,6 +53,126 @@ declare variable $config:pagination-depth := 10;
  : attempt to fill up the page.
  :)
 declare variable $config:pagination-fill := 5;
+
+(:
+ : The function to be called to determine the next content chunk to display.
+ : It takes two parameters:
+ :
+ : * $elem as element(): the current element displayed
+ : * $view as xs:string: the view, either 'div', 'page' or 'body'
+ :)
+declare variable $config:next-page := nav:get-next#3;
+
+(:
+ : The function to be called to determine the previous content chunk to display.
+ : It takes two parameters:
+ :
+ : * $elem as element(): the current element displayed
+ : * $view as xs:string: the view, either 'div', 'page' or 'body'
+ :)
+declare variable $config:previous-page := nav:get-previous#3;
+
+(:
+ : The CSS class to declare on the main text content div.
+ :)
+declare variable $config:css-content-class := "content";
+
+(:
+ : The domain to use for logged in users. Applications within the same
+ : domain will share their users, so a user logged into application A
+ : will be able to access application B.
+ :)
+declare variable $config:login-domain := "org.exist.tei-simple";
+
+(:~
+ : Configuration XML for Apache FOP used to render PDF. Important here
+ : are the font directories.
+ :)
+declare variable $config:fop-config :=
+    let $fontsDir := config:get-fonts-dir()
+    return
+        <fop version="1.0">
+            <!-- Strict user configuration -->
+            <strict-configuration>true</strict-configuration>
+
+            <!-- Strict FO validation -->
+            <strict-validation>false</strict-validation>
+
+            <!-- Base URL for resolving relative URLs -->
+            <base>./</base>
+
+            <renderers>
+                <renderer mime="application/pdf">
+                    <fonts>
+                    {
+                        if ($fontsDir) then (
+                            <font kerning="yes"
+                                embed-url="file:{$fontsDir}/Junicode.ttf"
+                                encoding-mode="single-byte">
+                                <font-triplet name="Junicode" style="normal" weight="normal"/>
+                            </font>,
+                            <font kerning="yes"
+                                embed-url="file:{$fontsDir}/Junicode-Bold.ttf"
+                                encoding-mode="single-byte">
+                                <font-triplet name="Junicode" style="normal" weight="700"/>
+                            </font>,
+                            <font kerning="yes"
+                                embed-url="file:{$fontsDir}/Junicode-Italic.ttf"
+                                encoding-mode="single-byte">
+                                <font-triplet name="Junicode" style="italic" weight="normal"/>
+                            </font>,
+                            <font kerning="yes"
+                                embed-url="file:{$fontsDir}/Junicode-BoldItalic.ttf"
+                                encoding-mode="single-byte">
+                                <font-triplet name="Junicode" style="italic" weight="700"/>
+                            </font>
+                        ) else
+                            ()
+                    }
+                    </fonts>
+                </renderer>
+            </renderers>
+        </fop>
+;
+
+(:~
+ : The command to run when generating PDF via LaTeX. Should be a sequence of
+ : arguments.
+ :)
+declare variable $config:tex-command := function($file) {
+    ( "/usr/local/bin/pdflatex", "-interaction=nonstopmode", $file )
+};
+
+(:~
+ : Configuration for epub files.
+ :)
+ declare variable $config:epub-config := function($root as element(), $langParameter as xs:string?) {
+     let $properties := tpu:parse-pi(root($root), ())
+     return
+         map {
+             "metadata": map {
+                 "title": $root/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/string(),
+                 "creator": $root/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:author/string(),
+                 "urn": util:uuid(),
+                 "language": ($langParameter, $root/@xml:lang, $root/tei:teiHeader/@xml:lang, "en")[1]
+             },
+             "odd": $properties?odd,
+             "output-root": $config:odd-root,
+             "fonts": [
+                 $config:app-root || "/resources/fonts/Junicode.ttf",
+                 $config:app-root || "/resources/fonts/Junicode-Bold.ttf",
+                 $config:app-root || "/resources/fonts/Junicode-BoldItalic.ttf",
+                 $config:app-root || "/resources/fonts/Junicode-Italic.ttf"
+             ]
+         }
+ };
+
+(:~
+ : Root path where images to be included in the epub can be found.
+ : Leave as empty sequence if images can be located within the data
+ : collection using relative path.
+ :)
+declare variable $config:epub-images-path := ();
 
 (:
     Determine the application root collection from the current module load path.
@@ -71,7 +197,6 @@ declare variable $config:data-root := $$config-data$$;
 declare variable $config:odd := "$$config-odd$$";
 
 declare variable $config:odd-root := $config:app-root || "/resources/odd";
-declare variable $config:compiled-odd-root := $config:odd-root || "/compiled";
 
 declare variable $config:output := "transform";
 

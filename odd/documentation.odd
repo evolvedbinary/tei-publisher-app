@@ -51,14 +51,14 @@
     </teiHeader>
     <text>
         <body>
-            <schemaSpec ident="docs" start="TEI teiCorpus" source="teisimple.odd">
-                <elementSpec mode="add" ident="code">
+            <schemaSpec ident="docs" start="TEI teiCorpus" source="teipublisher.odd">
+                <elementSpec mode="change" ident="code">
                     <modelGrp output="print">
                         <model behaviour="inline" predicate="parent::cell|parent::p|parent::ab" cssClass="code"/>
                         <model behaviour="block" cssClass="code"/>
                     </modelGrp>
                     <modelGrp output="web">
-                        <model behaviour="inline" predicate="parent::cell|parent::p|parent::ab"/>
+                        <model behaviour="inline" predicate="parent::cell|parent::p|parent::ab" cssClass="code"/>
                         <model behaviour="code">
                             <param name="lang">@lang</param>
                         </model>
@@ -95,6 +95,12 @@
                         <outputRendition scope="before">content: '@';</outputRendition>
                     </model>
                 </elementSpec>
+                <elementSpec mode="add" ident="tag">
+                    <model behaviour="inline" cssClass="xml-tag">
+                        <outputRendition scope="before">content: '&lt;';</outputRendition>
+                        <outputRendition scope="after">content: '&gt;';</outputRendition>
+                    </model>
+                </elementSpec>
                 <elementSpec mode="change" ident="ref">
                     <model behaviour="inline" predicate="not(@target)"/>
                     <model predicate="not(text())" behaviour="link">
@@ -104,7 +110,6 @@
                     <model behaviour="link">
                         <param name="link">
                             if (starts-with(@target, "#")) then
-                                request:get-parameter("doc", ()) ||
                                 "?odd=" || request:get-parameter("odd", ()) || "&amp;amp;view=" ||
                                 request:get-parameter("view", ()) || "&amp;amp;id=" || substring-after(@target, '#')
                             else
@@ -120,21 +125,6 @@
                         <outputRendition>text-align: justify;</outputRendition>
                     </model>
                 </elementSpec>
-                <moduleRef key="tei"/>
-                <moduleRef key="header"/>
-                <moduleRef key="tagdocs"/>
-                <moduleRef key="core"/>
-                <moduleRef key="gaiji"/>
-                <moduleRef key="namesdates"/>
-                <moduleRef key="msdescription"/>
-                <moduleRef key="corpus"/>
-                <moduleRef key="transcr"/>
-                <moduleRef key="analysis"/>
-                <moduleRef key="linking"/>
-                <moduleRef key="drama"/>
-                <moduleRef key="textstructure"/>
-                <moduleRef key="figures"/>
-                <moduleRef key="verse"/>
             </schemaSpec>
         </body>
     </text>

@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var historySupport = !!(window.history && window.history.pushState);
     var appRoot = $("html").data("app");
+    var tableOfContents = false;
 
     function resize() {
         if (document.getElementById("image-container")) {
@@ -55,6 +56,12 @@ $(document).ready(function() {
                     if (data.switchView) {
                         $("#switch-view").attr("href", data.switchView);
                     }
+                    if (data.div) {
+                        $("#toc .active").removeClass("active");
+                        var active = $("#toc a[data-div='" + data.div + "']");
+                        active.toggleClass("active");
+                        active.parents(".collapse").collapse('show');
+                    }
                     showContent(container, animIn, animOut);
                 }
             });
@@ -77,6 +84,7 @@ $(document).ready(function() {
             var fn = document.getElementById(this.hash.substring(1));
             fn.scrollIntoView();
         });
+        $(".content .sourcecode").highlight();
         $(".content .alternate").each(function() {
             $(this).popover({
                 content: $(this).find(".altcontent").html(),
@@ -158,20 +166,31 @@ $(document).ready(function() {
         return true;
     }
 
-    resize();
-    $(".page-nav,.toc-link").click(function(ev) {
+    function initLinks(ev) {
         ev.preventDefault();
-        var relPath = this.pathname.replace(/^.*\/works\/(.+)$/, "$1");
+        // var relPath = this.pathname.replace(/^.*?\/([^\/]+)$/, "$1");
+        var relPath = $(this).attr("data-doc");
         var url = "doc=" + relPath + "&" + this.search.substring(1);
         if (historySupport) {
-            history.pushState(null, null, this.href);
+            history.pushState(null, null, this.href.replace(/^.*?\/([^\/]+)$/, "$1"));
         }
         load(url, this.className.split(" ")[0]);
-    });
-    $(".toc .toc-link").click(function(ev) {
-        $(".toc").offcanvas('hide');
-    });
-
+    }
+    
+    function tocLoaded() {
+        $("#toc a[data-toggle='collapse']").click(function(ev) {
+            var icon = $(this).find("span").text();
+            $(this).find("span").text(icon == "expand_less" ? "expand_more" : "expand_less");
+        });
+        $(".toc-link").click(function(ev) {
+            $("#sidebar").offcanvas('hide');
+        });
+        $(".toc-link").click(initLinks);
+    }
+    
+    resize();
+    $(".page-nav").click(initLinks);
+    
     $("#zoom-in").click(function(ev) {
         ev.preventDefault();
         var size = getFontSize();
@@ -184,20 +203,22 @@ $(document).ready(function() {
     });
 
     $(window).on("popstate", function(ev) {
-        var url = "doc=" + window.location.pathname.replace(/^.*\/([^\/]+)$/, "$1") + "&" + window.location.search.substring(1) +
+        var doc = $(".nav-next").attr("data-doc") || $(".nav-prev").attr("data-doc");
+        var url = "doc=" + doc + "&" + window.location.search.substring(1) +
             "&id=" + window.location.hash.substring(1);
         console.log("popstate: %s", url);
         load(url);
     }).on("resize", resize);
 
-    $("#collapse-sidebar").click(function(ev) {
-        $("#sidebar").toggleClass("hidden");
-        if ($("#sidebar").is(":visible")) {
-            $("#right-panel").removeClass("col-md-12").addClass("col-md-9 col-md-offset-3");
-        } else {
-            $("#right-panel").addClass("col-md-12").removeClass("col-md-9 col-md-offset-3");
-        }
-        resize();
+    $(".toc-toggle").click( function(ev) {
+        $("#toc-loading").each(function() {
+            console.log("Loading toc...");
+            var doc = $(".nav-next").attr("data-doc") || $(".nav-prev").attr("data-doc");
+            $("#toc").load("templates/toc.html?doc=" +
+                doc + "&" + window.location.search.substring(1),
+                tocLoaded
+            );
+        });
     });
 
     if (isMobile()) {
@@ -221,12 +242,12 @@ $(document).ready(function() {
         });
     }
 
-    $("#recompile").click(function(ev) {
+    $(".recompile").click(function(ev) {
         ev.preventDefault();
         $("#messageDialog .message").html("Processing ...");
         $("#messageDialog").modal("show");
         $.ajax({
-            url: appRoot + "/modules/lib/regenerate.xql",
+            url: appRoot + "/modules/lib/regenerate.xql" + $(this).attr("href"),
             dataType: "html",
             success: function(data) {
                 $("#messageDialog .message").html(data).find(".eXide-open").click(eXide);
@@ -256,8 +277,8 @@ $(document).ready(function() {
         items: 20,
         minLength: 4,
         source: function(query, callback) {
-            var type = $("select[name='browse']").val();
-            $.getJSON("../modules/autocomplete.xql?q=" + query + "&type=" + type, function(data) {
+            var type = $("select[name='browse']").val() || "tei-text";
+            $.getJSON("modules/autocomplete.xql?q=" + query + "&type=" + type, function(data) {
                 callback(data || []);
             });
         },
@@ -272,8 +293,10 @@ $(document).ready(function() {
         items: 30,
         minLength: 4,
         source: function(query, callback) {
-            var type = $("select[name='tei-target']").val();
-            $.getJSON("../modules/autocomplete.xql?q=" + query + "&type=" + type, function(data) {
+            var type = $("select[name='tei-target']").val() || "tei-text";
+            var doc = $("#searchPageForm input[name='doc']").val();
+            $.getJSON("modules/autocomplete.xql?q=" + query + "&type=" + type +
+                "&doc=" + encodeURIComponent(doc), function(data) {
                 callback(data || []);
             });
         }

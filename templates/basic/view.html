@@ -43,62 +43,72 @@
         </script>
         <script type="text/javascript" src="resources/scripts/app.js"/>
     </head>
-    <body>
+    <body xmlns:i18n="http://exist-db.org/xquery/i18n">
         <div data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content" data-template-using="body">
-            <div data-template="templates:include" data-template-path="templates/menu.html"/>
-            <div id="main-container" data-template="pages:load" class="container-fluid">
-                <div class="row">
-                    <aside id="sidebar" class="hidden-xs col-md-3 toc offcanvas">
-                        <h3>Contents</h3>
-                        <div data-template="pages:table-of-contents"/>
-                    </aside>
-                    <div id="right-panel" class="col-md-12 col-xs-12">
-                        <div class="container-fluid">
-                            <div data-template="templates:include" data-template-path="templates/toolbar.html"/>
-                            <div class="row" data-template="pages:navigation">
-                                <div class="col-md-1 hidden-sm hidden-xs">
-                                    <a class="btn btn-primary btn-fab toc-toggle" data-toggle="offcanvas" data-target="#sidebar" data-canvas="#main-container">
-                                        <i class="material-icons">view_list</i>
-                                    </a>
-                                    <a data-template="pages:navigation-link" data-template-direction="previous" class="nav-prev page-nav btn btn-primary btn-fab"
-                                        title="Previous page [left arrow on keyboard]">
-                                        <i class="material-icons">navigate_before</i>
-                                    </a>
-                                </div>
-                                <div class="col-md-10 col-sm-12">
-                                    <div class="navigation-top row">
-                                        <div class="hidden-md hidden-lg btn-group-sm">
-                                            <a data-template="pages:navigation-link" data-template-direction="previous" class="nav-prev page-nav btn btn-primary btn-fab"
-                                                title="Previous page [left arrow on keyboard]">
-                                                <i class="material-icons">navigate_before</i>
-                                            </a>
-                                        </div>
-                                        <div class="hidden-xs hidden-sm col-md-12 col-lg-12 col-title">
-                                            <h5 data-template="pages:navigation-title"/>
-                                        </div>
-                                        <div class="hidden-md hidden-lg btn-group-sm">
-                                            <a data-template="pages:navigation-link" data-template-direction="next" class="nav-next page-nav btn btn-primary btn-fab"
-                                                title="Next page [right arrow on keyboard]">
-                                                <i class="material-icons">navigate_next</i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div id="content-inner">
-                                        <div id="content-container">
-                                            <div data-template="pages:view" class="content"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-1 hidden-sm hidden-xs">
-                                    <a data-template="pages:navigation-link" data-template-direction="next" class="nav-next page-nav btn btn-primary btn-fab"
-                                        title="Next page [right arrow on keyboard]">
-                                        <i class="material-icons">navigate_next</i>
-                                    </a>
-                                </div>
+            <div data-template="pages:load">
+                <!-- Navigation -->
+                <div data-template="templates:include" data-template-path="templates/menu.html"/>
+
+                <!-- Toolbar -->
+                <div data-template="templates:include" data-template-path="templates/toolbar.html"/>
+
+                <!-- Content wrapper -->
+                <main id="main-container" class="container-fluid">
+                    <div class="row">
+                        <!-- Table of contents -->
+                        <aside id="sidebar" class="hidden-xs col-md-3 toc offcanvas">
+                            <h3>
+                                <i18n:text key="contents">Contents</i18n:text>
+                            </h3>
+                            <div id="toc">
+                                <span id="toc-loading">Loading ...</span>
                             </div>
-                        </div>
+                        </aside>
+                        <section id="right-panel" class="col-md-12 col-xs-12">
+                            <div class="container-fluid">
+                                <section class="row" data-template="pages:navigation">
+                                    <div class="col-md-1 hidden-xs hidden-sm">
+                                        <a class="btn btn-primary btn-fab toc-toggle" data-toggle="offcanvas" data-target="#sidebar" data-canvas="#main-container">
+                                            <i class="material-icons">view_list</i>
+                                        </a>
+                                        <a data-template="pages:navigation-link" data-template-direction="previous" class="nav-prev page-nav btn btn-primary btn-fab" title="i18n(previous-page)">
+                                            <i class="material-icons">navigate_before</i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 col-sm-12">
+                                        <div class="navigation-top row">
+                                            <div class="hidden-md hidden-lg btn-group-sm">
+                                                <a data-template="pages:navigation-link" data-template-direction="previous" class="nav-prev page-nav btn btn-primary btn-fab" title="i18n(previous-page)">
+                                                    <i class="material-icons">navigate_before</i>
+                                                </a>
+                                            </div>
+                                            <!-- Document title -->
+                                            <div class="hidden-xs hidden-sm col-md-12 col-lg-12 col-title">
+                                                <h5 data-template="pages:navigation-title"/>
+                                            </div>
+                                            <div class="hidden-md hidden-lg btn-group-sm">
+                                                <a data-template="pages:navigation-link" data-template-direction="next" class="nav-next page-nav btn btn-primary btn-fab" title="i18n(next-page)">
+                                                    <i class="material-icons">navigate_next</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- Document pane -->
+                                        <div id="content-inner">
+                                            <div id="content-container">
+                                                <div data-template="pages:view" class="content"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 hidden-xs hidden-sm">
+                                        <a data-template="pages:navigation-link" data-template-direction="next" class="nav-next page-nav btn btn-primary btn-fab" title="i18n(next-page)">
+                                            <i class="material-icons">navigate_next</i>
+                                        </a>
+                                    </div>
+                                </section>
+                            </div>
+                        </section>
                     </div>
-                </div>
+                </main>
             </div>
         </div>
         <div class="modal fade" id="pdf-info">
@@ -107,17 +117,23 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">
                             <span class="fa fa-times" aria-hidden="true"/>
-                            <span class="sr-only">Close</span>
+                            <span class="sr-only">
+                                <i18n:text key="close">Close</i18n:text>
+                            </span>
                         </button>
-                        <h4 class="modal-title">Generating File...</h4>
+                        <h4 class="modal-title">
+                            <i18n:text key="generating-file">Generating File...</i18n:text>
+                        </h4>
                     </div>
                     <div class="modal-body">
-                        <p>Generating a file for download may take up to a few minutes. Please wait.</p>
-                        <p>This dialog should close automatically when the download has completed.</p>
+                        <p>
+                            <i18n:text key="download-message"/>
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
-                            <i class="glyphicon glyphicon-remove"/> Close</button>
+                            <i class="glyphicon glyphicon-remove"/> <i18n:text key="close">Close</i18n:text>
+                        </button>
                     </div>
                 </div>
             </div>

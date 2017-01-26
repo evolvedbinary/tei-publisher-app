@@ -1,6 +1,6 @@
-module namespace pml='http://www.tei-c.org/tei-simple/models/documentation.odd/web/module';
+module namespace pml='http://www.tei-c.org/pm/models/documentation/web/module';
 
-import module namespace m='http://www.tei-c.org/tei-simple/models/documentation.odd/web' at '/db/apps/tei-publisher/transform/documentation-web.xql';
+import module namespace m='http://www.tei-c.org/pm/models/documentation/web' at '/db/apps/tei-publisher/transform/documentation-web.xql';
 
 (: Generated library module to be directly imported into code which
  : needs to transform TEI nodes using the ODD this module is based on.

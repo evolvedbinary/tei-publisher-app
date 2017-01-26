@@ -1,6 +1,7 @@
 xquery version "3.0";
 
 import module namespace login="http://exist-db.org/xquery/login" at "resource:org/exist/xquery/modules/persistentlogin/login.xql";
+import module namespace config="http://www.tei-c.org/tei-simple/config" at "modules/config.xqm";
 
 declare variable $exist:path external;
 declare variable $exist:resource external;
@@ -38,23 +39,44 @@ else if (contains($exist:path, "/components")) then
     </dispatch>
 
 else if (ends-with($exist:resource, ".xql")) then (
-    login:set-user("org.exist.tei-simple", (), false()),
+    login:set-user($config:login-domain, (), false()),
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{$exist:controller}/modules/{substring-after($exist:path, '/modules/')}"/>
         <cache-control cache="no"/>
     </dispatch>
 
 ) else if ($logout or $login) then (
-    login:set-user("org.exist.tei-simple", (), false()),
+    login:set-user($config:login-domain, (), false()),
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="{replace(request:get-uri(), "^(.*)\?", "$1")}"/>
     </dispatch>
 
+) else if (ends-with($exist:resource, ".html")) then (
+    login:set-user($config:login-domain, (), false()),
+    let $resource :=
+        if (contains($exist:path, "/templates/")) then
+            "templates/" || $exist:resource
+        else
+            $exist:resource
+    return
+        (: the html page is run through view.xql to expand templates :)
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+            <forward url="{$exist:controller}/{$resource}"/>
+            <view>
+                <forward url="{$exist:controller}/modules/view.xql"/>
+            </view>
+    		<error-handler>
+    			<forward url="{$exist:controller}/error-page.html" method="get"/>
+    			<forward url="{$exist:controller}/modules/view.xql"/>
+    		</error-handler>
+        </dispatch>
+
 ) else if (starts-with($exist:path, "/works/")) then (
-    login:set-user("org.exist.tei-simple", (), false()),
+    login:set-user($config:login-domain, (), false()),
     (: let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1") :)
     let $id := xmldb:decode($exist:resource)
     let $path := substring-before(substring-after($exist:path, "/works/"), $exist:resource)
+    let $mode := request:get-parameter("mode", ())
     let $html :=
         if ($exist:resource = "") then
             "index.html"
@@ -95,6 +117,16 @@ else if (ends-with($exist:resource, ".xql")) then (
                     <forward url="{$exist:controller}/modules/view.xql"/>
                 </error-handler>
             </dispatch>
+        else if ($mode = "plain") then
+            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+                <forward url="{$exist:controller}/modules/lib/transform.xql">
+                    <add-parameter name="doc" value="{$path}{$id}"/>
+                </forward>
+                <error-handler>
+                    <forward url="{$exist:controller}/error-page.html" method="get"/>
+                    <forward url="{$exist:controller}/modules/view.xql"/>
+                </error-handler>
+            </dispatch>
         else
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{$exist:controller}/{$html}"></forward>
@@ -114,18 +146,6 @@ else if (ends-with($exist:resource, ".xql")) then (
                     <forward url="{$exist:controller}/modules/view.xql"/>
                 </error-handler>
             </dispatch>
-) else if (ends-with($exist:resource, ".html")) then (
-    login:set-user("org.exist.tei-simple", (), false()),
-    (: the html page is run through view.xql to expand templates :)
-    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <view>
-            <forward url="{$exist:controller}/modules/view.xql"/>
-        </view>
-		<error-handler>
-			<forward url="{$exist:controller}/error-page.html" method="get"/>
-			<forward url="{$exist:controller}/modules/view.xql"/>
-		</error-handler>
-    </dispatch>
 
 ) else
     (: everything else is passed through :)
