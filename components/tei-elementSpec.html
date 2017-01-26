@@ -6,6 +6,7 @@
 <link rel="import" href="bower_components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/iron-collapse/iron-collapse.html">
 
 <link rel="import" href="tei-model.html">
 
@@ -78,12 +79,17 @@ an ODD elementSpec element
             #delete{
                 position: absolute;
                 top: 20px;
-                right: 30px;
+                right: 60px;
             }
             #add{
                 position: absolute;
                 top: 12px;
-                right: 70px;
+                right: 100px;
+            }
+            #collapse{
+                position: absolute;
+                top: 20px;
+                right: 20px;
             }
         </style>
         <paper-menu-button id="add">
@@ -95,9 +101,12 @@ an ODD elementSpec element
             </paper-menu>
         </paper-menu-button>
         <paper-icon-button id="delete" icon="clear"></paper-icon-button>
+        <paper-icon-button id="collapse" icon="expand-more"></paper-icon-button>
         <h2>{{ident}} <span id="mode" class="mode"></span></h2>
         <!--<div>Mode: {{mode}}</div>-->
-        <content></content>
+        <iron-collapse id="content">
+            <content></content>
+        </iron-collapse>
 
         <!--<h2 title="elementSpec">{{ident}}</h2>-->
 
@@ -121,6 +130,7 @@ an ODD elementSpec element
 
             listeners: {
                 'delete.tap': 'deleteElementSpec',
+                'collapse.tap': 'toggleContent'
             },
 
             attached: function () {
@@ -145,7 +155,14 @@ an ODD elementSpec element
                 console.log(e.target.innerText.trim())
                 var selection = e.target.innerText.trim();
                 var newModel = document.createElement('tei-' + selection);
-                this.appendChild(newModel);
+                this.$.content.appendChild(newModel);
+
+                this.$.content.show();
+
+            },
+
+            toggleContent: function (e) {
+                this.$.content.toggle();
             }
             
 
