@@ -1,0 +1,114 @@
+<dom-module id="tei-param">
+    <template>
+        <style is="custom-style">
+            .removeIcon {
+                --iron-icon-fill-color: var(--paper-blue-grey-700);
+            }
+        </style>
+
+        <style include="publisher-styles">
+            :host {
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+                /*width: 100%;*/
+                position: relative;
+            }
+
+            .wrapper {
+                /*display: table-row;*/
+                /*flex-direction: row;*/
+            }
+
+            paper-input, .cell {
+                display: table-cell;
+                padding: 10px;
+                vertical-align: bottom;
+            }
+        </style>
+
+
+        <div class="wrapper">
+            <paper-input id="name" label="name" value="{{name}}" title="name" placeholder="[Param Name]"></paper-input>
+            <paper-input id="value" label="value" value="{{value}}" title="value" placeholder="[XPath to define param value]"></paper-input>
+            <div class="cell">
+                <paper-icon-button class="removeIcon" icon="remove-circle" on-click="_dispatchRemove"></paper-icon-button>
+            </div>
+        </div>
+
+
+    </template>
+    <script>
+        class TeiParam extends Polymer.Element {
+            static get is() {
+                return 'tei-param';
+            }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    value: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+
+                }
+            }
+
+            constructor() {
+                super();
+                console.log("TeiParam constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiParam connected");
+                this.setAttribute("slot", "param");
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _showEmptySlots(e) {
+                this.createSlotElements();
+            }
+
+            _setPreferred(e) {
+                this.$.star.icon = "star";
+            }
+
+
+            _dispatchRemove(e) {
+                console.log("tei-param delete");
+                if (confirm("really delete?")) {
+                    this.parentNode.removeChild(this);
+                }
+            }
+
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+        }
+
+        customElements.define(TeiParam.is, TeiParam);
+    </script>
+</dom-module>

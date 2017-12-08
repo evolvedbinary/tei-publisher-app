@@ -46,7 +46,10 @@ function app:odd-table($node as node(), $model as map(*), $odd as xs:string?) {
                                 </a>
                         }
                         </td>
-                        <td><a href="odd-editor.html?odd={$name}.odd" target="_new">{string($displayName)}</a></td>
+                        <td>
+                        <a href="odd-editor.html?odd={$name}.odd" target="_new">{string($displayName)}</a>
+                        <a href="webcomponents/editor.html?odd={$name}.odd" target="_new" style="padding-left:10px;">{string($displayName)}</a>
+                        </td>
                         <td>
                         {
                             let $outputPath := $config:output-root || "/" || $name

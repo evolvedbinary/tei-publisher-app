@@ -1,0 +1,101 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+
+<dom-module id="publisher-app">
+  <template>
+    <style include="publisher-styles">
+      :host {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      app-header{
+        width:100%;
+        background:var(--paper-blue-grey-900);
+
+      }
+
+      .mainToolbar{
+        background:var(--paper-grey-700);
+        width: 100%;
+        height:64px;
+        color:white;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+      }
+      paper-button{
+        height: 64px;
+      }
+
+      .logo {
+        background-image: url(../images/tei-publisher-logo-contrast-color.svg);
+        background-repeat: no-repeat;
+        width: 140px;
+        margin-left: 0 !important;
+      }
+
+    </style>
+
+    <app-drawer opened>
+      <h1>foo</h1>
+    </app-drawer>
+<!--
+
+    <div class="mainToolbar">
+      <paper-button>Start</paper-button>
+      <div main-title>foo</div>
+    </div>
+-->
+<!--
+    <app-header>
+      <app-toolbar class="mainToolbar">
+        &lt;!&ndash;<div class="logo"></div>&ndash;&gt;
+        <paper-button>Start</paper-button>
+        <div main-title>foo</div>
+      </app-toolbar>
+    </app-header>
+-->
+
+    <slot></slot>
+
+  </template>
+
+  <script>
+    /**
+     * `publisher-app`
+     * the outermost publisher app component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PublisherApp extends Polymer.Element {
+      static get is() { return 'publisher-app'; }
+      static get properties() {
+        return {
+/*
+          prop1: {
+            type: String,
+            value: 'publisher-app'
+          }
+*/
+        };
+      }
+
+        constructor() {
+            super();
+            console.log("publisher-app constructor...")
+        }
+
+
+
+    }
+
+    window.customElements.define(PublisherApp.is, PublisherApp);
+  </script>
+</dom-module>

@@ -29,7 +29,8 @@ var fs =                    require('fs'),
         'gen_app_styles':       'resources/css/**/*',
         'gen_app_scripts':      'resources/scripts/**/*',
         'gen_app_templates':    'templates/*.html',
-        'gen_app_pages':        '*.html'
+        'gen_app_pages':        '*.html',
+        'webcomponents':        'webcomponents/**/*'
     },
     output  = {
         'styles':               'resources/css',
@@ -46,8 +47,8 @@ var fs =                    require('fs'),
         'gen_app_styles':       'templates/basic/resources/css',
         'gen_app_scripts':      'templates/basic/resources/scripts',
         'gen_app_templates':    'templates/basic/templates',
-        'gen_app_pages':        'templates/basic'
-
+        'gen_app_pages':        'templates/basic',
+        'webcomponents':        'webcomponents/*'
     }
 ;
 
@@ -169,6 +170,21 @@ gulp.task('watch:html', function () {
     gulp.watch(input.html, ['deploy:html'])
 });
 
+// *************  Web Components *************** //
+// Deploy HTML pages
+gulp.task('deploy:webcomponents', function () {
+    console.log('deploying web components');
+    return gulp.src(input.webcomponents, {base: './'})
+        .pipe(exClient.newer(targetConfiguration))
+        .pipe(exClient.dest(targetConfiguration))
+});
+
+// Watch HTML pages
+gulp.task('watch:webcomponents', function () {
+    console.log('watching web components');
+    gulp.watch(input.webcomponents, ['deploy:webcomponents'])
+});
+
 
 // *************  ODD Files *************** //
 
@@ -262,7 +278,8 @@ gulp.task('watch', [
     'watch:scripts',
     'watch:html',
     'watch:odd',
-    'watch:other'
+    'watch:other',
+    'watch:webcomponents'
 ]);
 
 // Deployment paths
@@ -277,7 +294,8 @@ var oddPath =           'resources/odd/**/*',
     scriptPath =        'resources/scripts/*',
     modulePath =        'modules/**/*',
     transformPath =     'transform/*',
-    fontPath =          'resources/fonts/*';
+    fontPath =          'resources/fonts/*',
+    webcomponentPath =  'webcomponents/**/*';
 
 
 // Deploy all files to existDB
@@ -295,6 +313,7 @@ gulp.task('deploy', ['deploy:styles'], function () {
             ,modulePath
             ,transformPath
             ,fontPath
+            ,webcomponentPath
         ], {base: './'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))

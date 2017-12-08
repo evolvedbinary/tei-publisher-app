@@ -1,0 +1,84 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<dom-module id="tei-schema-spec">
+    <template>
+        <style include="publisher-styles">
+            :host {
+                display: block;
+                position:relative;
+                width: 100%;
+                @apply(--paper-font-common-base);
+            }
+        </style>
+
+        <slot name="element-spec"></slot>
+        <paper-fab icon="add" mini on-click="_addEntry" title="add elementSpec"></paper-fab>
+
+    </template>
+    <script>
+        class TeiSchemaSpec extends Polymer.Element {
+            static get is() {
+                return 'tei-schema-spec';
+            }
+
+            static get properties() {
+                return {}
+            }
+
+            constructor() {
+                super();
+                console.log("TeiSchemaSpec constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiSchemaSpec connected");
+                document.addEventListener('removeEntry', e => this._removeEntry(e));
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _setPreferred(e) {
+                this.$.star.icon = "star";
+            }
+
+
+            _addEntry() {
+                console.log("adding new tei-element-spec");
+                const newEntry = document.createElement("tei-element-spec")
+                newEntry.setAttribute("slot", "element-spec");
+                this.appendChild(newEntry);
+                newEntry.createSlotElements();
+                newEntry.toggle();
+
+            }
+
+            _removeEntry(e) {
+                console.log("tei-schema-spec removing entry ", e.detail.entry);
+                this.removeChild(e.detail.entry)
+            }
+
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+        }
+
+        customElements.define(TeiSchemaSpec.is, TeiSchemaSpec);
+    </script>
+</dom-module>

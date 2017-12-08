@@ -35,9 +35,21 @@ else if (contains($exist:path, "/resources")) then
         <forward url="{$exist:controller}/resources/{substring-after($exist:path, '/resources/')}"/>
     </dispatch>
 
-else if (contains($exist:path, "/components")) then
+
+else if (contains($exist:path, "webcomponents/editor.html")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{$exist:controller}/components/{substring-after($exist:path, '/components/')}"/>
+        <cache-control cache="no"/>
+    </dispatch>
+else if (contains($exist:path, "/webcomponents")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        (:<forward url="{$exist:controller}/webcomponents/{substring-after($exist:path, '/webcomponents/')}"/>:)
+                <cache-control cache="no"/>
+
+    </dispatch>
+
+else if (contains($exist:path, "icon.png")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <cache-control cache="yes"/>
     </dispatch>
 
 else if (contains($exist:path, "/images/")) then

@@ -1,0 +1,212 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+
+<dom-module id="odd-editor">
+    <template>
+        <style include="publisher-styles">
+            :host {
+                display: block;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                @apply --paper-font-common-base;
+
+                /*--app-drawer-scrim-background:var(--paper-blue-grey-100);*/
+
+                --paper-button:{
+                    background: var(--paper-blue-grey-700);
+                    color:white;
+                    z-index:12;
+                };
+
+
+            }
+
+            app-drawer-layout {
+                width: 100%;
+            }
+
+            app-drawer {
+                border-right: thin solid var(--paper-grey-300);
+                background: yellow;
+            }
+
+            .drawerContent {
+                /*background: var(--paper-blue-grey-100);*/
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            app-toolbar {
+                background: var(--paper-blue-grey-500);
+                display: flex;
+                /*position: fixed;*/
+                flex-direction: row;
+                align-items: center;
+                height: 64px;
+                z-index: 10;
+                top: 0;
+            }
+
+            .content {
+                /*background: var(--paper-blue-grey-50);*/
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            .slotWrapper {
+                margin-top: 8px;
+                display: flex;
+                overflow: auto;
+            }
+
+            paper-icon-button {
+                color: white;
+            }
+
+            [main-title] {
+                @apply --paper-font-common-base;
+                color: white;
+            }
+        </style>
+
+        <app-location id="route" route="{{route}}"></app-location>
+        <iron-ajax id="loadOdd"
+                   verbose with-credentials
+                   method="get" handle-as="text"
+                   on-response="_handleLoad"
+                   url="/exist/apps/tei-publisher/modules/editor-2.xql"
+                   on-error="_handleLoadError"
+                   auto></iron-ajax>
+
+        <!--<h1>OddEditor</h1>-->
+
+        <app-drawer-layout full-bleed>
+            <app-drawer slot="drawer">
+                <div class="drawerContent">
+                    <template is="dom-repeat" items="{{specElements}}">
+                        <paper-item on-click="_moveIntoFocus">{{item.ident}}</paper-item>
+                    </template>
+
+                    <!--
+                                      <ul>
+                                        <li>
+                                          <div class="test">
+                                            foo bar .asdfjlkj skjf skdj
+                                          </div>
+                                        </li>
+                                        <li>item</li>
+                                        <li>item</li>
+                                        <li>item</li>
+                                        <li>item</li>
+                                      </ul>
+                    -->
+                </div>
+            </app-drawer>
+
+            <app-header-layout>
+                <app-header slot="header" fixed effects="waterfall">
+                    <app-toolbar fixed sticky>
+                        <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                        <div main-title>ODD Editor</div>
+                        <paper-button raised>save</paper-button>
+                    </app-toolbar>
+                </app-header>
+                <div class="slotWrapper">
+                    <slot></slot>
+                </div>
+            </app-header-layout>
+
+<!--
+            <div class="content">
+                <app-toolbar fixed sticky>
+                    <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                    <div main-title>ODD Editor</div>
+                    <paper-button raised>save</paper-button>
+                </app-toolbar>
+                <div class="slotWrapper">
+                    <slot></slot>
+                </div>
+            </div>
+-->
+
+        </app-drawer-layout>
+
+    </template>
+
+
+    <script>
+        /**
+         * `odd-editor`
+         * the outermost publisher app component
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class OddEditor extends Polymer.Element {
+            static get is() {
+                return 'odd-editor';
+            }
+
+            static get properties() {
+                return {
+                    route: {
+                        type: Object,
+
+                    },
+                    specElements: {
+                        type: Array,
+                        value: []
+                    }
+                };
+            }
+
+            constructor() {
+                super();
+                console.log("OddEditor constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("OddEditor connected");
+                this.$.route.addEventListener('query-params-changed', this._onUrlChanged.bind(this))
+                this.$.loadOdd.params = {"odd": this.$.route.queryParams.odd};
+            }
+
+            _handleLoad() {
+                console.log('_handleLoad odd ', this.$.loadOdd.params);
+                var response = this.$.loadOdd.lastResponse;
+                this.innerHTML = response;
+                console.log('########## ', this.querySelectorAll('tei-element-spec'));
+                this.specElements = this.querySelectorAll('tei-element-spec');
+
+
+            }
+
+            _handleLoadError() {
+                console.log('_handleLoadError');
+            }
+
+            _onUrlChanged(e) {
+                console.log("url changed ", e);
+                console.log("route: ", this.$.route.queryParams.odd);
+
+
+            }
+
+            _moveIntoFocus(e) {
+                console.log('_moveIntoFocus ', e);
+                console.log('_moveIntoFocus ', e.model.item);
+                e.model.item.scrollIntoView();
+                window.scrollBy(0, -64);
+            }
+
+        }
+
+        window.customElements.define(OddEditor.is, OddEditor);
+    </script>
+</dom-module>

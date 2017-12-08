@@ -1,0 +1,220 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<dom-module id="tei-element-spec">
+    <template>
+        <style>
+            :host {
+                display: block;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                position: relative;
+                margin-bottom: 10px;
+                @apply(--paper-font-common-base);
+
+            }
+
+            .wrapper{
+                padding: 0;
+                margin:0;
+            }
+
+            .toggleBar{
+                width: 100%;
+                background: var(--paper-blue-grey-50);
+                display: flex;
+            }
+            .ident {
+                color: var(--paper-grey-900);
+                font-size: 24px;
+                /*padding: 10px;*/
+                display: inline-block;
+                border:none;
+                background: transparent;
+            }
+            .ident:focus{
+                border:none;
+                outline:none;
+                border-bottom:1px solid var(--paper-blue-grey-700);
+            }
+
+            .collapse-content{
+                background: var(--paper-blue-grey-50);
+                padding: 0 50px 50px;
+/*
+                margin-top:5px;
+                box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+                0 1px 10px 0 rgba(0, 0, 0, 0.12),
+                0 2px 4px -1px rgba(0, 0, 0, 0.4);
+*/
+            }
+            /*#ident,#mode{*/
+            #mode{
+                display:table-cell;
+                padding: 10px;
+                vertical-align: bottom;
+            }
+            .moreMenu{
+                position: absolute;
+                right:10px;
+                top:-5px;
+            }
+
+        </style>
+
+
+        <div id="toggle" class="toggleBar" on-click="toggle" aria-expanded$="[[opened]]" aria-controls="collapse">
+            <paper-icon-button id="toggleBtn" icon="unfold-more" tabindex="0"></paper-icon-button>
+            <!--<span class="ident">[[ident]]</span>-->
+            <input id="ident" class="ident" label="ident" value="{{ident}}" title="ident" no-label-float on-click="_cancelToggle" placeholder="[Element Name]" required></input>
+
+            <paper-menu-button class="moreMenu" close-on-activate horizontal-align="right" tabindex="0" on-click="_openMenu">
+                <paper-icon-button icon="more-vert" mini slot="dropdown-trigger"></paper-icon-button>
+                <paper-listbox slot="dropdown-content">
+                    <paper-item id="moveDown" on-click="moveDown">duplicate</paper-item>
+                    <paper-item id="delete" on-click="_dispatchRemove">remove this element spec</paper-item>
+                </paper-listbox>
+            </paper-menu-button>
+
+            <!--<paper-icon-button icon="remove-circle" on-click="_dispatchRemove"></paper-icon-button>-->
+        </div>
+
+        <iron-collapse id="collapse">
+            <div class="collapse-content">
+                <div class="wrapper">
+                    <!--<paper-input id="ident" label="ident" value="{{ident}}" title="ident"></paper-input>-->
+                    <paper-dropdown-menu id="mode" label="mode" noink no-animation>
+                        <paper-listbox slot="dropdown-content">
+                            <paper-item></paper-item>
+                            <paper-item>add</paper-item>
+                            <paper-item>change</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+
+                    <slot name="model"></slot>
+                    <paper-fab icon="add" mini on-click="_addEntry"></paper-fab>
+                    <slot name="model-sequence"></slot>
+                    <slot name="model-group"></slot>
+                </div>
+            </div>
+        </iron-collapse>
+
+
+
+    </template>
+    <script>
+        class TeiElementSpec extends Polymer.Element {
+            static get is() {
+                return 'tei-element-spec';
+            }
+
+            static get properties() {
+                return {
+                    ident: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    mode: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    opened: {
+                        type: Boolean,
+                        reflectToAttribute: true
+                    },
+                    isDirty:{
+                        type: Boolean
+                    }
+                }
+            }
+
+            constructor() {
+                super();
+                console.log("TeiElementSpec constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiElementSpec connected");
+                this.setAttribute("slot", "element-spec");
+                document.addEventListener('removeEntry', e => this._removeEntry(e));
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _showEmptySlots(e) {
+                this.createSlotElements();
+            }
+
+            _setPreferred(e) {
+                this.$.star.icon = "star";
+            }
+
+
+            _dispatchRemove(e) {
+                console.log("tei-element-spec delete");
+                if (confirm("really delete?")) {
+//                    document.dispatchEvent(new CustomEvent('removeEntry', {detail: {entry: this}}));
+                    this.parentNode.removeChild(this);
+                }
+            }
+
+            _addEntry() {
+                console.log("adding new tei-model");
+                const newEntry = document.createElement("tei-model")
+                newEntry.setAttribute("slot", "model");
+                this.appendChild(newEntry);
+                newEntry.createSlotElements();
+            }
+
+            _removeEntry(e) {
+                console.log("tei-element-spec removing entry ", e.detail.entry);
+                this.removeChild(e.detail.entry)
+            }
+
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+            toggle(e) {
+//                console.log('toggle ',e);
+                this.$.collapse.toggle();
+                if(this.$.collapse.opened){
+                    this.$.toggleBtn.icon = 'unfold-less';
+                }else{
+                    this.$.toggleBtn.icon = 'unfold-more';
+                }
+
+            }
+
+            _openMenu(e){
+                console.log('openMenu ',e)
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            _cancelToggle(e){
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+        }
+
+        customElements.define(TeiElementSpec.is, TeiElementSpec);
+    </script>
+</dom-module>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+        This a generated file meant for further hand-editing as a UI profile. Must be placed in 'profile'
+        directory to take effect during generation of forms and views.
+-->
+<element name="schema-spec" prefix="tei" ns="http://www.tei-c.org/ns/1.0" skin="publisher-styles">
+    <elementset name="element-spec">
+        <attribute name="ident"/>
+        <attribute name="mode">
+            <option>add</option>
+            <option>change</option>
+        </attribute>
+
+        <elementset name="model">
+            <attribute name="output">
+                <option></option>
+                <option>web</option>
+                <option>print</option>
+                <option>epub</option>
+                <option>fo</option>
+                <option>latex</option>
+                <option>plain</option>
+            </attribute>
+
+            <element name="description"></element>
+            <attribute name="behaviour">
+                <option>block</option>
+                <option>inline</option>
+                <option>alternate</option>
+                <option>anchor</option>
+                <option>block</option>
+                <option>body</option>
+                <option>break</option>
+                <option>cell</option>
+                <option>cit</option>
+                <option>document</option>
+                <option>figure</option>
+                <option>graphic</option>
+                <option>heading</option>
+                <option>inline</option>
+                <option>link</option>
+                <option>list</option>
+                <option>listItem</option>
+                <option>metadata</option>
+                <option>note</option>
+                <option>omit</option>
+                <option>paragraph</option>
+                <option>row</option>
+                <option>section</option>
+                <option>table</option>
+                <option>text</option>
+                <option>title</option>
+            </attribute>
+            <attribute name="predicate"></attribute>
+            <attribute name="cssClass"></attribute>
+            <element name="parameters">
+                <elementset name="param">
+                    <attribute name="name"></attribute>
+                    <attribute name="value"></attribute>
+                </elementset>
+            </element>
+            <elementset name="output-rendition">
+                <attribute name="scope"></attribute>
+                <textNode></textNode>
+            </elementset>
+            <attribute name="useSourceRendition"></attribute>
+        </elementset>
+
+        <element name="model-sequence">
+            <attribute name="predicate"></attribute>
+            <attribute name="output"></attribute>
+            <element name="description" skip="true"></element>
+            <elementset name="model" skip="true"></elementset>
+        </element>
+
+        <element name="model-group">
+            <attribute name="predicate"></attribute>
+            <attribute name="output"></attribute>
+            <element name="description" skip="true"></element>
+            <elementset name="model" skip="true"></elementset>
+        </element>
+
+    </elementset>
+</element>

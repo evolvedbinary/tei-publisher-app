@@ -1,0 +1,317 @@
+<dom-module id="tei-model">
+    <template>
+        <style is="custom-style">
+            .removeIcon {
+                --iron-icon-fill-color: var(--paper-blue-grey-700);
+
+                position: absolute;
+                right: 5px;
+                --iron-icon-width: 48px;
+                --iron-icon-height: 48px;
+                width: 48px;
+                height: 48px;
+                display: inline-block;
+                top: 0px;
+                @apply(--paper-font-common-base);
+
+            }
+        </style>
+        <style include="publisher-styles">
+            :host {
+                display: block;
+                /*width: 100%;*/
+                background: var(--paper-blue-grey-100);
+                margin-bottom: 10px;
+                position: relative;
+                box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+                0 1px 10px 0 rgba(0, 0, 0, 0.12),
+                0 2px 4px -1px rgba(0, 0, 0, 0.4);
+            }
+
+            .label {
+                font-size: 20px;
+                /*font-weight: 300;*/
+            }
+
+            .predicate {
+                font-weight: 700;
+                display: inline-block;
+            }
+
+            /*
+                        [icon="remove-circle"]{
+                            --iron-icon-fill-color: var(--paper-red-300);
+
+                            position: absolute;
+                            right: 20px;
+                            --iron-icon-width: 48px;
+                            --iron-icon-height: 48px;
+                        }
+            */
+            /*
+                        [icon="remove-circle"] iron-icon{
+                            --iron-icon-width: 100%;
+                            --iron-icon-height: 100%;
+                        }
+            */
+
+            .toggleBar{
+                background: var(--paper-blue-grey-50);
+                background: var(--paper-blue-grey-300);
+                color: white;
+                padding: 2px;
+            }
+            .collapse-content{
+                padding: 20px;
+                background: white;
+            }
+            .label{
+                min-height:20px;
+            }
+            .moreMenu{
+                position: absolute;
+                right:10px;
+                top:-5px;
+            }
+            .wrapRendition{
+                position: relative;
+            }
+            .wrapRendition [icon="add"]{
+                position: absolute;
+                top:4px;
+                right:10px;
+            }
+        </style>
+
+        <div id="toggle" class="toggleBar" on-click="toggle" aria-expanded$="[[opened]]" aria-controls="collapse" tabindex="0">
+            <paper-icon-button id="toggleBtn" icon="unfold-more" tabindex="0"></paper-icon-button>
+            <span class="label">[[predicateLabel]]</span>
+            <!--<span class="predicate">[[predicate]]</span>-->
+            <paper-menu-button class="moreMenu" close-on-activate horizontal-align="right" tabindex="0" on-click="_openMenu">
+                <paper-icon-button icon="more-vert" mini slot="dropdown-trigger"></paper-icon-button>
+                <paper-listbox slot="dropdown-content">
+                    <paper-item id="moveUp" on-click="_moveUp">move up</paper-item>
+                    <paper-item id="moveDown" on-click="moveDown">move down</paper-item>
+                    <paper-item id="delete" on-click="_dispatchRemove">remove this model</paper-item>
+                </paper-listbox>
+            </paper-menu-button>
+        </div>
+<!--
+        <paper-icon-button class="removeIcon" icon="remove-circle"
+                           on-click="_dispatchRemove"></paper-icon-button>
+-->
+
+        <iron-collapse id="collapse">
+            <div class="collapse-content">
+                <div class="wrapper">
+                    <paper-dropdown-menu id="output" label="output" noink no-animation>
+                        <paper-listbox slot="dropdown-content">
+                            <paper-item></paper-item>
+                            <paper-item>web</paper-item>
+                            <paper-item>print</paper-item>
+                            <paper-item>epub</paper-item>
+                            <paper-item>fo</paper-item>
+                            <paper-item>latex</paper-item>
+                            <paper-item>plain</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <slot name="description"></slot>
+                    <paper-dropdown-menu id="behaviour" label="behaviour" noink no-animation>
+                        <paper-listbox slot="dropdown-content">
+                            <paper-item></paper-item>
+                            <paper-item>block</paper-item>
+                            <paper-item>inline</paper-item>
+                            <paper-item>alternate</paper-item>
+                            <paper-item>anchor</paper-item>
+                            <paper-item>block</paper-item>
+                            <paper-item>body</paper-item>
+                            <paper-item>break</paper-item>
+                            <paper-item>cell</paper-item>
+                            <paper-item>cit</paper-item>
+                            <paper-item>document</paper-item>
+                            <paper-item>figure</paper-item>
+                            <paper-item>graphic</paper-item>
+                            <paper-item>heading</paper-item>
+                            <paper-item>inline</paper-item>
+                            <paper-item>link</paper-item>
+                            <paper-item>list</paper-item>
+                            <paper-item>listItem</paper-item>
+                            <paper-item>metadata</paper-item>
+                            <paper-item>note</paper-item>
+                            <paper-item>omit</paper-item>
+                            <paper-item>paragraph</paper-item>
+                            <paper-item>row</paper-item>
+                            <paper-item>section</paper-item>
+                            <paper-item>table</paper-item>
+                            <paper-item>text</paper-item>
+                            <paper-item>title</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <paper-input id="predicate" label="predicate" value="{{predicate}}" title="predicate"></paper-input>
+                    <paper-input id="cssClass" label="cssClass" value="{{cssClass}}" title="cssClass"></paper-input>
+                    <slot name="parameters"></slot>
+
+                    <div class="wrapRendition">
+                        <div class="header2">Renditions</div>
+                        <slot name="output-rendition"></slot>
+                        <paper-fab icon="add" mini on-click="_addEntry"></paper-fab>
+                    </div>
+                    <!--<paper-fab icon="add" mini on-click="_log"></paper-fab>-->
+                    <paper-input id="useSourceRendition" label="useSourceRendition" value="{{useSourceRendition}}"
+                                 title="useSourceRendition"></paper-input>
+                </div>
+            </div>
+        </iron-collapse>
+
+    </template>
+    <script>
+        class TeiModel extends Polymer.Element {
+            static get is() {
+                return 'tei-model';
+            }
+
+            static get properties() {
+                return {
+                    output: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    behaviour: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    predicate: {
+                        type: String,
+                        reflectToAttribute: true,
+                        value:''
+                    },
+                    cssClass: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    useSourceRendition: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    opened: {
+                        type: Boolean,
+                        reflectToAttribute: true
+                    },
+                    predicateLabel:{
+                        type: String,
+                        computed:'computeLabel(predicate)'
+                    }
+                }
+            }
+
+            constructor() {
+                super();
+                console.log("TeiModel constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiModel connected");
+                this.setAttribute("slot", "model");
+                document.addEventListener('removeEntry', e => this._removeEntry(e));
+                this.createSlotElements();
+                this.tabindex=0;
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _showEmptySlots(e) {
+                this.createSlotElements();
+            }
+
+            _setPreferred(e) {
+                this.$.star.icon = "star";
+            }
+
+
+            _dispatchRemove(e) {
+                console.log("tei-model delete");
+                if (confirm("really delete?")) {
+                    document.dispatchEvent(new CustomEvent('removeEntry', {detail: {entry: this}}));
+                }
+            }
+
+            _addEntry() {
+                console.log("adding new tei-output-rendition");
+                const newEntry = document.createElement("tei-output-rendition")
+                newEntry.setAttribute("slot", "output-rendition");
+                this.appendChild(newEntry);
+                newEntry.createSlotElements();
+            }
+
+            _removeEntry(e) {
+                console.log("tei-model removing entry ", e.detail.entry);
+                this.removeChild(e.detail.entry)
+            }
+
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+            _log(e) {
+                //todo: wrap with this element itself
+                console.log("output: ", this.innerHTML);
+            }
+
+            toggle(e) {
+
+                console.log("toggle ",e);
+
+                this.$.collapse.toggle();
+                if(this.$.collapse.opened){
+                    this.$.toggleBtn.icon = 'unfold-less';
+                }else{
+                    this.$.toggleBtn.icon = 'unfold-more';
+                }
+            }
+
+            _openMenu(e){
+                console.log('openMenu ',e)
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            _moveUp(e){
+                console.log('moveUp ',e)
+                //todo
+            }
+
+            _moveDown(){
+                //todo
+            }
+
+            computeLabel(predicate){
+                console.log('computeLabel ', predicate)
+                if(predicate == ''){
+                    return 'DEFAULT';
+                }else{
+                    return this.predicate;
+                }
+            }
+
+        }
+
+        customElements.define(TeiModel.is, TeiModel);
+    </script>
+</dom-module>

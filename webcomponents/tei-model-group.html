@@ -1,0 +1,96 @@
+<dom-module id="tei-model-group">
+    <template>
+        <style include="publisher-styles">
+            :host {
+                display: block;
+            }
+        </style>
+
+
+        <paper-input id="predicate" label="predicate" value="{{predicate}}" title="predicate"></paper-input>
+
+
+        <paper-input id="output" label="output" value="{{output}}" title="output"></paper-input>
+
+        <slot name="description"></slot>
+        <slot name="model"></slot>
+        <paper-fab icon="add" mini on-click="_addEntry"></paper-fab>
+
+    </template>
+    <script>
+        class TeiModelGroup extends Polymer.Element {
+            static get is() {
+                return 'tei-model-group';
+            }
+
+            static get properties() {
+                return {
+                    predicate: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+                    output: {
+                        type: String,
+                        reflectToAttribute: true
+                    },
+
+                }
+            }
+
+            constructor() {
+                super();
+                console.log("TeiModelGroup constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiModelGroup connected");
+                this.setAttribute("slot", "model-group");
+                document.addEventListener('removeEntry', e => this._removeEntry(e));
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _setPreferred(e) {
+                this.$.star.icon = "star";
+            }
+
+
+            _addEntry() {
+                console.log("adding new tei-model");
+                const newEntry = document.createElement("tei-model")
+                newEntry.setAttribute("slot", "model");
+                this.appendChild(newEntry);
+                newEntry.createSlotElements();
+            }
+
+            _removeEntry(e) {
+                console.log("tei-model-group removing entry ", e.detail.entry);
+                this.removeChild(e.detail.entry)
+            }
+
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+        }
+
+        customElements.define(TeiModelGroup.is, TeiModelGroup);
+    </script>
+</dom-module>

@@ -1,0 +1,73 @@
+<dom-module id="tei-description">
+    <template>
+        <style include="publisher-styles">
+            :host {
+                display: block;
+            }
+        </style>
+
+        <paper-input class="textnode" id="text" label="description" value="{{value}}">
+            <slot id="slot" name="description"></slot>
+        </paper-input>
+
+    </template>
+    <script>
+        class TeiDescription extends Polymer.Element {
+            static get is() {
+                return 'tei-description';
+            }
+
+            static get properties() {
+                return {
+                    value: {
+                        type: String,
+                        observer: '_valueChanged',
+                        reflectToAttribute: false
+                    }
+
+                }
+            }
+
+            constructor() {
+                super();
+                console.log("TeiDescription constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiDescription connected");
+                this.setAttribute("slot", "description");
+                this.$.text.value = this.innerHTML;
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _setPreferred(e) {
+                this.$.star.icon = "star";
+            }
+
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+        }
+
+        customElements.define(TeiDescription.is, TeiDescription);
+    </script>
+</dom-module>

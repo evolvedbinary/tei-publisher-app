@@ -1,0 +1,95 @@
+<dom-module id="tei-parameters">
+    <template>
+        <style is="custom-style">
+            .addIcon {
+                --iron-icon-fill-color: var(--paper-pink-500);
+                position: absolute;
+                display: inline-block;
+                right: 12px;
+                top: 2px;
+            }
+        </style>
+
+        <style include="publisher-styles">
+            :host {
+                display: block;
+                min-width: 400px;
+            }
+
+            [icon="add"] {
+                position: absolute;
+                top: 4px;
+                right: 10px;
+            }
+        </style>
+
+
+        <div class="header2">Parameters
+            <!--
+                        <span class="actions">
+                            <paper-icon-button class="addIcon" icon="add-circle" on-click="_addEntry"></paper-icon-button>
+                        </span>
+            -->
+        </div>
+
+        <div class="wrapper">
+            <slot name="param"></slot>
+            <paper-fab icon="add" mini on-click="_addEntry"></paper-fab>
+        </div>
+
+    </template>
+    <script>
+        class TeiParameters extends Polymer.Element {
+            static get is() {
+                return 'tei-parameters';
+            }
+
+            static get properties() {
+                return {}
+            }
+
+            constructor() {
+                super();
+                console.log("TeiParameters constructor...")
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("TeiParameters connected");
+                this.setAttribute("slot", "parameters");
+            }
+
+            createSlotElements() {
+                var slots = this.shadowRoot.querySelectorAll("slot")
+                console.log("slots ", slots);
+                for (var i = 0, len = slots.length; i < len; i++) {
+                    console.log("slot: ", slots[i].assignedNodes());
+                    if (slots[i].assignedNodes().length == 0) {
+                        var slot = slots[i].name
+                        console.log("slot has no content - creating ", slot);
+                        var e = document.createElement('tei-' + slot)
+                        e.setAttribute("slot", slot)
+                        this.appendChild(e);
+                    }
+                }
+            }
+
+            _addEntry() {
+                console.log("adding new tei-param");
+                const newEntry = document.createElement("tei-param")
+                newEntry.setAttribute("slot", "param");
+                this.appendChild(newEntry);
+                newEntry.createSlotElements();
+            }
+
+            _valueChanged(val) {
+                console.log("newVal: ", val);
+                this.value = val;
+                this.innerHTML = val;
+            }
+
+        }
+
+        customElements.define(TeiParameters.is, TeiParameters);
+    </script>
+</dom-module>
