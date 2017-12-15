@@ -71,6 +71,16 @@
                 @apply --paper-font-common-base;
                 color: white;
             }
+            .sideHeader{
+                background: var(--paper-blue-grey-700);
+                color:white;
+                padding:20px;
+            }
+            .oddName{
+                font-size:22px;
+                font-weight:400;
+                padding:10px 0;
+            }
         </style>
 
         <app-location id="route" route="{{route}}"></app-location>
@@ -87,6 +97,12 @@
         <app-drawer-layout full-bleed>
             <app-drawer slot="drawer">
                 <div class="drawerContent">
+
+                    <div class="sideHeader">
+                        <div class="sideHeader2">Editing</div>
+                        <div class="oddName">{{oddName}}</div>
+                    </div>
+
                     <template is="dom-repeat" items="{{specElements}}">
                         <paper-item on-click="_moveIntoFocus">{{item.ident}}</paper-item>
                     </template>
@@ -161,6 +177,9 @@
                     specElements: {
                         type: Array,
                         value: []
+                    },
+                    oddName:{
+                        type:String
                     }
                 };
             }
@@ -173,9 +192,11 @@
             connectedCallback() {
                 super.connectedCallback();
                 console.log("OddEditor connected");
-                this.$.route.addEventListener('query-params-changed', this._onUrlChanged.bind(this))
+                this.$.route.addEventListener('query-params-changed', this._onUrlChanged.bind(this));
                 this.$.loadOdd.params = {"odd": this.$.route.queryParams.odd};
+                this.oddName=this.$.route.queryParams.odd;
             }
+
 
             _handleLoad() {
                 console.log('_handleLoad odd ', this.$.loadOdd.params);
@@ -194,7 +215,7 @@
             _onUrlChanged(e) {
                 console.log("url changed ", e);
                 console.log("route: ", this.$.route.queryParams.odd);
-
+                this.oddName = this.$.route.queryParams.odd;
 
             }
 

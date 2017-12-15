@@ -1,7 +1,7 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
 <dom-module id="tei-element-spec">
     <template>
-        <style>
+        <style include="publisher-styles">
             :host {
                 display: block;
                 padding: 0;
@@ -27,9 +27,10 @@
                 color: var(--paper-grey-900);
                 font-size: 24px;
                 /*padding: 10px;*/
-                display: inline-block;
+                display: table-cell;
                 border:none;
                 background: transparent;
+                line-height:40px;
             }
             .ident:focus{
                 border:none;
@@ -48,10 +49,10 @@
 */
             }
             /*#ident,#mode{*/
-            #mode{
+            #ident, #mode{
                 display:table-cell;
-                padding: 10px;
-                vertical-align: bottom;
+                padding: 0px 10px;
+                /*vertical-align: bottom;*/
             }
             .moreMenu{
                 position: absolute;
@@ -59,14 +60,13 @@
                 top:-5px;
             }
 
+
         </style>
 
 
         <div id="toggle" class="toggleBar" on-click="toggle" aria-expanded$="[[opened]]" aria-controls="collapse">
             <paper-icon-button id="toggleBtn" icon="unfold-more" tabindex="0"></paper-icon-button>
-            <!--<span class="ident">[[ident]]</span>-->
-            <input id="ident" class="ident" label="ident" value="{{ident}}" title="ident" no-label-float on-click="_cancelToggle" placeholder="[Element Name]" required></input>
-
+            <span class="ident">[[ident]]</span>
             <paper-menu-button class="moreMenu" close-on-activate horizontal-align="right" tabindex="0" on-click="_openMenu">
                 <paper-icon-button icon="more-vert" mini slot="dropdown-trigger"></paper-icon-button>
                 <paper-listbox slot="dropdown-content">
@@ -81,14 +81,15 @@
         <iron-collapse id="collapse">
             <div class="collapse-content">
                 <div class="wrapper">
-                    <!--<paper-input id="ident" label="ident" value="{{ident}}" title="ident"></paper-input>-->
-                    <paper-dropdown-menu id="mode" label="mode" noink no-animation>
-                        <paper-listbox slot="dropdown-content">
-                            <paper-item></paper-item>
-                            <paper-item>add</paper-item>
-                            <paper-item>change</paper-item>
-                        </paper-listbox>
-                    </paper-dropdown-menu>
+            <paper-input id="ident" label="ident" value="{{ident}}" title="ident"></paper-input>
+            <paper-dropdown-menu id="mode" label="mode" noink no-animation>
+                <paper-listbox slot="dropdown-content" attr-for-selected="item" selected="{{mode}}">
+                    <paper-item item=""></paper-item>
+                    <paper-item item="add">add</paper-item>
+                    <paper-item item="change">change</paper-item>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                    </div>
 
                     <slot name="model"></slot>
                     <paper-fab icon="add" mini on-click="_addEntry"></paper-fab>
@@ -137,6 +138,7 @@
                 console.log("TeiElementSpec connected");
                 this.setAttribute("slot", "element-spec");
                 document.addEventListener('removeEntry', e => this._removeEntry(e));
+//                this.createSlotElements();
             }
 
             createSlotElements() {
@@ -176,7 +178,7 @@
                 const newEntry = document.createElement("tei-model")
                 newEntry.setAttribute("slot", "model");
                 this.appendChild(newEntry);
-                newEntry.createSlotElements();
+//                newEntry.createSlotElements();
             }
 
             _removeEntry(e) {

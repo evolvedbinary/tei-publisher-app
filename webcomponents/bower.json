@@ -16,7 +16,8 @@
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "app-route": "PolymerElements/app-route#^2.0.0",
     "paper-fab": "PolymerElements/paper-fab#^2.0.0",
-    "iron-collapse": "PolymerElements/iron-collapse#^2.0.0"
+    "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

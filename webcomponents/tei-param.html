@@ -32,7 +32,7 @@
             <paper-input id="name" label="name" value="{{name}}" title="name" placeholder="[Param Name]"></paper-input>
             <paper-input id="value" label="value" value="{{value}}" title="value" placeholder="[XPath to define param value]"></paper-input>
             <div class="cell">
-                <paper-icon-button class="removeIcon" icon="remove-circle" on-click="_dispatchRemove"></paper-icon-button>
+                <paper-icon-button class="removeIcon" icon="remove-circle" on-click="_removeEntry"></paper-icon-button>
             </div>
         </div>
 
@@ -93,11 +93,9 @@
             }
 
 
-            _dispatchRemove(e) {
+            _removeEntry(e) {
                 console.log("tei-param delete");
-                if (confirm("really delete?")) {
-                    this.parentNode.removeChild(this);
-                }
+                this.parentNode.removeChild(this);
             }
 
 

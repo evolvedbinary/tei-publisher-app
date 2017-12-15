@@ -12,6 +12,7 @@
         </attribute>
 
         <elementset name="model">
+            <element name="description"></element>
             <attribute name="output">
                 <option></option>
                 <option>web</option>
@@ -22,7 +23,6 @@
                 <option>plain</option>
             </attribute>
 
-            <element name="description"></element>
             <attribute name="behaviour">
                 <option>block</option>
                 <option>inline</option>
@@ -60,10 +60,13 @@
                 </elementset>
             </element>
             <elementset name="output-rendition">
-                <attribute name="scope"></attribute>
+                <attribute name="scope">
+                    <option>before</option>
+                    <option>after</option>
+                </attribute>
                 <textNode></textNode>
             </elementset>
-            <attribute name="useSourceRendition"></attribute>
+            <attribute name="useSourceRendition" type="xsd:boolean"></attribute>
         </elementset>
 
         <element name="model-sequence">

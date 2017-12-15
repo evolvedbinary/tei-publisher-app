@@ -1,21 +1,29 @@
 # \<odd-editor\>
 
-an editor for edting odd files
+an editor for edting odd files with Polymer Web Component architecture
 
-## Install the Polymer-CLI
+## Accessing the editor
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
+For this pilot an additional link besides the link of the riotjs editor has been generated. By 
+clicking this link the editor will open the selected odd file.
 
-## Viewing Your Element
 
-```
-$ polymer serve
-```
+## setup of client
 
-## Running Tests
+Execute
 
 ```
-$ polymer test
+npm install || bower install
+
 ```
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+For npm you should have 3.10.9 or similar installed. You easy switching of mpm versions please check 
+
+https://github.com/creationix/nvm.
+
+
+After running that scripts you should have all the build-time tools (gulp etc. found in node_packages) 
+and runtime dependencies (bower found in bower_components) installed.
+
+A `ant xar` will create the eXistdb app as usual.
+

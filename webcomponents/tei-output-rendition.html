@@ -15,45 +15,46 @@
                 display: inline-block;
             }
 
-            .cell{
-                display:table-cell;
+            .cell {
+                display: table-cell;
                 padding: 10px;
                 vertical-align: bottom;
             }
-            [icon="add"]{
+
+            [icon="add"] {
                 position: absolute;
-                top:4px;
-                right:10px;
+                top: 4px;
+                right: 10px;
             }
 
         </style>
 
         <!--<div class="wrapper">-->
-<!--
-            <div class="header">
-                <span class="label">Output Renditions</span>
-                <span class="actions">
-                    <paper-icon-button class="addIcon" icon="add-circle" on-click="_addEntry"></paper-icon-button>
-                </span>
-            </div>
--->
+        <!--
+                    <div class="header">
+                        <span class="label">Output Renditions</span>
+                        <span class="actions">
+                            <paper-icon-button class="addIcon" icon="add-circle" on-click="_addEntry"></paper-icon-button>
+                        </span>
+                    </div>
+        -->
 
-            <div class="wrapper">
-                <paper-dropdown-menu class="cell" id="scope" label="scope" noink no-animation>
-                    <paper-listbox slot="dropdown-content">
-                        <paper-item></paper-item>
-                        <paper-item>before</paper-item>
-                        <paper-item>after</paper-item>
-                    </paper-listbox>
-                </paper-dropdown-menu>
+        <div class="wrapper">
+            <paper-dropdown-menu id="scope" class="cell" label="scope" noink no-animation>
+                <paper-listbox slot="dropdown-content" attr-for-selected="item" selected="{{scope}}">
+                    <paper-item item=""></paper-item>
+                    <paper-item item="before">before</paper-item>
+                    <paper-item item="after">after</paper-item>
+                </paper-listbox>
+            </paper-dropdown-menu>
 
-                <paper-input class="textnode cell" id="text" label="scope" value="{{value}}" title="scope">
-                    <slot id="slot" name="scope"></slot>
-                </paper-input>
-                <div class="cell">
-                    <paper-icon-button icon="remove-circle" on-click="_dispatchRemove"></paper-icon-button>
-                </div>
+            <paper-input class="textnode cell" id="text" label="scope" value="{{value}}" title="scope">
+                <slot id="slot" name="scope"></slot>
+            </paper-input>
+            <div class="cell">
+                <paper-icon-button icon="remove-circle" on-click="_removeEntry"></paper-icon-button>
             </div>
+        </div>
 
 
         <!--</div>-->
@@ -117,11 +118,9 @@
             }
 
 
-            _dispatchRemove(e) {
+            _removeEntry(e) {
                 console.log("tei-output-rendition delete");
-                if (confirm("really delete?")) {
-                    this.parentNode.removeChild(this);
-                }
+                this.parentNode.removeChild(this);
             }
 
 

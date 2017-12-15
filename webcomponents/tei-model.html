@@ -28,6 +28,20 @@
                 0 2px 4px -1px rgba(0, 0, 0, 0.4);
             }
 
+            :host:before {
+                content: 'model';
+                position: absolute;
+                background: var(--paper-blue-grey-600);
+                color: var(--paper-blue-grey-100);
+                margin: 0 auto;
+                right: 70px;
+                padding: 2px 12px;
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                border: 1px inset var(--paper-blue-grey-200);
+                font-size: small;
+            }
+
             .label {
                 font-size: 20px;
                 /*font-weight: 300;*/
@@ -55,39 +69,58 @@
                         }
             */
 
-            .toggleBar{
+            .toggleBar {
                 background: var(--paper-blue-grey-50);
                 background: var(--paper-blue-grey-300);
                 color: white;
                 padding: 2px;
             }
-            .collapse-content{
+
+            .collapse-content {
                 padding: 20px;
                 background: white;
             }
-            .label{
-                min-height:20px;
+
+            .label {
+                min-height: 20px;
             }
-            .moreMenu{
+
+            .moreMenu {
                 position: absolute;
-                right:10px;
-                top:-5px;
+                right: 10px;
+                top: -5px;
             }
-            .wrapRendition{
+
+            .wrapRendition {
                 position: relative;
+                border: 1px solid var(--paper-blue-grey-100);
             }
-            .wrapRendition [icon="add"]{
+
+            .wrapRendition [icon="add"] {
                 position: absolute;
-                top:4px;
-                right:10px;
+                top: 4px;
+                right: 10px;
+            }
+
+            #output, #behaviour {
+                display: table-cell;
+                padding-right: 10px;
+            }
+
+            paper-checkbox {
+                display: block;
+                margin-left: 10px;
+                margin-top: 10px;
             }
         </style>
 
-        <div id="toggle" class="toggleBar" on-click="toggle" aria-expanded$="[[opened]]" aria-controls="collapse" tabindex="0">
+        <div id="toggle" class="toggleBar" on-click="toggle" aria-expanded$="[[opened]]" aria-controls="collapse"
+             tabindex="0">
             <paper-icon-button id="toggleBtn" icon="unfold-more" tabindex="0"></paper-icon-button>
             <span class="label">[[predicateLabel]]</span>
             <!--<span class="predicate">[[predicate]]</span>-->
-            <paper-menu-button class="moreMenu" close-on-activate horizontal-align="right" tabindex="0" on-click="_openMenu">
+            <paper-menu-button class="moreMenu" close-on-activate horizontal-align="right" tabindex="0"
+                               on-click="_openMenu">
                 <paper-icon-button icon="more-vert" mini slot="dropdown-trigger"></paper-icon-button>
                 <paper-listbox slot="dropdown-content">
                     <paper-item id="moveUp" on-click="_moveUp">move up</paper-item>
@@ -96,57 +129,60 @@
                 </paper-listbox>
             </paper-menu-button>
         </div>
-<!--
-        <paper-icon-button class="removeIcon" icon="remove-circle"
-                           on-click="_dispatchRemove"></paper-icon-button>
--->
+        <!--
+                <paper-icon-button class="removeIcon" icon="remove-circle"
+                                   on-click="_dispatchRemove"></paper-icon-button>
+        -->
 
         <iron-collapse id="collapse">
             <div class="collapse-content">
                 <div class="wrapper">
-                    <paper-dropdown-menu id="output" label="output" noink no-animation>
-                        <paper-listbox slot="dropdown-content">
-                            <paper-item></paper-item>
-                            <paper-item>web</paper-item>
-                            <paper-item>print</paper-item>
-                            <paper-item>epub</paper-item>
-                            <paper-item>fo</paper-item>
-                            <paper-item>latex</paper-item>
-                            <paper-item>plain</paper-item>
-                        </paper-listbox>
-                    </paper-dropdown-menu>
                     <slot name="description"></slot>
-                    <paper-dropdown-menu id="behaviour" label="behaviour" noink no-animation>
-                        <paper-listbox slot="dropdown-content">
-                            <paper-item></paper-item>
-                            <paper-item>block</paper-item>
-                            <paper-item>inline</paper-item>
-                            <paper-item>alternate</paper-item>
-                            <paper-item>anchor</paper-item>
-                            <paper-item>block</paper-item>
-                            <paper-item>body</paper-item>
-                            <paper-item>break</paper-item>
-                            <paper-item>cell</paper-item>
-                            <paper-item>cit</paper-item>
-                            <paper-item>document</paper-item>
-                            <paper-item>figure</paper-item>
-                            <paper-item>graphic</paper-item>
-                            <paper-item>heading</paper-item>
-                            <paper-item>inline</paper-item>
-                            <paper-item>link</paper-item>
-                            <paper-item>list</paper-item>
-                            <paper-item>listItem</paper-item>
-                            <paper-item>metadata</paper-item>
-                            <paper-item>note</paper-item>
-                            <paper-item>omit</paper-item>
-                            <paper-item>paragraph</paper-item>
-                            <paper-item>row</paper-item>
-                            <paper-item>section</paper-item>
-                            <paper-item>table</paper-item>
-                            <paper-item>text</paper-item>
-                            <paper-item>title</paper-item>
-                        </paper-listbox>
-                    </paper-dropdown-menu>
+                    <div class="row">
+                        <paper-dropdown-menu id="output" label="output" noink no-animation>
+                            <paper-listbox slot="dropdown-content" attr-for-selected="item" selected="{{output}}">
+                                <paper-item item=""></paper-item>
+                                <paper-item item="web">web</paper-item>
+                                <paper-item item="print">print</paper-item>
+                                <paper-item item="epub">epub</paper-item>
+                                <paper-item item="fo">fo</paper-item>
+                                <paper-item item="latex">latex</paper-item>
+                                <paper-item item="plain">plain</paper-item>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                        <paper-dropdown-menu id="behaviour" label="behaviour" noink no-animation>
+                            <paper-listbox slot="dropdown-content" attr-for-selected="item" selected="{{behaviour}}">
+                                <paper-item item=""></paper-item>
+                                <paper-item item="block">block</paper-item>
+                                <paper-item item="inline">inline</paper-item>
+                                <paper-item item="alternate">alternate</paper-item>
+                                <paper-item item="anchor">anchor</paper-item>
+                                <paper-item item="block">block</paper-item>
+                                <paper-item item="body">body</paper-item>
+                                <paper-item item="break">break</paper-item>
+                                <paper-item item="cell">cell</paper-item>
+                                <paper-item item="cit">cit</paper-item>
+                                <paper-item item="document">document</paper-item>
+                                <paper-item item="figure">figure</paper-item>
+                                <paper-item item="graphic">graphic</paper-item>
+                                <paper-item item="heading">heading</paper-item>
+                                <paper-item item="inline">inline</paper-item>
+                                <paper-item item="link">link</paper-item>
+                                <paper-item item="list">list</paper-item>
+                                <paper-item item="listItem">listItem</paper-item>
+                                <paper-item item="metadata">metadata</paper-item>
+                                <paper-item item="note">note</paper-item>
+                                <paper-item item="omit">omit</paper-item>
+                                <paper-item item="paragraph">paragraph</paper-item>
+                                <paper-item item="row">row</paper-item>
+                                <paper-item item="section">section</paper-item>
+                                <paper-item item="table">table</paper-item>
+                                <paper-item item="text">text</paper-item>
+                                <paper-item item="title">title</paper-item>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                    </div>
+
                     <paper-input id="predicate" label="predicate" value="{{predicate}}" title="predicate"></paper-input>
                     <paper-input id="cssClass" label="cssClass" value="{{cssClass}}" title="cssClass"></paper-input>
                     <slot name="parameters"></slot>
@@ -156,12 +192,11 @@
                         <slot name="output-rendition"></slot>
                         <paper-fab icon="add" mini on-click="_addEntry"></paper-fab>
                     </div>
-                    <!--<paper-fab icon="add" mini on-click="_log"></paper-fab>-->
-                    <paper-input id="useSourceRendition" label="useSourceRendition" value="{{useSourceRendition}}"
-                                 title="useSourceRendition"></paper-input>
-                </div>
-            </div>
-        </iron-collapse>
+
+                    <paper-checkbox id="useSourceRendition" title="useSourceRendition">
+                        useSourceRendition
+                    </paper-checkbox>
+
 
     </template>
     <script>
@@ -183,23 +218,23 @@
                     predicate: {
                         type: String,
                         reflectToAttribute: true,
-                        value:''
+                        value: ''
                     },
                     cssClass: {
                         type: String,
                         reflectToAttribute: true
                     },
                     useSourceRendition: {
-                        type: String,
+                        type: Boolean,
                         reflectToAttribute: true
                     },
                     opened: {
                         type: Boolean,
                         reflectToAttribute: true
                     },
-                    predicateLabel:{
+                    predicateLabel: {
                         type: String,
-                        computed:'computeLabel(predicate)'
+                        computed: 'computeLabel(predicate)'
                     }
                 }
             }
@@ -213,9 +248,14 @@
                 super.connectedCallback();
                 console.log("TeiModel connected");
                 this.setAttribute("slot", "model");
-                document.addEventListener('removeEntry', e => this._removeEntry(e));
-                this.createSlotElements();
-                this.tabindex=0;
+//                document.addEventListener('removeEntry', e => this._removeEntry(e));
+//                this.createSlotElements();
+                this.tabindex = 0;
+                if(this.useSourceRendition === true){
+                    this.$.useSourceRendition.setAttribute("checked","true")
+                }else{
+                    this.$.useSourceRendition.removeAttribute("checked");
+                }
             }
 
             createSlotElements() {
@@ -257,11 +297,6 @@
                 newEntry.createSlotElements();
             }
 
-            _removeEntry(e) {
-                console.log("tei-model removing entry ", e.detail.entry);
-                this.removeChild(e.detail.entry)
-            }
-
 
             _valueChanged(val) {
                 console.log("newVal: ", val);
@@ -276,36 +311,36 @@
 
             toggle(e) {
 
-                console.log("toggle ",e);
+                console.log("toggle ", e);
 
                 this.$.collapse.toggle();
-                if(this.$.collapse.opened){
+                if (this.$.collapse.opened) {
                     this.$.toggleBtn.icon = 'unfold-less';
-                }else{
+                } else {
                     this.$.toggleBtn.icon = 'unfold-more';
                 }
             }
 
-            _openMenu(e){
-                console.log('openMenu ',e)
+            _openMenu(e) {
+                console.log('openMenu ', e)
                 e.preventDefault();
                 e.stopPropagation();
             }
 
-            _moveUp(e){
-                console.log('moveUp ',e)
+            _moveUp(e) {
+                console.log('moveUp ', e)
                 //todo
             }
 
-            _moveDown(){
+            _moveDown() {
                 //todo
             }
 
-            computeLabel(predicate){
+            computeLabel(predicate) {
                 console.log('computeLabel ', predicate)
-                if(predicate == ''){
+                if (predicate == '') {
                     return 'DEFAULT';
-                }else{
+                } else {
                     return this.predicate;
                 }
             }
