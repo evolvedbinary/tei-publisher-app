@@ -15,9 +15,22 @@ var fs =                    require('fs'),
 
     input = {
         'styles':               'resources/css/style.less',
-        'vendor_styles':        'resources/css/vendor/*',
+        'vendor_css_source':    [
+                                    'node_modules/bootstrap/dist/css/bootstrap.min.css'
+                                    ,'node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css'
+                                    ,'node_modules/jasny-bootstrap/dist/css/jasny-bootstrap.min.css'
+                                ],
+        'vendor_css':           'resources/css/vendor/*',
         'scripts':              'resources/scripts/app.js',
-        'vendor_scripts':       'resources/scripts/vendor/*',
+        'vendor_js_source':       [
+                                    'node_modules/jquery/dist/jquery.min.js'
+                                    ,'node_modules/bootstrap/dist/js/bootstrap.min.js'
+                                    ,'node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js'
+                                    ,'node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js'
+                                    ,'node_modules/bootstrap-3-typeahead/bootstrap3-typeahead.min.js'
+                                    ,'node_modules/jquery-touchswipe/jquery.touchSwipe.min.js'
+                                ],
+        'vendor_js':            'resources/scripts/vendor/*',
         'html':                 '*.html',
         'images':               'resources/images/*',
         'fonts':                'resources/fonts/*',
@@ -33,9 +46,9 @@ var fs =                    require('fs'),
     },
     output  = {
         'styles':               'resources/css',
-        'vendor_styles':        'resources/css/vendor/*',
+        'vendor_css':           'resources/css/vendor/',
         'scripts':              'resources/scripts/*',
-        'vendor_scripts':       'resources/scripts/vendor/*',
+        'vendor_js':            'resources/scripts/vendor/',
         'html':                 '.',
         'images':               'resources/images/*',
         'fonts':                'resources/fonts/*',
@@ -86,7 +99,14 @@ var targetConfiguration = {
 
 // ****************  Styles ****************** //
 
+gulp.task('copy:vendor_css_source', function () {
+    console.log('copying vendor css from node_modules to "resources/css"');
+    return gulp.src(input.vendor_css_source)
+        .pipe(gulp.dest(output.vendor_css))
+});
+
 gulp.task('build:styles', function(){
+    console.log('build less files');
     return gulp.src(input.styles)
         .pipe(sourcemaps.init())
         .pipe(less({ plugins: [cleanCSSPlugin, autoprefix] }))
@@ -94,14 +114,14 @@ gulp.task('build:styles', function(){
         .pipe(gulp.dest(output.styles))
 });
 
-gulp.task('deploy:vendor_styles', function () {
+gulp.task('deploy:vendor_styles', ['copy:vendor_css_source'], function () {
     console.log('deploying less and css files');
-    return gulp.src(input.vendor_styles, {base: './'})
+    return gulp.src(input.vendor_css, {base: './'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
 });
 
-gulp.task('deploy:styles', ['build:styles', 'deploy:vendor_styles'], function () {
+gulp.task('deploy:styles', ['build:styles'], function () {
     console.log('deploying less and css files');
     return gulp.src('resources/css/**/*', {base: './'})
         .pipe(exClient.newer(targetConfiguration))
@@ -115,10 +135,17 @@ gulp.task('watch:styles', function () {
 
 // *************  Scripts *************** //
 
+gulp.task('copy:vendor_js_source', function () {
+    console.log('copying vendor js from node_modules to "resources/js"');
+    return gulp.src(input.vendor_js_source)
+        .pipe(gulp.dest(output.vendor_js))
+});
+
 // Deploy javascript to existDB
-gulp.task('deploy:vendor_scripts', function () {
+gulp.task('deploy:vendor_scripts', ['copy:vendor_js_source'], function () {
+    console.log('deploying js files"');
     return gulp.src([
-        output.vendor_scripts
+        output.vendor_js
     ], {base: '.'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
@@ -274,14 +301,14 @@ var oddPath =           'resources/odd/**/*',
     vendorCssPath =     'resources/css/vendor/*',
     otherPath =         '*{.xpr,.xqr,.xql,.xml,.xconf}',
     imagePath =         'images/*',
-    scriptPath =        'resources/scripts/*',
+    scriptPath =        'resources/scripts/**/*',
     modulePath =        'modules/**/*',
     transformPath =     'transform/*',
     fontPath =          'resources/fonts/*';
 
 
 // Deploy all files to existDB
-gulp.task('deploy', ['deploy:styles'], function () {
+gulp.task('deploy', ['deploy:styles', 'deploy:scripts'], function () {
     console.log('deploying all files to local existDB"');
     return gulp.src([
              oddPath
@@ -300,9 +327,8 @@ gulp.task('deploy', ['deploy:styles'], function () {
         .pipe(exClient.dest(targetConfiguration))
 });
 
-
 // TODO add test to gulp
-gulp.task('test', () => {
+gulp.task('test', function () {
   console.log('I will be a test one day, for now please see the documentation for how to run tests');
 });
 
