@@ -25,6 +25,7 @@ var fs =                    require('fs'),
         'vendor_js_source':       [
                                     'node_modules/jquery/dist/jquery.min.js'
                                     ,'node_modules/bootstrap/dist/js/bootstrap.min.js'
+                                    ,'node_modules/popper.js/dist/popper.min.js'
                                     ,'node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js'
                                     ,'node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js'
                                     ,'node_modules/bootstrap-3-typeahead/bootstrap3-typeahead.min.js'
@@ -279,6 +280,7 @@ gulp.task('watch:modules', function () {
 // Build task
 gulp.task('build', [
     'build:styles'
+    ,'copy:vendor_js_source'
 ]);
 
 // Watch and deploy all changed files
