@@ -84,29 +84,38 @@
 }
 
 // override for language selector in top navigation
-.navbar-expand-lg .navbar-collapse .tp-navigation-secondary  {
- .nav-link {
-   i {
-     vertical-align: middle;
-     font-size: 21px;
-   }
-  }
-  .tp-language-selector {
-    .nav-link {
-      //padding-top: 19px;
-      //padding-bottom: 14px;
-      select {
-        height: 27px;
-      }
+.navbar-expand-lg .navbar-collapse .tp-navigation-secondary {
+  .nav-link {
+    i {
+      vertical-align: middle;
+      font-size: 21px;
     }
   }
-
+  .tp-language-selector {
+    select {
+      height: 27px;
+    }
+  }
   .tp-login {
     .nav-link {
       position: relative;
       display: block;
     }
   }
+}
+
+// Wrapper only for calling data-template="browse:fix-links"
+.tp-logo-wrapper {
+  display: flex;
+  height: @navbar-height-small;
+  @media screen and (min-width: @screen-lg-min) {
+    height: @navbar-height-large;
+  }
+}
+
+// Toggle button svg strokes
+.tp-toggle-icon {
+  color: @color-navigation-text;
 }
 
 .navbar-default {
@@ -119,7 +128,6 @@
 
 // Sub-subnavigation in collapsed navigation
 .navbar-collapse {
-  max-height: 90vh !important;
   // List of menu items in dropdown menu
   .navbar-nav {
     margin-top: 0;
@@ -362,6 +370,7 @@
   }
 }
 #content .navbar {
+  z-index: 10;
   .custom-file-control,
   .form-control,
   .is-focused .custom-file-control,
@@ -373,40 +382,16 @@
 
 // Override Bootstrap breakpoint to collapse navigation
 @media (max-width: 991px) {
-  .navbar-header {
-    float: none;
-  }
-  .navbar-left,.navbar-right {
-    float: none !important;
-  }
-  .navbar-toggler {
-    display: block;
-  }
   .navbar-collapse {
     border-top: 1px solid transparent;
   }
   .navbar-fixed-top {
     top: 0;
-    //border-width: 0 0 1px;
+    border-width: 0 0 1px;
   }
-  .navbar-collapse.collapse {
-    display: none!important;
-  }
-  .navbar-nav {
-    float: none!important;
-    //margin-top: 7.5px;
-  }
-  .navbar-nav>li {
-    float: none;
-  }
-  .collapse.in{
-    display: block !important;
-  }
-  .container-fluid>.navbar-collapse,
-  .container-fluid>.navbar-header,
-  .container>.navbar-collapse,
-  .container>.navbar-header {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: @navbar-default-color;
+  background-color: @color-navigation-bg;
 }
