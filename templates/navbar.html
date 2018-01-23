@@ -10,22 +10,24 @@
                 <path fill="#fff" fill-rule="evenodd" d="m111.66 85.275c8.4941 7.5957 17.415 16.799 24.751 25.15.74946.85198 1.5294 1.697 2.1126 2.6709.26321.43915.27568.98704.37819 1.4892.34979 1.715-1.0944 1.9242-2.0122 2.2698-.91708.34564-1.7136.007-2.9341-.47101-1.2205-.47932-2.8302-1.5142-2.8302-1.5142-.21057.3491-6.2748 8.961-7.9476 10.803-3.7217 4.1063-7.5623 8.1032-11.517 11.986-13.977 13.697-13.739 14.1-28.878 27.059-12.66 9.9196-17.603 14.279-30.379 22.685-2.8545 1.8785-9.7464 5.1347-9.7464 5.1347-5.6403 1.1831-9.0198.4627-4.1885-5.3058 12.587-9.4984 25.673-22.111 36.32-30.898 29.493-24.121 2.7866-3.1364 30.977-26.155 4.2612-3.4785 7.185-5.8634 11.399-9.3994 2.3897-2.0052 4.4933-3.8997 6.8255-5.9714.90184-.8021 1.6693-1.7732 2.6737-2.4402.19117-.12676.42945 1.5543.64486 1.6333.64279-.58253 1.0764-1.1221 1.0764-1.1221s-1.3458-.86652-2.9189-2.1112c-8.8106-6.9737-11.318-9.3301-20.439-17.196-19.105-17.006-37.794-34.42-54.586-53.773-.472-3.562.472-3.585 3.905-3.136 19.565 15.924 38.696 31.359 57.311 48.618h-.00069z"/>
             </svg>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-template="browse:fix-links">
+        <!-- toggle button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"/>
         </button>
+        <!-- // end toggle button -->
     </div>
     <!-- //end logo -->
 
-    <!-- top navigation row -->
+    <!-- collapsible navigation row -->
     <div class="collapse navbar-collapse" id="navbarToggler" data-template="browse:fix-links">
 
-        <!-- page navigation  -->
+        <!-- left navigation group with page links -->
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li id="about" class="nav-item">
-                <a class="nav-link tp-menu-item" href="$app/index.html">Start <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="$app/index.html">Start <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" data-template="browse:show-for-document">
-                <a href="#" class="nav-link dropdown-toggle tp-menu-item" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(download)">
+                <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(download)">
                     <i18n:text key="download"/>
                 </a>
                 <ul class="dropdown-menu" role="menu">
@@ -70,30 +72,34 @@
             </li>
 
             <li class="dropdown nav-item">
-                <a href="#" class="dropdown-toggle tp-menu-item nav-link" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(documentation)">
+                <a href="#" class="dropdown-toggle  nav-link" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(documentation)">
                     <i18n:text key="documentation"/>
                 </a>
+                <div class="ripple-container"></div>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <li class="nav-item dropdown">
                         <a class="nav-item nav-link" href="$app/doc/documentation.xml?odd=docbook.odd">
                             <i18n:text key="documentation"/>
                         </a>
+                        <span class="ripple"></span>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-item nav-link" href="$app/doc/documentation.xml?odd=docbook.odd&amp;id=faq">
                             FAQ
                         </a>
+                        <span class="ripple"></span>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="$app/doc/presentation.xml.tex?odd=beamer.odd">
                             <i18n:text key="presentation"/>
                         </a>
+                        <span class="ripple"></span>
                     </li>
                 </ul>
             </li>
 
             <li class="dropdown nav-item" data-template="browse:show-if-logged-in">
-                <a href="#" class="dropdown-toggle tp-menu-item nav-link" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(admin)">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(admin)">
                     <i18n:text key="admin"/>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -126,12 +132,48 @@
                 </a>
             </li>
         </ul>
-        <!-- //end page navigation  -->
+        <!-- //end left navigation group -->
 
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search"/>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <!-- right navigation group with login and language selector  -->
+        <section class="tp-navigation-secondary navbar-nav my-2 my-lg-0">
+            <!-- Search input -->
+            <form id="searchPageForm" class="form-inline navbar-form" role="search" action="$app/search.html">
+                <div class="input-group">
+                    <i class="material-icons" onclick="$(&#34;#searchPageForm&#34;).submit()">search</i>
+                    <input placeholder="Search" type="search" class="form-control search-input templates:form-control typeahead-search" autocomplete="off" name="query"/>
+                </div>
+                <input type="hidden" name="doc" data-template="search:form-current-doc"/>
+            </form>
+            <!-- // end search input -->
+
+            <!-- language selector -->
+            <div class="nav-item tp-language-selector">
+                <form class="form-inline">
+                    <div class="nav-link form-group">
+                        <select id="lang-select" name="lang" class="form-control" data-template="templates:form-control">
+                            <option value="en">en</option>
+                            <option value="de">de</option>
+                            <option value="fr">fr</option>
+                            <option value="gr">gr</option>
+                            <option value="pl">pl</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <!-- // end language selector -->
+
+            <!-- login button -->
+            <div class="nav-item tp-login" data-template="browse:check-login">
+                <a class="nav-link" href="#loginDialog" data-toggle="modal" title="i18n(login)">
+                    <i class="material-icons">account_circle</i> <i18n:text key="login"/>
+                </a>
+                <a class="nav-link" id="logout" href="#" title="i18n(logout)">
+                    <i class="material-icons">account_circle</i> <i18n:text key="logout"/> <span class="browse:current-user"/>
+                </a>
+            </div>
+            <!-- // end login button -->
+        </section>
+        <!-- //end right navigation group -->
     </div>
-    <!-- //end top navigation row -->
+    <!-- //end collapsible navigation row -->
 </nav>
