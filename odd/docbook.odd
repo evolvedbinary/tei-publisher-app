@@ -226,7 +226,7 @@
                     <model behaviour="inline" cssClass="code"/>
                 </elementSpec>
                 <elementSpec ident="note">
-                    <model behaviour="panel" cssClass="panel-default">
+                    <model behaviour="card" cssClass="tp-card">
                         <param name="title" value="title"/>
                         <param name="content" value="*[not(self::title)]"/>
                     </model>

@@ -219,9 +219,9 @@ function app:action($node as node(), $model as map(*), $source as xs:string?, $a
     $title as xs:string?) {
     switch ($action)
         case "create-odd" return
-            <div class="panel panel-primary" role="alert">
-                <div class="panel-heading"><h3 class="panel-title">Generated Files</h3></div>
-                <div class="panel-body">
+            <div class="card card-primary" role="alert">
+                <div class="card-body">
+                    <h3 class="card-title">Generated Files</h3>
                     <ul class="list-group">
                     {
                         let $template := doc($config:odd-root || "/template.odd.xml")
