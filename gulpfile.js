@@ -95,7 +95,7 @@ var exClient = exist.createClient({
 
 var targetConfiguration = {
     target: '/db/apps/tei-publisher/',
-    html5AsBinary: true
+    html5AsBinary: false
 };
 
 // ****************  Styles ****************** //
