@@ -60,11 +60,11 @@ function app:odd-table($node as node(), $model as map(*), $odd as xs:string?) {
                                             <a class="btn btn-default recompile" title="Regenerate"
                                                 href="?source={$name}.odd&amp;odd={$odd}">
                                                 <i class="material-icons">update</i>
-                                                <span class="hidden-xs">Regenerate</span>
+                                                <span class="tp-hidden-xs">Regenerate</span>
                                             </a>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="material-icons">code</i> <span class="hidden-xs">Source</span> <span class="caret"/>
+                                                    <i class="material-icons">code</i> <span class="tp-hidden-xs">Source</span> <span class="caret"/>
                                                 </button>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li>
