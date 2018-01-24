@@ -1,5 +1,5 @@
 // Toolbar
-.tp-toolbar {
+.navbar-nav.tp-toolbar {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
@@ -9,9 +9,10 @@
   top: 0;
   right: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 9;
   margin-top: @navbar-height-small;
   max-width: 100vw;
+  height: @toolbar-height;
 
   @media (max-width: 480px) {
     left: 0;
@@ -21,22 +22,28 @@
     margin-top: @navbar-height-large;
   }
 
-  a,
+  // Colors for links in navigation
+  .nav-link,
   .btn,
   .tp-dropdown-wrapper {
+    height: @toolbar-height;
+    max-height: @toolbar-height;
+    background-color: transparent;
     flex: 0 auto;
-    color: @color-primary !important;
+    color: @color-primary;
+
     &:hover,
     &:focus,
     &:active {
-      color: lighten(@color-primary, 10%) !important;
+      background-color: transparent;
+      color: lighten(@color-primary, 10%);
     }
   }
 
-  a,
+  .nav-link,
   .btn {
-    margin: 8px 0; // top-bottom: (@toolbarheight - 24px iconfonts) / 2
-    padding: 0 !important;
+    //margin: 8px 0; // top-bottom: (@toolbarheight - 24px iconfonts) / 2
+    padding: .5rem 0 !important;
   }
 
   .btn:not(.btn-raised):not(.btn-link) {
@@ -49,6 +56,9 @@
 
   i {
     color: inherit;
+    vertical-align: middle;
+    font-size: 21px;
+    cursor: pointer;
   }
 
   .btn-group {
@@ -61,21 +71,23 @@
     padding-top: 0;
     padding-bottom: 0;
     border-radius: 0;
-    li {
+    .dropdown {
       margin-bottom: 0;
-      a {
-        padding: 3px 30px !important;
+      .nav-link {
+        padding: 3px 7px !important;
         line-height: 3rem;
         &:hover {
-          color: @color-navigation-text;
           background: @color-navigation-hover;
+          color: @navbar-default-color;
         }
       }
     }
   }
 }
 
+/*
 .tp-dropdown-wrapper {
   display: inline;
   position: relative;
 }
+*/
