@@ -67,12 +67,27 @@
   }
 }
 
+// Colors for links in navigation
+.navbar-nav .nav-link {
+  color: @navbar-default-color;
+  background-color: @color-navigation-bg;
+  @media screen and (min-width: @screen-md-min) {
+    color: @navbar-default-color;
+    background-color: @color-navigation-bg;
+  }
+  &:hover {
+    background-color: @color-navigation-hover !important;
+    color: @color-navigation-text !important;
+  }
+}
+
 .dropdown-menu {
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 0;
 
-  li>a {
+  li>a, // any dropdown link
+  .nav-link { // a link in the navigation dropdown
     padding: 5px 15px 5px 25px !important;
     font-weight: 300 !important;
     line-height: 30px !important;
@@ -80,6 +95,14 @@
   li > a:hover {
     background-color: @color-navigation-hover !important;
     color: @color-navigation-text !important;
+  }
+  // colors for links in the navigation dropdown
+  .nav-link {
+    background-color: darken(@color-primary-light, 10%);
+    @media screen and (min-width: @screen-md-min) {
+      color: @dropdown-link-color !important;
+      background-color: @dropdown-bg;
+    }
   }
 }
 
@@ -107,15 +130,25 @@
 // Wrapper only for calling data-template="browse:fix-links"
 .tp-logo-wrapper {
   display: flex;
+  width: 100%;
   height: @navbar-height-small;
   @media screen and (min-width: @screen-lg-min) {
     height: @navbar-height-large;
   }
+  .navbar-brand {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
 }
 
-// Toggle button svg strokes
-.tp-toggle-icon {
-  color: @color-navigation-text;
+// Toggle button
+.navbar-toggler {
+  border: none;
+  // svg strokes
+  .tp-toggle-icon {
+    color: @color-navigation-text;
+  }
 }
 
 .navbar-default {
@@ -383,15 +416,10 @@
 // Override Bootstrap breakpoint to collapse navigation
 @media (max-width: 991px) {
   .navbar-collapse {
-    border-top: 1px solid transparent;
+    border-top: 1px solid @color-gray-medium;
   }
   .navbar-fixed-top {
     top: 0;
     border-width: 0 0 1px;
   }
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: @navbar-default-color;
-  background-color: @color-navigation-bg;
 }
