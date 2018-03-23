@@ -121,7 +121,9 @@ declare function deploy:init-simple($collection as xs:string?, $userData as xs:s
         let $template := repo:get-resource("http://existsolutions.com/apps/tei-publisher-lib", "content/" || $file)
         return
             xmldb:store($config:output-root, $file, $template, "text/xml"),
-        deploy:chmod-scripts($collection)
+        deploy:chmod-scripts($collection),
+        xmldb:copy($config:app-root || "/resources/i18n", $collection || "/resources"),
+        deploy:chmod($collection || "/resources/i18n", $userData, $permissions)
     )
 };
 

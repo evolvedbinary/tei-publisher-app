@@ -22,7 +22,7 @@ declare function local:work2epub($id as xs:string, $work as document-node(), $la
 
 let $id := replace(request:get-parameter("id", ""), "^(.*)\..*", "$1")
 let $token := request:get-parameter("token", ())
-let $lang := request:get-parameter("lang", ())
+let $lang := request:get-parameter("i18n.lang", ())
 let $work := pages:get-document($id)
 let $entries := local:work2epub($id, $work, $lang)
 return

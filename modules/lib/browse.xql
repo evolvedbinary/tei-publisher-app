@@ -385,3 +385,19 @@ declare function app:dispatch-action($node as node(), $model as map(*), $action 
         default return
             ()
 };
+
+declare
+    %templates:wrap
+function app:selected-lang($node as node(), $model as map(*), $lang as xs:string?) {
+    let $lang := ($lang, session:get-attribute("i18n.lang"))[1]
+    for $option in $node/*
+    return
+        element { node-name($option) } {
+            $option/@*,
+            if ($option/@value = $lang) then
+                attribute selected { "selected" }
+            else
+                (),
+            templates:process($option/node(), $model)
+        }
+};
