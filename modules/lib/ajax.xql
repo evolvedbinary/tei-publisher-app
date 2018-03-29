@@ -69,26 +69,27 @@ return
                 ($xml?data/ancestor-or-self::tei:div[1], $xml?data/following::tei:div[1])[1]
             else
                 $xml?data
-        let $doc := replace($doc, "^.*/([^/]+)$", "$1")
+        let $docRel := replace($doc, "^.*/([^/]+)$", "$1")
         return
             map {
-                "doc": $doc,
+                "doc": $docRel,
+                "path": $doc,
                 "root": $root,
                 "div": if ($div) then util:node-id($div) else (),
                 "odd": $config:odd,
                 "next":
                     if ($next) then
-                        $doc || "?root=" || util:node-id($next) || "&amp;odd=" || $config:odd || "&amp;view=" || $view
+                        $docRel || "?root=" || util:node-id($next) || "&amp;odd=" || $config:odd || "&amp;view=" || $view
                     else (),
                 "previous":
                     if ($prev) then
-                        $doc || "?root=" || util:node-id($prev) || "&amp;odd=" || $config:odd || "&amp;view=" || $view
+                        $docRel || "?root=" || util:node-id($prev) || "&amp;odd=" || $config:odd || "&amp;view=" || $view
                     else (),
                 "switchView":
                     let $root := pages:switch-view-id($xml?data, $view)
                     return
                         if ($root) then
-                            $doc || "?root=" || util:node-id($root) || "&amp;odd=" || $config:odd ||
+                            $docRel || "?root=" || util:node-id($root) || "&amp;odd=" || $config:odd ||
                                 "&amp;view=" || (if ($view = "div") then "page" else "div")
                         else
                             (),

@@ -3,7 +3,58 @@
     <body xmlns:i18n="http://exist-db.org/xquery/i18n">
         <div data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content" data-template-using="body">
             <div data-template="templates:include" data-template-path="templates/menu.html"/>
-
+            <section xmlns:i18n="http://exist-db.org/xquery/i18n" class="tp-toolbar" data-template="i18n:translate" data-catalogues="resources/i18n">
+                <div class="tp-dropdown-wrapper">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="material-icons">print</i>
+                        <span class="hidden-xs">PDF</span>
+                        <span class="caret"/>
+                    </button>
+                    <!-- Download options -->
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <tp-download-button type="pdf">
+                                <i18n:text key="pdf-fo"/>
+                            </tp-download-button>
+                        </li>
+                        <li>
+                            <tp-download-button type="pdf" source="yes" target="new">
+                                <i18n:text key="fo-source"/>
+                            </tp-download-button>
+                        </li>
+                        <li>
+                            <tp-download-button type="tex">
+                                <i18n:text key="pdf-latex"/>
+                            </tp-download-button>
+                        </li>
+                        <li>
+                            <tp-download-button type="tex" source="yes" target="new">
+                                <i18n:text key="latex-source"/>
+                            </tp-download-button>
+                        </li>
+                    </ul>
+                </div>
+                <tp-download-button title="i18n(epub-download)" type="epub">
+                    <i class="material-icons">book</i>
+                    <span class="hidden-xs">ePUB</span>
+                </tp-download-button>
+                <a class="btn btn-default" data-template="pages:xml-link" title="View XML Source">
+                    <i class="material-icons">code</i>
+                    <span class="hidden-xs">XML</span>
+                </a>
+                <tp-download-button type="" mode="plain" title="i18n(single-page)" target="new">
+                    <i class="material-icons">pageview</i>
+                    <span class="hidden-xs">
+                        <i18n:text key="plain"/>
+                    </span>
+                </tp-download-button>
+                <tp-zoom mode="in">
+                    <i class="material-icons">zoom_in</i>
+                </tp-zoom>
+                <tp-zoom mode="out">
+                    <i class="material-icons">zoom_out</i>
+                </tp-zoom>
+            </section>
             <div data-template="pages:component-setup"/>
             <section id="tp-canvas">
                 <main id="main-wrapper">
@@ -22,13 +73,17 @@
             <script src="resources/scripts/tags/navigation.js" type="text/javascript"/>
             <script src="resources/scripts/tags/tp-document.tag" type="riot/tag"></script>
             <script src="resources/scripts/tags/tp-navigation-button.tag" type="riot/tag"></script>
+            <script src="resources/scripts/tags/tp-download-button.tag" type="riot/tag"></script>
+            <script src="resources/scripts/tags/tp-zoom.tag" type="riot/tag"></script>
             <script src="resources/scripts/vendor/riot+compiler.min.js"></script>
             <script>
                 var app = riot.observable();
                 var navigation = new Navigation(app);
                 riot.mixin('navigation', navigation);
                 riot.mount('tp-document', TeiPublisher.config);
-                riot.mount('tp-navigation-button', TeiPublisher.config);
+                riot.mount('tp-navigation-button');
+                riot.mount('tp-download-button');
+                riot.mount('tp-zoom');
             </script>
         </div>
     </body>
