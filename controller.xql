@@ -35,11 +35,6 @@ else if (contains($exist:path, "/resources")) then
         <forward url="{$exist:controller}/resources/{substring-after($exist:path, '/resources/')}"/>
     </dispatch>
 
-else if (contains($exist:path, "/components")) then
-    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{$exist:controller}/components/{substring-after($exist:path, '/components/')}"/>
-    </dispatch>
-
 else if (contains($exist:path, "/images/")) then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{$exist:controller}/resources/images/{substring-after($exist:path, '/images/')}"/>

@@ -1,0 +1,35 @@
+<html data-template="pages:app-root">
+    <head data-template="templates:include" data-template-path="templates/head.html"/>
+    <body xmlns:i18n="http://exist-db.org/xquery/i18n">
+        <div data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content" data-template-using="body">
+            <div data-template="templates:include" data-template-path="templates/menu.html"/>
+
+            <div data-template="pages:component-setup"/>
+            <section id="tp-canvas">
+                <main id="main-wrapper">
+                    <section id="document-wrapper" class="tp-row">
+                        <!-- Document pane -->
+                        <div id="document-pane" class="tp-column">
+                            <tp-document></tp-document>
+                        </div>
+                    </section>
+                </main>
+            </section>
+            <footer class="tp-footer-nav">
+                <tp-navigation-button direction="previous"/>
+                <tp-navigation-button direction="next"/>
+            </footer>
+            <script src="resources/scripts/tags/navigation.js" type="text/javascript"/>
+            <script src="resources/scripts/tags/tp-document.tag" type="riot/tag"></script>
+            <script src="resources/scripts/tags/tp-navigation-button.tag" type="riot/tag"></script>
+            <script src="resources/scripts/vendor/riot+compiler.min.js"></script>
+            <script>
+                var app = riot.observable();
+                var navigation = new Navigation(app);
+                riot.mixin('navigation', navigation);
+                riot.mount('tp-document', TeiPublisher.config);
+                riot.mount('tp-navigation-button', TeiPublisher.config);
+            </script>
+        </div>
+    </body>
+</html>

@@ -25,6 +25,7 @@ module namespace pages="http://www.tei-c.org/tei-simple/pages";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace expath="http://expath.org/ns/pkg";
+declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 
 import module namespace nav="http://www.tei-c.org/tei-simple/navigation" at "../navigation.xql";
 import module namespace query="http://www.tei-c.org/tei-simple/query" at "../query.xql";
@@ -58,6 +59,27 @@ declare variable $pages:EDIT_ODD_LINK :=
     let $path := string-join((request:get-context-path(), request:get-attribute("$exist:prefix"), $appLink, "odd-editor.html"), "/")
     return
         replace($path, "/+", "/");
+
+declare
+    %templates:wrap
+function pages:component-setup($node as node(), $model as map(*), $doc as xs:string, $root as xs:string?,
+    $id as xs:string?, $view as xs:string?, $odd as xs:string?) {
+    <script type="text/javascript">
+    {
+        let $config := map {
+            "config": map {
+                "odd": $odd,
+                "root": $root,
+                "doc": $doc,
+                "view": $view
+            }
+        }
+        return
+        "var TeiPublisher = " || serialize($config,
+            <output:serialization-parameters><output:method>json</output:method></output:serialization-parameters>)
+    }
+    </script>
+};
 
 declare
     %templates:wrap
