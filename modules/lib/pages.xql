@@ -71,7 +71,9 @@ function pages:component-setup($node as node(), $model as map(*), $doc as xs:str
                 "odd": $odd,
                 "root": $root,
                 "doc": $doc,
-                "view": $view
+                "view": $view,
+                "dataRoot": $config:data-root,
+                "eXide": $pages:EXIDE
             }
         }
         return

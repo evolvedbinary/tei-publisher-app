@@ -1,3 +1,3 @@
-function Navigation(app) {
-    this.app = app;
+function Navigation() {
+    this.app = riot.observable();
 }

@@ -38,10 +38,10 @@
                     <i class="material-icons">book</i>
                     <span class="hidden-xs">ePUB</span>
                 </tp-download-button>
-                <a class="btn btn-default" data-template="pages:xml-link" title="View XML Source">
+                <tp-edit-xml title="i18n(view-tei)">
                     <i class="material-icons">code</i>
                     <span class="hidden-xs">XML</span>
-                </a>
+                </tp-edit-xml>
                 <tp-download-button type="" mode="plain" title="i18n(single-page)" target="new">
                     <i class="material-icons">pageview</i>
                     <span class="hidden-xs">
@@ -75,15 +75,16 @@
             <script src="resources/scripts/tags/tp-navigation-button.tag" type="riot/tag"></script>
             <script src="resources/scripts/tags/tp-download-button.tag" type="riot/tag"></script>
             <script src="resources/scripts/tags/tp-zoom.tag" type="riot/tag"></script>
+            <script src="resources/scripts/tags/tp-edit-xml.tag" type="riot/tag"></script>
             <script src="resources/scripts/vendor/riot+compiler.min.js"></script>
             <script>
-                var app = riot.observable();
-                var navigation = new Navigation(app);
+                var navigation = new Navigation();
                 riot.mixin('navigation', navigation);
                 riot.mount('tp-document', TeiPublisher.config);
                 riot.mount('tp-navigation-button');
                 riot.mount('tp-download-button');
                 riot.mount('tp-zoom');
+                riot.mount('tp-edit-xml', TeiPublisher.config);
             </script>
         </div>
     </body>

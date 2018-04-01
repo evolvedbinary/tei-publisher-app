@@ -5,6 +5,11 @@
 
     var self = this;
 
+    self.doc = self.opts.doc;
+    self.root = self.opts.root;
+    self.odd = self.opts.odd;
+    self.view = self.opts.view;
+    
     load(params, direction) {
         console.log("Loading %o", params);
 
