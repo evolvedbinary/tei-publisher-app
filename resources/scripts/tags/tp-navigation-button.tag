@@ -14,6 +14,19 @@
         this.app.trigger(this.direction, this.refs.link.search.substring(1));
     }
 
+    $(document).keydown(function(ev) {
+        if (ev.altKey || ev.shiftKey || ev.ctrlKey || ev.metaKey) {
+            return;
+        }
+        if ($(ev.target).is('input')) {
+            return;
+        }
+        if ((ev.which === 37 && self.direction == 'previous') ||
+            (ev.which === 39 && self.direction == 'next')) {
+            self.navigate(ev);
+        }
+    });
+    
     this.app.on('change', function(details) {
         self.refs.link.href = self.direction == 'previous' ? details.previous : details.next;
     });

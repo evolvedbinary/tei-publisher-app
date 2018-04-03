@@ -24,6 +24,7 @@ import module namespace console="http://exist-db.org/xquery/console" at "java:or
 import module namespace pages="http://www.tei-c.org/tei-simple/pages" at "pages.xql";
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "../config.xqm";
 import module namespace tpu="http://www.tei-c.org/tei-publisher/util" at "lib/util.xql";
+import module namespace nav="http://www.tei-c.org/tei-simple/navigation" at "../navigation.xql";
 
 declare boundary-space strip;
 
@@ -96,7 +97,8 @@ return
                 "content": serialize($html,
                     <output:serialization-parameters xmlns:output="http://www.w3.org/2010/xslt-xquery-serialization">
                       <output:indent>no</output:indent>
-                    </output:serialization-parameters>)
+                    </output:serialization-parameters>),
+                "title": nav:get-document-title($xml?config, root($xml?data)/*)
             }
     else
         map { "error": "Not found" }

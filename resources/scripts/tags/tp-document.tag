@@ -1,5 +1,13 @@
 <tp-document doc="{ doc }" root="{ root }" odd="{ odd }" view="{ view }">
     <div class="content" ref="content"></div>
+    <style>
+    .content {
+        -webkit-animation-duration: 400ms;
+        -moz-animation-duration: 400ms;
+        animation-duration: 400ms;
+        overflow-wrap: break-word;
+    }
+    </style>
     <script>
     this.mixin('navigation');
 

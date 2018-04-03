@@ -62,7 +62,7 @@ declare variable $pages:EDIT_ODD_LINK :=
 
 declare
     %templates:wrap
-function pages:component-setup($node as node(), $model as map(*), $doc as xs:string, $root as xs:string?,
+function pages:component-setup($node as node(), $model as map(*), $doc as xs:string?, $root as xs:string?,
     $id as xs:string?, $view as xs:string?, $odd as xs:string?) {
     <script type="text/javascript">
     {

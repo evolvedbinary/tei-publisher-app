@@ -58,6 +58,10 @@
             <div data-template="pages:component-setup"/>
             <section id="tp-canvas">
                 <main id="main-wrapper">
+                    <section class="tp-document-title-wrapper tp-row">
+                        <!-- Document title -->
+                        <h5 class="tp-column" data-is="tp-page-heading"/>
+                    </section>
                     <section id="document-wrapper" class="tp-row">
                         <!-- Document pane -->
                         <div id="document-pane" class="tp-column">
@@ -76,6 +80,7 @@
             <script src="resources/scripts/tags/tp-download-button.tag" type="riot/tag"></script>
             <script src="resources/scripts/tags/tp-zoom.tag" type="riot/tag"></script>
             <script src="resources/scripts/tags/tp-edit-xml.tag" type="riot/tag"></script>
+            <script src="resources/scripts/tags/tp-page-heading.tag" type="riot/tag"></script>
             <script src="resources/scripts/vendor/riot+compiler.min.js"></script>
             <script>
                 var navigation = new Navigation();
@@ -85,6 +90,7 @@
                 riot.mount('tp-download-button');
                 riot.mount('tp-zoom');
                 riot.mount('tp-edit-xml', TeiPublisher.config);
+                riot.mount('tp-page-heading');
             </script>
         </div>
     </body>

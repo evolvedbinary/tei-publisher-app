@@ -16,7 +16,6 @@
         })
     });
     this.app.on('change', function(details) {
-        console.log("details: %o", details);
         self.path = self.dataRoot + '/' + details.path;
     });
 
