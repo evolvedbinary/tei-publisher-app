@@ -138,77 +138,13 @@
     </head>
 
     <body data-template="i18n:translate" data-catalogues="resources/i18n">
-        <app-header-layout>
-            <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall" data-template="browse:fix-links">
-                <app-toolbar class="menubar">
-                    <a href="$app/index.html">
-                        <img src="resources/images/tei-publisher-logo-contrast-color.svg" class="logo"/>
-                    </a>
-                    <a href="$app/index.html">Start</a>
-                    <paper-menu-button>
-                        <a href="#" slot="dropdown-trigger">
-                            <i18n:text key="documentation"/>
-                        </a>
-                        <paper-listbox slot="dropdown-content">
-                            <paper-item>
-                                <a href="$app/doc/documentation.xml?odd=docbook.odd">
-                                    <i18n:text key="documentation"/>
-                                </a>
-                            </paper-item>
-                            <paper-item>
-                                <a href="$app/doc/documentation.xml?odd=docbook.odd&amp;id=faq">FAQ</a>
-                            </paper-item>
-                        </paper-listbox>
-                    </paper-menu-button>
-                    <pb-restricted login="login" group="tei">
-                        <paper-menu-button>
-                            <a href="#" slot="dropdown-trigger">
-                                <i18n:text key="admin"/>
-                            </a>
-                            <paper-listbox slot="dropdown-content">
-                                <paper-item>
-                                    <pb-ajax subscribe="transcription" emit="transcription" url="$app/modules/index.xql" dialog="messageDialog">
-                                        <i18n:text key="metadata-update"/>
-                                    </pb-ajax>
-                                </paper-item>
-                                <paper-item>
-                                    <a href="#" data-template="pages:edit-odd-link" target="_new"><i18n:text key="edit-odd"/></a>
-                                </paper-item>
-                                <paper-item><a href="$app/manage.html"><i18n:text key="app-generator"/></a></paper-item>
-                            </paper-listbox>
-                        </paper-menu-button>
-                    </pb-restricted>
-                    <a href="http://gitlab.exist-db.org/tei-publisher/" title="View code on Gitlab">
-                        <img src="resources/images/wm_no_bg.svg" height="20"/>
-                    </a>
-
-                    <!-- Search input -->
-                    <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}"
-                               place-holder="i18n(search-query-attr)" redirect="redirect"></pb-search>
-
-                    <!-- language selector -->
-                    <pb-lang name="lang" label="Language" data-template="pages:current-language">
-                        <paper-item>en</paper-item>
-                        <paper-item>de</paper-item>
-                        <paper-item>fr</paper-item>
-                        <paper-item>gr</paper-item>
-                        <paper-item>it</paper-item>
-                        <paper-item>pl</paper-item>
-                    </pb-lang>
-                    <pb-login id="login" login-label="i18n(login)" logout-label="i18n(logout)" data-template="browse:current-user"
-                        group="tei">
-                        <iron-icon slot="icon" icon="account-circle"></iron-icon>
-                    </pb-login>
-                    <pb-progress indeterminate="indeterminate" bottom-item="bottom-item"/>
-                </app-toolbar>
-            </app-header>
-
+        <tei-publisher-app>
             <main>
                 <section>
                     <h1 class="tp-title">TEI Publisher <span>The Instant Publishing Toolbox</span></h1>
                     <p>Use this app to experiment and try out various ODDs containing processing model instructions. Upload your own files and create a custom ODD.</p>
                     <p><strong>Log in</strong>
-                    to upload files or see administrative functions (default user: "tei", password: "simple").</p>
+                        to upload files or see administrative functions (default user: "tei", password: "simple").</p>
                 </section>
                 <section class="panels">
                     <paper-card class="documents" heading="i18n(documents)">
@@ -233,7 +169,8 @@
                 </section>
             </main>
 
-        </app-header-layout>
+        </tei-publisher-app>
+
         <paper-dialog id="downloadDialog">
             <h2>
                 <i18n:text key="generating-file">Generating File...</i18n:text>
