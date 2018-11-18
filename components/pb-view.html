@@ -58,6 +58,15 @@
             .highlight {
                 @apply --pb-highlight-theme;
             }
+
+            #popup {
+                z-index: -1;
+                display: none;
+                background-color: #E0E0E0;
+                position: fixed;
+                top: 190px;
+                left: 300px;
+            }
         </style>
 
         <div id="view">
@@ -66,6 +75,10 @@
                 <div id="column2"></div>
             </div>
             <div id="content"></div>
+        </div>
+
+        <div id="popup">
+            <paper-icon-button icon="icons:attachment"></paper-icon-button>
         </div>
 
         <iron-ajax
@@ -179,6 +192,17 @@
 
             connectedCallback() {
                 super.connectedCallback();
+
+                this.$.view.addEventListener('mouseup', (ev) => {
+                    const range = this._selectedRange();
+                    if (range) {
+                        const elem = range.startContainer.parentNode;
+                        console.log(ev);
+                        this.$.popup.style.top = ev.pageY + 'px';
+                        this.$.popup.style.left = ev.pageX + 'px';
+                        this.$.popup.style.display = 'block';
+                    }
+                });
             }
 
             ready() {
@@ -477,6 +501,15 @@
                 range.setEndAfter(node);
 
                 return range.cloneContents();
+            }
+
+            _selectedRange() {
+                const selection = this.shadowRoot.getSelection();
+                if (!selection.rangeCount || selection.getRangeAt(0).collapsed) {
+                    return null;
+                } else {
+                    return selection.getRangeAt(0);
+                }
             }
         }
 

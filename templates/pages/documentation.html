@@ -119,7 +119,9 @@
                         </pb-navigation>
                         <pb-view id="view1" src="document1" data-template="pages:pb-view"
                             column-separator=".tei-cb" history="history" append-footnotes="append-footnotes"
-                            subscribe="transcription" emit="transcription"/>
+                            subscribe="transcription" emit="transcription">
+                            <pb-param name="node-ids" value="true()"/>
+                        </pb-view>
                         <pb-navigation direction="forward" unit="page" keyboard="right" emit="transcription"
                             subscribe="transcription">
                             <paper-fab icon="icons:chevron-right"/>
