@@ -4,27 +4,47 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
 
         <title>pb-view Demo</title>
-        <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-        <link rel="import" href="../dependencies-dev.html"/>
-        <link rel="import" href="../pb-code-highlight.html"/>
-        <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html"/>
-        <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html"/>
-        <custom-style>
+        <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+        <script type="module" src="../dependencies-dev.js"></script>
+        <script type="module" src="../pb-code-highlight.js"></script>
+        <script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+        <script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+        <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
             <style is="custom-style" include="demo-pages-shared-styles">
             </style>
-        </custom-style>
+        </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </head>
 
     <body>
-        <demo-snippet>
+        <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<demo-snippet>
             <template>
                 <pb-code-highlight lang="xquery">
-                    for $i in $root//tei:placeName
-                    order by $i descending
+                    for \$i in \$root//tei:placeName
+                    order by \$i descending
                     return
-                        &lt;li&gt;{$i/string()}&lt;/li&gt;
+                        &lt;li&gt;{\$i/string()}&lt;/li&gt;
                 </pb-code-highlight>
             </template>
-        </demo-snippet>
+        </demo-snippet>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </body>
 </html>

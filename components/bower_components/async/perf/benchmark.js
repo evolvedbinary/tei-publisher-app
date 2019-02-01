@@ -206,7 +206,7 @@ function cloneVersion(tag, callback) {
 
     var versionDir = __dirname + "/versions/" + tag;
     mkdirp.sync(versionDir);
-    fs.open(versionDir + "/package.json", "r", function (err, handle) {
+    fs.open(versionDir + "/package-orig.json", "r", function (err, handle) {
         if (!err) {
             // version has already been cloned
             fs.close(handle);

@@ -50,4 +50,4 @@ var componentJson = _.merge({}, _.pick(packageJson, componentInclude), component
 
 fs.writeFileSync('./bower.json', JSON.stringify(bowerJson, null, 2));
 fs.writeFileSync('./component.json', JSON.stringify(componentJson, null, 2));
-fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+fs.writeFileSync('./package-orig.json', JSON.stringify(packageJson, null, 2));
