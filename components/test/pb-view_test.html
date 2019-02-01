@@ -6,9 +6,9 @@
 
         <title>pb-view test</title>
 
-        <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-        <script src="../bower_components/web-component-tester/browser.js"></script>
-        <link rel="import" href="../dependencies-dev.html">
+        <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+        <script src="../../wct-browser-legacy/browser.js"></script>
+        <script type="module" src="../dependencies-dev.js"></script>
     </head>
     <body>
 
@@ -19,169 +19,170 @@
 
         <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes></pb-view>
 
-        <script>
-          suite('test-pb-view', () => {
-              const view = document.getElementById('view1');
+        <script type="module">
+import '../dependencies-dev.js';
+suite('test-pb-view', () => {
+    const view = document.getElementById('view1');
 
-              test('initalize component and wait for content', (done) => {
-                  const handler = (ev) => {
-                      document.removeEventListener('pb-end-update', handler);
-                      const doc = view.getDocument();
-                      assert.isOk(doc);
-                      assert.instanceOf(doc, PbDocument);
-                      assert.equal(view.getOdd(), 'docbook');
-                      assert.equal(view.getView(), 'div');
+    test('initalize component and wait for content', (done) => {
+        const handler = (ev) => {
+            document.removeEventListener('pb-end-update', handler);
+            const doc = view.getDocument();
+            assert.isOk(doc);
+            assert.instanceOf(doc, PbDocument);
+            assert.equal(view.getOdd(), 'docbook');
+            assert.equal(view.getView(), 'div');
 
-                      const heading = view.shadowRoot.querySelector('h1');
-                      assert.isOk(heading);
-                      assert.equal(heading.innerHTML, 'Quickstart');
+            const heading = view.shadowRoot.querySelector('h1');
+            assert.isOk(heading);
+            assert.equal(heading.innerHTML, 'Quickstart');
 
-                      const styles = view.shadowRoot.querySelector('link[href="transform/docbook.css"]');
-                      assert.isOk(styles, 'should import CSS stylesheet');
+            const styles = view.shadowRoot.querySelector('link[href="transform/docbook.css"]');
+            assert.isOk(styles, 'should import CSS stylesheet');
 
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
-              });
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
+    });
 
-              test('navigate forward', (done) => {
-                  const handler = (ev) => {
-                      const content = view.shadowRoot.querySelector('h2');
-                      assert.isOk(content);
-                      assert.equal(content.innerHTML, 'Installation');
-                      document.removeEventListener('pb-end-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+    test('navigate forward', (done) => {
+        const handler = (ev) => {
+            const content = view.shadowRoot.querySelector('h2');
+            assert.isOk(content);
+            assert.equal(content.innerHTML, 'Installation');
+            document.removeEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  view.navigate('forward');
-              });
+        view.navigate('forward');
+    });
 
-              test('navigate backward', (done) => {
-                  const handler = (ev) => {
-                      const content = view.shadowRoot.querySelector('h1');
-                      assert.isOk(content);
-                      assert.equal(content.innerHTML, 'Quickstart');
-                      document.removeEventListener('pb-end-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+    test('navigate backward', (done) => {
+        const handler = (ev) => {
+            const content = view.shadowRoot.querySelector('h1');
+            assert.isOk(content);
+            assert.equal(content.innerHTML, 'Quickstart');
+            document.removeEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  document.dispatchEvent(new CustomEvent('pb-navigate', {detail: {direction: 'backward'}}));
-              });
+        document.dispatchEvent(new CustomEvent('pb-navigate', {detail: {direction: 'backward'}}));
+    });
 
-              // remember next page node id returned by update event
-              let next;
+    // remember next page node id returned by update event
+    let next;
 
-              test('check update event details', (done) => {
-                  const handler = (ev) => {
-                      assert.isOk(ev.detail.root);
-                      assert.instanceOf(ev.detail.root, HTMLElement, 'root should be an element');
-                      assert.equal(ev.detail.root.nodeName, 'DIV', 'root should be a div element');
-                      assert.isOk(ev.detail.data);
-                      assert.property(ev.detail.data, 'next');
-                      next = ev.detail.data.next;
-                      assert.isOk(ev.detail.params);
-                      document.removeEventListener('pb-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-update', handler);
+    test('check update event details', (done) => {
+        const handler = (ev) => {
+            assert.isOk(ev.detail.root);
+            assert.instanceOf(ev.detail.root, HTMLElement, 'root should be an element');
+            assert.equal(ev.detail.root.nodeName, 'DIV', 'root should be a div element');
+            assert.isOk(ev.detail.data);
+            assert.property(ev.detail.data, 'next');
+            next = ev.detail.data.next;
+            assert.isOk(ev.detail.params);
+            document.removeEventListener('pb-update', handler);
+            done();
+        };
+        document.addEventListener('pb-update', handler);
 
-                  document.dispatchEvent(new CustomEvent('pb-refresh'));
-              });
+        document.dispatchEvent(new CustomEvent('pb-refresh'));
+    });
 
-              test('refresh and navigate to next page using eXist node id', (done) => {
-                  const handler = (ev) => {
-                      const content = view.shadowRoot.querySelector('h2');
-                      assert.isOk(content);
-                      assert.equal(content.innerHTML, 'Installation');
-                      document.removeEventListener('pb-end-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+    test('refresh and navigate to next page using eXist node id', (done) => {
+        const handler = (ev) => {
+            const content = view.shadowRoot.querySelector('h2');
+            assert.isOk(content);
+            assert.equal(content.innerHTML, 'Installation');
+            document.removeEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  document.dispatchEvent(new CustomEvent('pb-refresh', {detail: {position: next}}));
-              });
+        document.dispatchEvent(new CustomEvent('pb-refresh', {detail: {position: next}}));
+    });
 
-              test('refresh and navigate to xml:id', (done) => {
-                  const handler = (ev) => {
-                      const content = view.shadowRoot.querySelector('h2');
-                      assert.isOk(content);
-                      assert.equal(content.innerHTML, 'Configure default view via processing instructions');
-                      document.removeEventListener('pb-end-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+    test('refresh and navigate to xml:id', (done) => {
+        const handler = (ev) => {
+            const content = view.shadowRoot.querySelector('h2');
+            assert.isOk(content);
+            assert.equal(content.innerHTML, 'Configure default view via processing instructions');
+            document.removeEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  document.dispatchEvent(new CustomEvent('pb-refresh', {detail: {id: 'pi-config'}}));
-              });
+        document.dispatchEvent(new CustomEvent('pb-refresh', {detail: {id: 'pi-config'}}));
+    });
 
-              test('refresh and navigate to a document', (done) => {
-                  const handler = (ev) => {
-                      const elem = view.shadowRoot.querySelector('pb-geolocation[key=CanFloque]');
-                      assert.isOk(elem);
-                      assert.instanceOf(elem, PbGeolocation);
-                      document.removeEventListener('pb-end-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+    test('refresh and navigate to a document', (done) => {
+        const handler = (ev) => {
+            const elem = view.shadowRoot.querySelector('pb-geolocation[key=CanFloque]');
+            assert.isOk(elem);
+            assert.instanceOf(elem, PbGeolocation);
+            document.removeEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  document.dispatchEvent(new CustomEvent('pb-refresh', {
-                      detail: {
-                          path: 'test/graves6.xml',
-                          odd: 'graves'
-                      }
-                  }));
-              });
+        document.dispatchEvent(new CustomEvent('pb-refresh', {
+            detail: {
+                path: 'test/graves6.xml',
+                odd: 'graves'
+            }
+        }));
+    });
 
-              test('refresh and test two column layout', (done) => {
-                  const handler = (ev) => {
-                      const elem = view.shadowRoot.querySelector('#column2 .tei-speaker');
-                      assert.isOk(elem, 'should have speaker in 2nd column');
-                      assert.instanceOf(elem, HTMLElement);
-                      assert.equal(elem.innerHTML, 'Sam.');
-                      document.removeEventListener('pb-end-update', handler);
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+    test('refresh and test two column layout', (done) => {
+        const handler = (ev) => {
+            const elem = view.shadowRoot.querySelector('#column2 .tei-speaker');
+            assert.isOk(elem, 'should have speaker in 2nd column');
+            assert.instanceOf(elem, HTMLElement);
+            assert.equal(elem.innerHTML, 'Sam.');
+            document.removeEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  view.src = 'document3';
-                  view.view = 'page';
-                  view.update();
-              });
+        view.src = 'document3';
+        view.view = 'page';
+        view.update();
+    });
 
-              test('check footnotes', (done) => {
-                  const handler = (ev) => {
-                      document.removeEventListener('pb-end-update', handler);
-                      const notes = view.shadowRoot.querySelector('.footnotes .footnote');
-                      assert.isOk(notes);
+    test('check footnotes', (done) => {
+        const handler = (ev) => {
+            document.removeEventListener('pb-end-update', handler);
+            const notes = view.shadowRoot.querySelector('.footnotes .footnote');
+            assert.isOk(notes);
 
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  view.xpath = "! (.//text[@xml:lang = 'la']/body | .//text/body)[1]";
-                  view.src = 'document2';
-                  view.view = null;
-                  view.update();
-              });
+        view.xpath = "! (.//text[@xml:lang = 'la']/body | .//text/body)[1]";
+        view.src = 'document2';
+        view.view = null;
+        view.update();
+    });
 
-              test('non-existing document', (done) => {
-                  const handler = (ev) => {
-                      document.removeEventListener('pb-end-update', handler);
-                      const elem = view.shadowRoot.querySelector('#content');
-                      assert.equal(elem.innerHTML, view.notFound);
+    test('non-existing document', (done) => {
+        const handler = (ev) => {
+            document.removeEventListener('pb-end-update', handler);
+            const elem = view.shadowRoot.querySelector('#content');
+            assert.equal(elem.innerHTML, view.notFound);
 
-                      done();
-                  };
-                  document.addEventListener('pb-end-update', handler);
+            done();
+        };
+        document.addEventListener('pb-end-update', handler);
 
-                  view.src = 'document4';
-                  view.view = null;
+        view.src = 'document4';
+        view.view = null;
 
-                  view.update();
-              });
-          });
-        </script>
+        view.update();
+    });
+});
+</script>
     </body>
 </html>

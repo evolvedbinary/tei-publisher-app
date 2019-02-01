@@ -35,7 +35,7 @@
             <exclude name="cache/**"/>
             <exclude name=".idea/"/>
             <exclude name=".editorconfig"/>
-            <!--<exclude name="node_modules/**"/>-->
+            <exclude name="node_modules/**"/>
             <exclude name="bower_components/**"/>
         </zip>
     </target>

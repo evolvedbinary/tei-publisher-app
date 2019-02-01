@@ -4,19 +4,36 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
         <title>pb-grid Demo</title>
-        <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-        <link rel="import" href="../dependencies-dev.html">
-        <custom-style>
+        <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+        <script type="module" src="../dependencies-dev.js"></script>
+        <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
             <style is="custom-style" include="demo-pages-shared-styles">
                 pb-facsimile {
                     --pb-facsimile-height: 480px;
                 }
             </style>
-        </custom-style>
+        </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </head>
 
     <body>
-        <demo-snippet>
+        <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<demo-snippet>
             <template>
                 <pb-document id="document1" path="test/orlik_to_serafin.xml" odd="serafin" view="single"></pb-document>
 
@@ -27,7 +44,7 @@
                 <pb-grid id="grid" panels="[0]">
                     <!-- For every grid column, the following template will be stamped into the page -->
                     <template>
-                        <pb-panel panels='["Transcription", "Translation", "Facsimile"]' emit="transcription">
+                        <pb-panel panels="[&quot;Transcription&quot;, &quot;Translation&quot;, &quot;Facsimile&quot;]" emit="transcription">
                             <!-- Added to the toolbar -->
                             <pb-grid-action grid="#grid" slot="toolbar" action="remove">
                                 <paper-icon-button icon="icons:close"></paper-icon-button>
@@ -39,15 +56,15 @@
                                 <pb-view src="document1" xpath="//text[@xml:lang='pl']/body" subscribe="transcription"></pb-view>
                             </template>
                             <template>
-                                <pb-facsimile base-uri="https://apps.existsolutions.com/cantaloupe/iiif/2/"
-                                    facsimiles='["15929_000_IDL5772_BOss12034_IIIp79.jpg"]'
-                                    default-zoom-level="0" show-navigator="show-navigator"
-                                    show-navigation-control="show-navigation-control"></pb-facsimile>
+                                <pb-facsimile base-uri="https://apps.existsolutions.com/cantaloupe/iiif/2/" facsimiles="[&quot;15929_000_IDL5772_BOss12034_IIIp79.jpg&quot;]" default-zoom-level="0" show-navigator="show-navigator" show-navigation-control="show-navigation-control"></pb-facsimile>
                             </template>
                         </pb-panel>
                     </template>
                 </pb-grid>
             </template>
-        </demo-snippet>
+        </demo-snippet>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </body>
 </html>

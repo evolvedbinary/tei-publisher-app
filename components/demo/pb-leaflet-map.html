@@ -4,10 +4,21 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
 
         <title>pb-leaflet-map Demo</title>
-        <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-        <link rel="import" href="../dependencies-dev.html"/>
-        <link rel="import" href="../pb-leaflet-map.html"/>
-        <custom-style>
+        <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+        <script type="module" src="../dependencies-dev.js"></script>
+        <script type="module" src="../pb-leaflet-map.js"></script>
+        <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
             <style is="custom-style" include="demo-pages-shared-styles">
                 pb-leaflet-map {
                     width: 640px;
@@ -20,11 +31,17 @@
                     justify-content: space-between;
                 }
             </style>
-        </custom-style>
+        </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </head>
 
     <body>
-        <demo-snippet>
+        <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<demo-snippet>
             <template>
                 <div>
                     <ul>
@@ -32,10 +49,12 @@
                         <li><pb-geolocation longitude="13.33920479" latitude="52.50671377" label="Berlin">Berlin</pb-geolocation></li>
                         <li><pb-geolocation longitude="2.32003101" latitude="48.85881005" label="Paris">Paris</pb-geolocation></li>
                     </ul>
-                    <pb-leaflet-map zoom="11"
-                        access-token="pk.eyJ1Ijoid29sZmdhbmdtbSIsImEiOiJjam1kMjVpMnUwNm9wM3JwMzdsNGhhcnZ0In0.v65crewF-dkNsPF3o1Q4uw"/>
-                </div>
+                    <pb-leaflet-map zoom="11" access-token="pk.eyJ1Ijoid29sZmdhbmdtbSIsImEiOiJjam1kMjVpMnUwNm9wM3JwMzdsNGhhcnZ0In0.v65crewF-dkNsPF3o1Q4uw">
+                </pb-leaflet-map></div>
             </template>
-        </demo-snippet>
+        </demo-snippet>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </body>
 </html>

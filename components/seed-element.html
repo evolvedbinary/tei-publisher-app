@@ -1,5 +1,5 @@
-<link rel="import" href="bower_components/polymer/polymer-element.html">
-<link rel="import" href="pb-mixin.html">
+<script type="module" src="../@polymer/polymer/polymer-element.js"></script>
+<script type="module" src="./pb-mixin.js"></script>
 
 <dom-module id="seed-element">
     <template>
@@ -12,36 +12,38 @@
         <slot></slot>
     </template>
 
-    <script>
-        /**
-         * `seed-element`
-         *
-         *
-         * @customElement
-         * @polymer
-         * @demo demo/seed-element.html
-         * @appliesMixin PbMixin
-         */
-        class SeedElement extends PbMixin(Polymer.Element) {
-            static get is() {
-                return 'seed-element';
+    <script type="module">
+import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import './pb-mixin.js';
+/**
+ * `seed-element`
+ *
+ *
+ * @customElement
+ * @polymer
+ * @demo demo/seed-element.html
+ * @appliesMixin PbMixin
+ */
+class SeedElement extends PbMixin(PolymerElement) {
+    static get is() {
+        return 'seed-element';
+    }
+
+    static get properties() {
+        return {
+            prop1:{
+                type: String
             }
+        };
+    }
 
-            static get properties() {
-                return {
-                    prop1:{
-                        type: String
-                    }
-                };
-            }
-
-            connectedCallback() {
-                super.connectedCallback();
-            }
+    connectedCallback() {
+        super.connectedCallback();
+    }
 
 
-        }
+}
 
-        window.customElements.define(SeedElement.is, SeedElement);
-    </script>
+window.customElements.define(SeedElement.is, SeedElement);
+</script>
 </dom-module>
