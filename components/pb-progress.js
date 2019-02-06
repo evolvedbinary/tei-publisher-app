@@ -6,9 +6,10 @@
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/paper-progress/paper-progress';
 /**
  * `pb-progress`
  *

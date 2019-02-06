@@ -1,5 +1,10 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
+import './assets/@polymer/paper-listbox/paper-listbox';
+import './assets/@polymer/paper-item/paper-item';
+import './assets/@polymer/iron-ajax/iron-ajax';
+
 /**
  * `pb-select-template`: Switch between available ODDs.
  * It loads the list of ODDs from `components-odd.xql`.

@@ -1,8 +1,8 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { mixinBehaviors } from '../@polymer/polymer/lib/legacy/class.js';
-import { IronA11yKeysBehavior } from '../@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { mixinBehaviors } from './assets/@polymer/polymer/lib/legacy/class.js';
+import { IronA11yKeysBehavior } from './assets/@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
 /**
  * Navigate backward/forward in a document. This component does not implement any functionality itself.
  * It just sends a `pb-navigate` event when clicked.

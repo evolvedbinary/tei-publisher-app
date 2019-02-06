@@ -1,4 +1,4 @@
-import { dedupingMixin } from '../@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from './assets/@polymer/polymer/lib/utils/mixin.js';
 if (!window.TeiPublisher) {
     window.TeiPublisher = {};
 

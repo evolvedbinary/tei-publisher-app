@@ -1,6 +1,14 @@
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import './assets/@polymer/polymer/lib/utils/render-status.js';
+import './assets/@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
+import './assets/@polymer/app-layout/app-drawer/app-drawer.js';
+import './assets/@polymer/app-layout/app-header-layout/app-header-layout.js';
+import './assets/@polymer/app-layout/app-header/app-header.js';
+import './assets/@polymer/app-layout/app-toolbar/app-toolbar.js';
+import './assets/@polymer/paper-dialog/paper-dialog.js';
+
 /**
  * A wrapper element around a TEI Publisher page. Currently mainly used to take care of resizing issues.
  *

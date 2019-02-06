@@ -1,5 +1,5 @@
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 /**
  * `pb-edit-xml`
  *

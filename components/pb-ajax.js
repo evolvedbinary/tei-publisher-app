@@ -1,5 +1,7 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
+import { PolymerElement } from './assets/@polymer/iron-ajax/iron-ajax';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="pb-ajax">

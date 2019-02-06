@@ -1,6 +1,9 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/paper-icon-button/paper-icon-button';
+import './assets/@polymer/iron-icons/iron-icons';
+import './assets/@polymer/iron-icon/iron-icon';
 /**
  * Zoom button to enlarge/shrink the font for the views. This component does not
  * implement any functionality itself, but just emits a `pb-zoom` event.

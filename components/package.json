@@ -9,12 +9,15 @@
   },
   "main": "pb-document.js",
   "dependencies": {
+    "@cwmr/paper-autocomplete": "^4.0.0",
     "@polymer/app-layout": "^3.0.0",
     "@polymer/iron-ajax": "^3.0.0",
     "@polymer/iron-collapse": "^3.0.0",
+    "@polymer/iron-component-page": "^4.0.1",
     "@polymer/iron-form": "^3.0.0",
     "@polymer/iron-icons": "^3.0.0",
     "@polymer/iron-iconset": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
     "@polymer/paper-card": "^3.0.0",
     "@polymer/paper-checkbox": "^3.0.0",
     "@polymer/paper-dialog": "^3.0.0",
@@ -33,12 +36,18 @@
     "@polymer/paper-tooltip": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
     "@vaadin/vaadin-upload": "^4.2.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "codemirror": "^5.43.0",
+    "google-maps": "^3.3.0",
     "js-cookie": "^2.2.0",
+    "openseadragon": "^2.4.0",
+    "polymer-redux": "^2.0.0-beta.2",
+    "redux": "^4.0.1",
     "web-animations-js": "^2.3.1"
   },
   "devDependencies": {
-    "@polymer/iron-demo-helpers": "^3.0.0",
-    "wct-browser-legacy": "^1.0.1",
-    "@webcomponents/webcomponentsjs": "^2.0.0"
+    "@0xcda7a/empathy": "0.0.9",
+    "@polymer/iron-demo-helpers": "^3.0.2",
+    "wct-browser-legacy": "^1.0.1"
   }
 }

@@ -1,4 +1,4 @@
-import '../@polymer/polymer/polymer-element.js';
+import './assets/@polymer/polymer/polymer-element.js';
 import './pb-highlight.js';
 const $_documentContainer = document.createElement('template');
 

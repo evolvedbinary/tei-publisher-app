@@ -1,6 +1,8 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/paper-checkbox/paper-checkbox';
+
 /**
  * A checkbox to switch between page-by-page and division-by-division view.
  * Needs to be subscribed to a particular view. Listen to its `update` event

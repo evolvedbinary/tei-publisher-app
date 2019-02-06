@@ -7,9 +7,30 @@
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '../assets/@polymer/polymer/polymer-element.js';
 
-import { html } from '../../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from '../assets/@polymer/polymer/lib/utils/html-tag.js';
+import '../assets/@polymer/paper-icon-button/paper-icon-button';
+import '../assets/@polymer/iron-icons/iron-icons';
+import '../assets/@polymer/iron-icon/iron-icon';
+import '../assets/@polymer/polymer/lib/elements/dom-if';
+import '../assets/@polymer/polymer/lib/elements/dom-repeat';
+import '../assets/@polymer/paper-menu-button/paper-menu-button';
+import '../assets/@polymer/paper-listbox/paper-listbox';
+import '../assets/@polymer/paper-item/paper-item';
+import '../assets/@polymer/iron-collapse/iron-collapse';
+import '../assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
+import '../assets/@polymer/paper-input/paper-input';
+import '../assets/@polymer/paper-checkbox/paper-checkbox';
+import './odd-code-editor';
+import '../assets/@cwmr/paper-autocomplete/paper-autocomplete';
+import './odd-parameter';
+import './odd-rendition';
+
+
+
+
+
 /**
  * represents a ODD `model`
  *

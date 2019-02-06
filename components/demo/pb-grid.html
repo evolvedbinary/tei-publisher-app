@@ -4,8 +4,45 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
         <title>pb-grid Demo</title>
-        <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-        <link rel="import" href="../dependencies-dev.html">
+        <script src="../assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
+        <script type="module">
+            import '../pb-document';
+            import '../pb-grid-action';
+            import '../pb-grid';
+            import '../pb-panel';
+            import '../pb-facsimile';
+            import '../pb-view';
+            import '../assets/@polymer/paper-button/paper-button';
+            import '../assets/@polymer/paper-icon-button/paper-icon-button';
+            import '../assets/@polymer/iron-icon/iron-icon';
+            import '../assets/@polymer/iron-icons/iron-icons';
+            import '../assets/@polymer/iron-demo-helpers/demo-pages-shared-styles';
+        </script>
+        <!-- FIXME(polymer-modulizer):
+        todo: we might have to reconsider this custom-style loading
+
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+
+            <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
+            <style is="custom-style" include="demo-pages-shared-styles">
+                pb-facsimile {
+                    --pb-facsimile-height: 480px;
+                }
+            </style>
+        </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+
+        -->
         <custom-style>
             <style is="custom-style" include="demo-pages-shared-styles">
                 pb-facsimile {
@@ -23,12 +60,9 @@
                 <pb-grid-action action="add" class="grid-add" grid="#grid" initial="1">
                     <paper-button><iron-icon icon="icons:add"></iron-icon> Add Column</paper-button>
                 </pb-grid-action>
-                <!-- Define the grid with one initial column -->
                 <pb-grid id="grid" panels="[0]" subscribe="transcription">
-                    <!-- For every grid column, the following template will be stamped into the page -->
                     <template>
                         <pb-panel emit="transcription">
-                            <!-- Added to the toolbar -->
                             <pb-grid-action grid="#grid" slot="toolbar" action="remove">
                                 <paper-icon-button icon="icons:close"></paper-icon-button>
                             </pb-grid-action>

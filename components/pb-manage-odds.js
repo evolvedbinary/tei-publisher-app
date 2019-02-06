@@ -13,10 +13,23 @@
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { beforeNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { beforeNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import './assets/@polymer/polymer/lib/elements/dom-repeat';
+import './assets/@polymer/app-layout/app-toolbar/app-toolbar';
+import './pb-restricted';
+import './pb-ajax';
+import './assets/@polymer/paper-icon-button/paper-icon-button';
+import './assets/@polymer/iron-icons/iron-icons';
+import './pb-edit-xml';
+import './assets/@polymer/iron-form/iron-form';
+import './assets/@polymer/paper-input/paper-input';
+import './assets/@polymer/paper-button/paper-button';
+import './assets/@polymer/paper-dialog/paper-dialog';
+import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
+
 /**
  * `pb-manage-odds`
  *

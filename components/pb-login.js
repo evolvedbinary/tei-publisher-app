@@ -1,6 +1,15 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/polymer/lib/elements/dom-if';
+import './assets/@polymer/iron-icons/iron-icons';
+import './assets/@polymer/iron-icon/iron-icon';
+import './assets/@polymer/paper-dialog/paper-dialog';
+import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
+import './assets/@polymer/paper-input/paper-input';
+import './assets/@polymer/paper-button/paper-button';
+import './assets/@polymer/iron-ajax/iron-ajax';
+
 /**
  * Handles login/logout. Shows a link which opens a login dialog if clicked.
  * If a user is logged in, clicking the link will log him out instead.

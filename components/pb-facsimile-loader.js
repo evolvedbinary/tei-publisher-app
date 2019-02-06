@@ -10,10 +10,10 @@ but ported to ES6 syntax and using latest OpenSeaDragon lib.
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 
-import { resolveUrl } from '../@polymer/polymer/lib/utils/resolve-url.js';
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { resolveUrl } from './assets/@polymer/polymer/lib/utils/resolve-url.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 /**
  * `pb-facsimile-loader`
  *

@@ -1,7 +1,9 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import './assets/@polymer/polymer/lib/elements/dom-if';
+
 /**
  * Show content if the user is logged in. Optionally requires the user
  * to be member of a specific group. Listens for the `pb-login` event

@@ -1,7 +1,19 @@
-import '../@polymer/polymer/polymer-element.js';
+import './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
+import './assets/@polymer/paper-listbox/paper-listbox';
+import './assets/@polymer/paper-item/paper-item';
+import './assets/@polymer/paper-input/paper-input';
+import './assets/@polymer/iron-icons/iron-icons';
+import './assets/@polymer/iron-icon/iron-icon';
+import './assets/@cwmr/paper-autocomplete/paper-autocomplete-suggestions';
+import './assets/@polymer/iron-ajax/iron-ajax';
+import './assets/@polymer/paper-dialog/paper-dialog';
+import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
+import './assets/@polymer/paper-button/paper-button';
+
 /**
  * `pb-browse-docs`
  *

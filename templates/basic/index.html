@@ -11,9 +11,35 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
 
         <title data-template="config:app-title"/>
-        <script src="components/bower_components/webcomponentsjs/webcomponents-loader.js"/>
-        <script src="components/bower_components/js-cookie/src/js.cookie.js"/>
-        <link rel="import" href="components/dependencies-dev.html"/>
+        <script src="components/assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
+        <script src="components/assets/js-cookie/src/js.cookie.js"> </script>
+        <script type="module">
+            import './components/pb-page';
+            import './components/assets/@polymer/app-layout/app-drawer-layout/app-drawer-layout';
+            import './components/assets/@polymer/app-layout/app-header-layout/app-header-layout';
+            import './components/assets/@polymer/app-layout/app-header/app-header';
+            import './components/assets/@polymer/app-layout/app-drawer/app-drawer';
+            import './components/assets/@polymer/app-layout/app-toolbar/app-toolbar';
+            import './components/pb-media-query';
+            import './components/pb-lang';
+            import './components/assets/@polymer/paper-item/paper-item';
+            import './components/assets/@polymer/paper-menu-button/paper-menu-button';
+            import './components/assets/@polymer/paper-listbox/paper-listbox';
+            import './components/assets/@polymer/iron-icon/iron-icon';
+            import './components/assets/@polymer/iron-icons/iron-icons';
+            import './components/assets/@polymer/paper-icon-button/paper-icon-button';
+            import './components/assets/@polymer/paper-card/paper-card';
+            import './components/pb-restricted';
+            import './components/pb-search';
+            import './components/pb-login';
+            import './components/pb-browse-docs';
+            import './components/pb-paginate';
+            import './components/pb-upload';
+            import './components/assets/@polymer/paper-dialog/paper-dialog';
+            import './components/assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
+            import './components/assets/@polymer/paper-button/paper-button';
+
+        </script>
         <style>
             [unresolved]{
                 display:none;

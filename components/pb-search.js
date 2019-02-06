@@ -1,7 +1,13 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import './assets/@polymer/iron-form/iron-form';
+import './assets/@polymer/paper-input/paper-input';
+import './assets/@polymer/iron-icons/iron-icons';
+import './assets/@polymer/iron-icon/iron-icon';
+import './assets/@cwmr/paper-autocomplete/paper-autocomplete-suggestions';
+import './assets/@polymer/iron-ajax/iron-ajax';
 /**
  * Search field e.g. used in app header
  *

@@ -1,5 +1,20 @@
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
-import { html } from '../../@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from '../assets/@polymer/polymer/polymer-element.js';
+import { html } from '../assets/@polymer/polymer/lib/utils/html-tag.js';
+import '../assets/@polymer/iron-ajax/iron-ajax';
+import '../assets/@polymer/paper-card/paper-card';
+import '../pb-edit-xml';
+import '../assets/@polymer/paper-icon-button/paper-icon-button';
+import '../assets/@polymer/iron-icons/iron-icons';
+import '../assets/@polymer/iron-icon/iron-icon';
+import '../assets/@polymer/paper-input/paper-input';
+import '../assets/@cwmr/paper-autocomplete/paper-autocomplete';
+import '../pb-collapse';
+import '../assets/@polymer/paper-checkbox/paper-checkbox';
+import '../assets/@polymer/polymer/lib/elements/dom-repeat';
+import './odd-element-spec';
+import './odd-message';
+
+
 /**
  * Editor for ODD files
  *
