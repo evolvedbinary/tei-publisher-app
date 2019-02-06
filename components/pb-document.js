@@ -1,6 +1,6 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 /**
  * Represents a Publisher document. It has no visual presentation but holds meta-data
  * about the document to be used by other components like `pb-view`. Every `pb-view`

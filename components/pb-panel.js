@@ -1,6 +1,11 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/app-layout/app-toolbar/app-toolbar';
+import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
+import './assets/@polymer/paper-listbox/paper-listbox';
+import './assets/@polymer/paper-item/paper-item';
+
 /**
  * A container for different views. Only one view will be shown at a time.
  * Provides a dropdown for the user to switch between views. Views are

@@ -6,9 +6,12 @@
 
   <title>pb-document test</title>
 
-  <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-  <script src="../../wct-browser-legacy/browser.js"></script>
-  <script type="module" src="../dependencies-dev.js"></script>
+  <script src="../assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
+  <script src="../assets/wct-browser-legacy/browser.js"> </script>
+  <script type="module">
+      import '../pb-document';
+      import '../pb-load';
+  </script>
 </head>
 <body>
 
@@ -19,7 +22,7 @@
     </main>
 
   <script type="module">
-import '../dependencies-dev.js';
+import '../dependencies.js';
 suite('test-pb-load', () => {
     const component = document.getElementById('load');
 

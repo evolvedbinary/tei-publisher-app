@@ -1,5 +1,7 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/google-maps/lib/Google';
+import './assets/@polymer/polymer/lib/elements/dom-repeat';
 /**
  * `pb-map`
  *
@@ -25,6 +27,7 @@ class PbMap extends PbMixin(PolymerElement) {
 
         <google-map id="map" api-key="[[apiKey]]" latitude="[[latitude]]" longitude="[[longitude]]" zoom="[[zoom]]">
             <template is="dom-repeat" items="[[markers]]">
+                <!--todo: what is the right dependency to import for this? -->
                 <google-map-marker slot="markers" latitude="[[item.latitude]]" longitude="[[item.longitude]]" label="[[item.label]]"></google-map-marker>
             </template>
         </google-map>

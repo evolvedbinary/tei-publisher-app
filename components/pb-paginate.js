@@ -1,6 +1,9 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/polymer/lib/elements/dom-if';
+import './assets/@polymer/polymer/lib/elements/dom-repeat';
+
 /**
  * `pb-paginate`
  *

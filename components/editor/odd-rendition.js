@@ -1,4 +1,14 @@
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '../assets/@polymer/polymer/polymer-element.js';
+import '../assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
+import '../assets/@polymer/paper-listbox/paper-listbox';
+import '../assets/@polymer/paper-item/paper-item';
+import './odd-code-editor';
+import '../assets/@polymer/paper-icon-button/paper-icon-button';
+import '../assets/@polymer/iron-icons/iron-icons';
+import '../assets/@polymer/iron-icon/iron-icon';
+
+
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="odd-rendition">

@@ -1,8 +1,9 @@
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
-import '../../@webcomponents/shadycss/entrypoints/apply-shim.js';
+import { PolymerElement } from '../assets/@polymer/polymer/polymer-element.js';
 import './code-mirror-styles.js';
 import './odd-codemirror-imports.js';
-import { html } from '../../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from '../assets/@polymer/polymer/lib/utils/html-tag.js';
+import '../assets/@polymer/iron-ajax/iron-ajax';
+
 /**
  * A code-editor based on CodeMirror supporting XML, XQuery and CSS
  *

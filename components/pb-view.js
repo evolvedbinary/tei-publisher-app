@@ -1,7 +1,9 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
+import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
+
 /**
  * This is the main component for viewing text which has been transformed via an ODD.
  * The document to be viewed is determined by the `pb-document` element the property

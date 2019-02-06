@@ -12,9 +12,32 @@
         <title data-template="config:app-title"/>
         <link rel="stylesheet" type="text/css" href="resources/fonts/font.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
-        <script src="components/bower_components/webcomponentsjs/webcomponents-loader.js"/>
-        <script src="components/bower_components/js-cookie/src/js.cookie.js"/>
-        <link rel="import" href="components/dependencies-dev.html"/>
+        <script src="components/assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
+        <script src="components/assets/js-cookie/src/js.cookie.js"> </script>
+        <script type="module">
+            import './components/pb-page';
+            import './components/assets/@polymer/app-layout/app-header-layout/app-header-layout';
+            import './components/assets/@polymer/app-layout/app-header/app-header';
+            import './components/assets/@polymer/app-layout/app-toolbar/app-toolbar';
+            import './components/assets/@polymer/paper-menu-button/paper-menu-button';
+            import './components/assets/@polymer/paper-listbox/paper-listbox';
+            import './components/assets/@polymer/paper-item/paper-item';
+            import './components/pb-search';
+            import './components/pb-lang';
+            import './components/pb-login';
+            import './components/assets/@polymer/iron-icon/iron-icon';
+            import './components/assets/@polymer/iron-icons/iron-icons';
+            import './components/pb-paginate';
+            import './components/pb-progress';
+            import './components/pb-load';
+            import './components/assets/@polymer/paper-card/paper-card';
+            import './components/assets/@polymer/paper-checkbox/paper-checkbox';
+            import './components/assets/@polymer/paper-dialog/paper-dialog';
+            import './components/assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
+            import './components/assets/@polymer/paper-button/paper-button';
+
+
+        </script>
 
         <custom-style>
             <style include="pb-common-styles">

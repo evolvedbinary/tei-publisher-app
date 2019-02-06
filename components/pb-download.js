@@ -1,6 +1,6 @@
-import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './pb-mixin.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 /**
  * Generate a link to download a resource. Optionally shows a dialog during the download.
  * This component is mainly used for creating the links for downloading PDFs, epubs etc.

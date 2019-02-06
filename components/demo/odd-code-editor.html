@@ -11,11 +11,15 @@
         <link rel="stylesheet" type="text/css" href="resources/css/vendor/lint.css"/>
     -->
 
-    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
 
     <!--<link rel="import" href="../editor/odd-model.html"/>-->
-    <script type="module" src="../dependencies-dev.js"></script>
+    <script type="module">
+        import '../assets/@polymer/iron-demo-helpers/demo-pages-shared-styles';
+        import '../assets/@polymer/iron-demo-helpers/demo-snippet';
+        import '../editor/odd-code-editor';
+    </script>
 
 </head>
 <body>

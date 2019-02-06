@@ -4,8 +4,19 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
         <title>pb-grid Demo</title>
-        <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-        <script type="module" src="../dependencies-dev.js"></script>
+        <script src="../assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
+        <script type="module">
+            import '../pb-document';
+            import '../pb-grid-action';
+            import '../pb-grid';
+            import '../pb-panel';
+            import '../pb-facsimile';
+            import '../pb-view';
+            import '../assets/@polymer/paper-button/paper-button';
+            import '../assets/@polymer/paper-icon-button/paper-icon-button';
+            import '../assets/@polymer/iron-icon/iron-icon';
+            import '../assets/@polymer/iron-icons/iron-icons';
+        </script>
         <!-- FIXME(polymer-modulizer):
         These imperative modules that innerHTML your HTML are
         a hacky way to be sure that any mixins in included style
