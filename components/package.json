@@ -49,5 +49,10 @@
     "@0xcda7a/empathy": "0.0.9",
     "@polymer/iron-demo-helpers": "^3.0.2",
     "wct-browser-legacy": "^1.0.1"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/@0xcda7a/empathy/bin/empathy install"
   }
+
 }
+
