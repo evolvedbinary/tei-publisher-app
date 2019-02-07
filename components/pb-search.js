@@ -1,13 +1,13 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
-import './assets/@polymer/iron-form/iron-form';
-import './assets/@polymer/paper-input/paper-input';
-import './assets/@polymer/iron-icons/iron-icons';
-import './assets/@polymer/iron-icon/iron-icon';
-import './assets/@cwmr/paper-autocomplete/paper-autocomplete-suggestions';
-import './assets/@polymer/iron-ajax/iron-ajax';
+import './assets/@polymer/iron-form/iron-form.js';
+import './assets/@polymer/paper-input/paper-input.js';
+import './assets/@polymer/iron-icons/iron-icons.js';
+import './assets/@polymer/iron-icon/iron-icon.js';
+import './assets/@cwmr/paper-autocomplete/paper-autocomplete-suggestions.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
 /**
  * Search field e.g. used in app header
  *

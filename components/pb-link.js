@@ -1,5 +1,5 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 /**
  * Create an internal link: clicking it will cause connected views to

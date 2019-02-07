@@ -1,5 +1,5 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from './assets/@polymer/polymer/lib/legacy/class.js';
 import { IronA11yKeysBehavior } from './assets/@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';

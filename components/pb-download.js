@@ -1,5 +1,5 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 /**
  * Generate a link to download a resource. Optionally shows a dialog during the download.

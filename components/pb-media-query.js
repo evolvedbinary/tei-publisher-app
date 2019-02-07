@@ -1,7 +1,7 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
-import './assets/@polymer/iron-media-query/iron-media-query';
-import './assets/@polymer/polymer/lib/elements/dom-if';
+import './assets/@polymer/iron-media-query/iron-media-query.js';
+import './assets/@polymer/polymer/lib/elements/dom-if.js';
 
 /**
  * Show or hide contents depending on a media query. This is used to toggle the menubar and drawer.

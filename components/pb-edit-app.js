@@ -1,15 +1,15 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import './assets/@polymer/polymer/lib/elements/dom-if.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
-import './assets/@polymer/iron-form/iron-form';
-import './pb-select-odd';
-import './assets/@polymer/paper-input/paper-input';
-import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
-import './assets/@polymer/paper-listbox/paper-listbox';
-import './assets/@polymer/paper-item/paper-item';
-import './assets/@polymer/paper-button/paper-button';
-import './assets/@polymer/polymer/lib/elements/dom-if';
-import './assets/@polymer/iron-ajax/iron-ajax';
+import './assets/@polymer/iron-form/iron-form.js';
+import './pb-select-odd.js';
+import './assets/@polymer/paper-input/paper-input.js';
+import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import './assets/@polymer/paper-listbox/paper-listbox.js';
+import './assets/@polymer/paper-item/paper-item.js';
+import './assets/@polymer/paper-button/paper-button.js';
+import './assets/@polymer/polymer/lib/elements/dom-if.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
 
 /**
  * `pb-edit-app`

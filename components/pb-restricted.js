@@ -1,8 +1,8 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
-import './assets/@polymer/polymer/lib/elements/dom-if';
+import './assets/@polymer/polymer/lib/elements/dom-if.js';
 
 /**
  * Show content if the user is logged in. Optionally requires the user

@@ -1,18 +1,19 @@
 import './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
-import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
-import './assets/@polymer/paper-listbox/paper-listbox';
-import './assets/@polymer/paper-item/paper-item';
-import './assets/@polymer/paper-input/paper-input';
-import './assets/@polymer/iron-icons/iron-icons';
-import './assets/@polymer/iron-icon/iron-icon';
-import './assets/@cwmr/paper-autocomplete/paper-autocomplete-suggestions';
-import './assets/@polymer/iron-ajax/iron-ajax';
-import './assets/@polymer/paper-dialog/paper-dialog';
-import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
-import './assets/@polymer/paper-button/paper-button';
+import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import './assets/@polymer/paper-listbox/paper-listbox.js';
+import './assets/@polymer/paper-item/paper-item.js';
+import './assets/@polymer/paper-input/paper-input.js';
+import './assets/@polymer/iron-icons/iron-icons.js';
+import './assets/@polymer/iron-icon/iron-icon.js';
+import './assets/@cwmr/paper-autocomplete/paper-autocomplete-suggestions.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
+import './assets/@polymer/paper-dialog/paper-dialog.js';
+import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
+import './assets/@polymer/paper-button/paper-button.js';
+import {PbLoad} from './pb-load.js';
 
 /**
  * `pb-browse-docs`
@@ -25,8 +26,8 @@ import './assets/@polymer/paper-button/paper-button';
  * @appliesMixin PbMixin
  */
 class PbBrowseDocs extends PbMixin(PbLoad) {
-  static get template() {
-    return html`
+    static get template() {
+        return html`
         <style>
             :host {
                 display: block;
@@ -102,234 +103,234 @@ class PbBrowseDocs extends PbMixin(PbLoad) {
             </div>
         </paper-dialog>
 `;
-  }
+    }
 
-  static get is() {
-      return 'pb-browse-docs';
-  }
+    static get is() {
+        return 'pb-browse-docs';
+    }
 
-  static get properties() {
-      return {
-          sortBy: {
-              type: String,
-              value: 'default',
-              reflectToAttribute: true,
-              observer: '_sort'
-          },
-          sortOptions: {
-              type: Array,
-              value: [
-                  {
-                      label: 'Modification Date',
-                      value: 'default'
-                  }
-              ]
-          },
-          sortLabel: {
-              type: String,
-              value: 'Sort'
-          },
-          filter: {
-              type: String
-          },
-          filterBy: {
-              type: String,
-              value: 'title'
-          },
-          filterOptions: {
-              type: Array,
-              value: [
-                  {
-                      label: 'Title',
-                      value: 'title'
-                  }
-              ]
-          },
-          /** Id of the pb-login element to connect to */
-          login: {
-              type: String
-          },
-          /**
-           * If set, requires the logged in user to be member of
-           * the given group.
-           */
-          group: {
-              type: String
-          },
-          _file: {
-              type: String
-          },
-          _selected: {
-              type: Array
-          },
-          _allowModification: {
-              type: Boolean,
-              value: false
-          },
-          _suggestions: {
-              type: Array,
-              value: []
-          }
-      };
-  }
+    static get properties() {
+        return {
+            sortBy: {
+                type: String,
+                value: 'default',
+                reflectToAttribute: true,
+                observer: '_sort'
+            },
+            sortOptions: {
+                type: Array,
+                value: [
+                    {
+                        label: 'Modification Date',
+                        value: 'default'
+                    }
+                ]
+            },
+            sortLabel: {
+                type: String,
+                value: 'Sort'
+            },
+            filter: {
+                type: String
+            },
+            filterBy: {
+                type: String,
+                value: 'title'
+            },
+            filterOptions: {
+                type: Array,
+                value: [
+                    {
+                        label: 'Title',
+                        value: 'title'
+                    }
+                ]
+            },
+            /** Id of the pb-login element to connect to */
+            login: {
+                type: String
+            },
+            /**
+             * If set, requires the logged in user to be member of
+             * the given group.
+             */
+            group: {
+                type: String
+            },
+            _file: {
+                type: String
+            },
+            _selected: {
+                type: Array
+            },
+            _allowModification: {
+                type: Boolean,
+                value: false
+            },
+            _suggestions: {
+                type: Array,
+                value: []
+            }
+        };
+    }
 
-  constructor() {
-      super();
+    constructor() {
+        super();
 
-      const sortParam = this.getParameter('sort');
-      if (sortParam) {
-          this.sortBy = sortParam;
-      }
+        const sortParam = this.getParameter('sort');
+        if (sortParam) {
+            this.sortBy = sortParam;
+        }
 
-      const filterParam = this.getParameter('filter');
-      if (filterParam) {
-          this.filter = filterParam;
-          this.filterBy = this.getParameter('filterBy', this.filterBy);
-      }
-  }
+        const filterParam = this.getParameter('filter');
+        if (filterParam) {
+            this.filter = filterParam;
+            this.filterBy = this.getParameter('filterBy', this.filterBy);
+        }
+    }
 
-  connectedCallback() {
-      super.connectedCallback();
+    connectedCallback() {
+        super.connectedCallback();
 
-      this.$.autocomplete.addEventListener('autocomplete-change', this._autocomplete.bind(this));
-      afterNextRender(this, () => {
-          const login = document.getElementById(this.login);
-          if (!login) {
-              console.error('<pb-restricted> connected pb-login element not found!');
-              return;
-          }
-          this.subscribeTo('pb-login', (ev) => {
-              this._allowModification = this._loggedIn(ev.detail.user, ev.detail.group);
-          });
-          this._allowModification = login.loggedIn && this._loggedIn(login.user, login.groups);
-      });
-  }
+        this.$.autocomplete.addEventListener('autocomplete-change', this._autocomplete.bind(this));
+        afterNextRender(this, () => {
+            const login = document.getElementById(this.login);
+            if (!login) {
+                console.error('<pb-restricted> connected pb-login element not found!');
+                return;
+            }
+            this.subscribeTo('pb-login', (ev) => {
+                this._allowModification = this._loggedIn(ev.detail.user, ev.detail.group);
+            });
+            this._allowModification = login.loggedIn && this._loggedIn(login.user, login.groups);
+        });
+    }
 
-  getParameters(params) {
-      params.sort = this.sortBy;
-      if (this.filter) {
-          params.filter = this.filter;
-          params.browse = this.filterBy;
-      }
+    getParameters(params) {
+        params.sort = this.sortBy;
+        if (this.filter) {
+            params.filter = this.filter;
+            params.browse = this.filterBy;
+        }
 
-      return params;
-  }
+        return params;
+    }
 
-  /**
-   * returns selected documents.
-   *
-   * @returns {Array}
-   */
-  getSelected() {
-      const selected = [];
-      if (this.container) {
-          document.querySelectorAll(this.container).forEach((container) =>
-              container.querySelectorAll('.document-select paper-checkbox[checked]').forEach((checkbox) => {
-                  selected.push(checkbox.value);
-              })
-          );
-      } else {
-          this.$.content.querySelectorAll('.document-select paper-checkbox[checked]').forEach((checkbox) => {
-              selected.push(checkbox.value);
-          });
-      }
-      return selected;
-  }
+    /**
+     * returns selected documents.
+     *
+     * @returns {Array}
+     */
+    getSelected() {
+        const selected = [];
+        if (this.container) {
+            document.querySelectorAll(this.container).forEach((container) =>
+                container.querySelectorAll('.document-select paper-checkbox[checked]').forEach((checkbox) => {
+                    selected.push(checkbox.value);
+                })
+            );
+        } else {
+            this.$.content.querySelectorAll('.document-select paper-checkbox[checked]').forEach((checkbox) => {
+                selected.push(checkbox.value);
+            });
+        }
+        return selected;
+    }
 
-  _filter() {
-      this.setParameter('filter', this.filter);
-      this.setParameter('filterBy', this.filterBy);
-      this.pushHistory('filter docs');
+    _filter() {
+        this.setParameter('filter', this.filter);
+        this.setParameter('filterBy', this.filterBy);
+        this.pushHistory('filter docs');
 
-      this.load();
-  }
+        this.load();
+    }
 
-  _sort(newValue, oldValue) {
-      if (typeof oldValue == 'undefined' || typeof newValue == 'undefined') {
-          return;
-      }
+    _sort(newValue, oldValue) {
+        if (typeof oldValue == 'undefined' || typeof newValue == 'undefined') {
+            return;
+        }
 
-      this.setParameter('sort', this.sortBy);
-      this.pushHistory('sort docs');
+        this.setParameter('sort', this.sortBy);
+        this.pushHistory('sort docs');
 
-      this.load();
-  }
+        this.load();
+    }
 
-  _onLoad(content) {
-      this.$.delete.addEventListener('click', this._handleDelete.bind(this));
-  }
+    _onLoad(content) {
+        this.$.delete.addEventListener('click', this._handleDelete.bind(this));
+    }
 
-  _handleDelete(target, ev) {
-      const selected = this.getSelected();
-      if (selected.length > 0) {
-          this._selected = selected;
-          this.$.deleteDialog.open();
-      }
-  }
+    _handleDelete(target, ev) {
+        const selected = this.getSelected();
+        if (selected.length > 0) {
+            this._selected = selected;
+            this.$.deleteDialog.open();
+        }
+    }
 
-  _hasMultipleSelected(_file, _selected) {
-      return _selected && _selected.length > 0;
-  }
+    _hasMultipleSelected(_file, _selected) {
+        return _selected && _selected.length > 0;
+    }
 
-  _hasOneSelected(_file, _selected) {
-      return _file;
-  }
+    _hasOneSelected(_file, _selected) {
+        return _file;
+    }
 
-  _confirmDelete() {
-      if (!(this._file || this._selected)) {
-          return;
-      }
+    _confirmDelete() {
+        if (!(this._file || this._selected)) {
+            return;
+        }
 
-      let files;
-      if (this._selected) {
-          files = this._selected;
-      } else {
-          files = [this._file];
-      }
-      console.log('<pb-browse-docs> Deleting %o', this._file);
-      const params = {
-          action: 'delete',
-          'docs[]': files
-      };
-      this._file = null;
-      this._selected = null;
-      this.load(params);
-  }
+        let files;
+        if (this._selected) {
+            files = this._selected;
+        } else {
+            files = [this._file];
+        }
+        console.log('<pb-browse-docs> Deleting %o', this._file);
+        const params = {
+            action: 'delete',
+            'docs[]': files
+        };
+        this._file = null;
+        this._selected = null;
+        this.load(params);
+    }
 
-  _loggedIn(user, groups) {
-      if (user == null) {
-          return false;
-      }
-      if (this.group) {
-          if (!groups) {
-              return false;
-          }
-          return groups.indexOf(this.group) > -1;
-      }
-      return true;
-  }
+    _loggedIn(user, groups) {
+        if (user == null) {
+            return false;
+        }
+        if (this.group) {
+            if (!groups) {
+                return false;
+            }
+            return groups.indexOf(this.group) > -1;
+        }
+        return true;
+    }
 
-  _canModify(allowModification) {
-      return allowModification ? '' : 'hidden';
-  }
+    _canModify(allowModification) {
+        return allowModification ? '' : 'hidden';
+    }
 
-  _autocomplete(ev) {
-      this.$.autocompleteLoader.params = {
-          query: ev.detail.option.text,
-          field: this.filterBy
-      };
-      this.$.autocompleteLoader.generateRequest();
-  }
+    _autocomplete(ev) {
+        this.$.autocompleteLoader.params = {
+            query: ev.detail.option.text,
+            field: this.filterBy
+        };
+        this.$.autocompleteLoader.generateRequest();
+    }
 
-  _updateSuggestions() {
-      this.$.autocomplete.suggestions(this.$.autocompleteLoader.lastResponse);
-  }
+    _updateSuggestions() {
+        this.$.autocomplete.suggestions(this.$.autocompleteLoader.lastResponse);
+    }
 
-  _handleEnter(e){
-      if(e.keyCode == 13){
-          this._filter();
-      }
-  }
+    _handleEnter(e){
+        if(e.keyCode == 13){
+            this._filter();
+        }
+    }
 }
 
 window.customElements.define(PbBrowseDocs.is, PbBrowseDocs);

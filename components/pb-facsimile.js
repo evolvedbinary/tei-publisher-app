@@ -1,10 +1,10 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import './assets/openseadragon/build/openseadragon/openseadragon.min.js';
-import './assets/@polymer/polymer/lib/elements/dom-if';
-import './assets/@polymer/paper-spinner/paper-spinner-lite';
-import './pb-facsimile-loader';
+import './assets/@polymer/polymer/lib/elements/dom-if.js';
+import './assets/@polymer/paper-spinner/paper-spinner-lite.js';
+import './pb-facsimile-loader.js';
 
 /**
  * `pb-facsimile`

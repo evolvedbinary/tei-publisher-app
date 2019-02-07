@@ -20,13 +20,13 @@ if (!window.TeiPublisher) {
  * @polymer
  * @mixinFunction
  */
-PbMixin = dedupingMixin((superclass) =>
+export const PbMixin = dedupingMixin((superClass) =>
 
 /**
  * @polymer
  * @mixinClass
  */
-class PbMixin extends superclass {
+class PbMixin extends superClass {
     static get properties() {
         return {
             /**

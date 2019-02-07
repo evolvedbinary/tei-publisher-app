@@ -1,10 +1,10 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
-import './assets/@polymer/app-layout/app-toolbar/app-toolbar';
-import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu';
-import './assets/@polymer/paper-listbox/paper-listbox';
-import './assets/@polymer/paper-item/paper-item';
+import './assets/@polymer/app-layout/app-toolbar/app-toolbar.js';
+import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import './assets/@polymer/paper-listbox/paper-listbox.js';
+import './assets/@polymer/paper-item/paper-item.js';
 
 /**
  * A container for different views. Only one view will be shown at a time.

@@ -1,18 +1,16 @@
 {
   "entrypoint": "build.html",
-  "shell": "dependencies-dev.html",
   "sources": [
-      "./pb-*.html",
-      "./editor/odd-*.html"
+      "./pb-*.js",
+      "./editor/odd-*.js"
+  ],
+  "extraDependencies": [
+    "./assets/@webcomponents/webcomponentsjs/**"
   ],
   "builds": [
     {
       "name": "production",
-      "bundle": {
-        "stripComments": true,
-        "inlineCss": false,
-        "sourcemaps": false
-      },
+      "bundle": true,
       "js": {"compile": false, "minify": true},
       "css": {"minify": true},
       "sourceMaps":false,
@@ -22,5 +20,8 @@
       },
       "stripComments":true
     }
-  ]
+  ],
+  "moduleResolution": "node",
+  "npm": true
+
 }
