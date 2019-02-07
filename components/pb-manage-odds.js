@@ -1,34 +1,19 @@
-/*
-<link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-<link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="bower_components/iron-form/iron-form.html">
-<link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="pb-ajax.html">
-<link rel="import" href="pb-edit-xml.html">
-*/
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { beforeNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
-import './assets/@polymer/polymer/lib/elements/dom-repeat';
-import './assets/@polymer/app-layout/app-toolbar/app-toolbar';
-import './pb-restricted';
-import './pb-ajax';
-import './assets/@polymer/paper-icon-button/paper-icon-button';
-import './assets/@polymer/iron-icons/iron-icons';
-import './pb-edit-xml';
-import './assets/@polymer/iron-form/iron-form';
-import './assets/@polymer/paper-input/paper-input';
-import './assets/@polymer/paper-button/paper-button';
-import './assets/@polymer/paper-dialog/paper-dialog';
-import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
+import './assets/@polymer/polymer/lib/elements/dom-repeat.js';
+import './assets/@polymer/app-layout/app-toolbar/app-toolbar.js';
+import './pb-restricted.js';
+import './pb-ajax.js';
+import './assets/@polymer/paper-icon-button/paper-icon-button.js';
+import './assets/@polymer/iron-icons/iron-icons.js';
+import './pb-edit-xml.js';
+import './assets/@polymer/iron-form/iron-form.js';
+import './assets/@polymer/paper-input/paper-input.js';
+import './assets/@polymer/paper-button/paper-button.js';
+import './assets/@polymer/paper-dialog/paper-dialog.js';
+import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
 
 /**
  * `pb-manage-odds`

@@ -1,14 +1,14 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
-import './assets/@polymer/polymer/lib/elements/dom-if';
-import './assets/@polymer/iron-icons/iron-icons';
-import './assets/@polymer/iron-icon/iron-icon';
-import './assets/@polymer/paper-dialog/paper-dialog';
-import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
-import './assets/@polymer/paper-input/paper-input';
-import './assets/@polymer/paper-button/paper-button';
-import './assets/@polymer/iron-ajax/iron-ajax';
+import './assets/@polymer/polymer/lib/elements/dom-if.js';
+import './assets/@polymer/iron-icons/iron-icons.js';
+import './assets/@polymer/iron-icon/iron-icon.js';
+import './assets/@polymer/paper-dialog/paper-dialog.js';
+import './assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
+import './assets/@polymer/paper-input/paper-input.js';
+import './assets/@polymer/paper-button/paper-button.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
 
 /**
  * Handles login/logout. Shows a link which opens a login dialog if clicked.

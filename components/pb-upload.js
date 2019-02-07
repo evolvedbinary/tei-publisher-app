@@ -1,18 +1,8 @@
-/*
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-<link rel="import" href="bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="bower_components/vaadin-upload/vaadin-upload.html">
-*/
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
-import './assets/@vaadin/vaadin-upload/vaadin-upload';
-import './assets/@polymer/paper-button/paper-button';
+import './assets/@vaadin/vaadin-upload/vaadin-upload.js';
+import './assets/@polymer/paper-button/paper-button.js';
 
 /**
  * `pb-upload`

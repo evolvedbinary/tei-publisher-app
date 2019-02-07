@@ -1,8 +1,8 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
+import {PbMixin} from './pb-mixin.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
-import './assets/@polymer/polymer/lib/elements/dom-if';
-import './assets/@polymer/polymer/lib/elements/dom-repeat';
+import './assets/@polymer/polymer/lib/elements/dom-if.js';
+import './assets/@polymer/polymer/lib/elements/dom-repeat.js';
 
 /**
  * `pb-paginate`

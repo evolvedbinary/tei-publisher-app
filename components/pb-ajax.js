@@ -1,6 +1,6 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
-import './pb-mixin.js';
-import './assets/@polymer/iron-ajax/iron-ajax';
+import {PbMixin} from './pb-mixin.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
 
 const $_documentContainer = document.createElement('template');
 
