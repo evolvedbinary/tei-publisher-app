@@ -5,7 +5,7 @@ import { beforeNextRender } from './assets/@polymer/polymer/lib/utils/render-sta
 import './assets/@polymer/polymer/lib/elements/dom-repeat.js';
 import './assets/@polymer/app-layout/app-toolbar/app-toolbar.js';
 import './pb-restricted.js';
-import './pb-ajax.js';
+import './assets/@polymer/iron-ajax/iron-ajax.js';
 import './assets/@polymer/paper-icon-button/paper-icon-button.js';
 import './assets/@polymer/iron-icons/iron-icons.js';
 import './pb-edit-xml.js';

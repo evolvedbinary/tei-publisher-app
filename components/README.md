@@ -86,6 +86,8 @@ Running the build each time during development is certainly not sensible as the 
 process is much too slow to allow fluent work.
 
 
+# JS module imports
 
+ > NOTE: Always use `.js` ending in imports even though IDEs might suggest otherwise as browsers won't load it otherwise.
 
 
