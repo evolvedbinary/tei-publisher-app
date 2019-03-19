@@ -2,6 +2,8 @@ import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { beforeNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import {PbMixin} from './pb-mixin.js';
+
 import './assets/@polymer/polymer/lib/elements/dom-repeat.js';
 import './assets/@polymer/app-layout/app-toolbar/app-toolbar.js';
 import './pb-restricted.js';

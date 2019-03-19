@@ -1,5 +1,7 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import {PbMixin} from './pb-mixin.js';
+
 import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import './assets/@polymer/paper-listbox/paper-listbox.js';
 import './assets/@polymer/paper-item/paper-item.js';

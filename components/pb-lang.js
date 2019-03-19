@@ -1,5 +1,6 @@
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+import './assets/web-animations-js/web-animations.min.js';
 import './assets/@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import './assets/@polymer/paper-listbox/paper-listbox.js';
 import './assets/@polymer/paper-item/paper-item.js';
@@ -40,7 +41,8 @@ class PbLang extends PolymerElement {
 
         </style>
 
-        <paper-dropdown-menu id="menu" label="[[label]]">
+<!-- todo: no-animations must be set to avoid error with animations. No idea just now how to make those work. -->
+        <paper-dropdown-menu id="menu" label="[[label]]" no-animations>
             <paper-listbox slot="dropdown-content" class="dropdown-content" selected="{{selected}}">
                 <slot></slot>
 <!--

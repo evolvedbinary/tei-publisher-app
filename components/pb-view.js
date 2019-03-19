@@ -1,8 +1,8 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { PbMixin } from "./pb-mixin.js";
 import './assets/@polymer/iron-ajax/iron-ajax.js';
 import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
-import './pb-mixin.js';
 
 /**
  * This is the main component for viewing text which has been transformed via an ODD.
