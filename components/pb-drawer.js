@@ -1,5 +1,6 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { PbMixin} from './pb-mixin.js';
 import './assets/@polymer/iron-form/iron-form.js';
 import './pb-select-odd.js';
 import './assets/@polymer/paper-input/paper-input.js';

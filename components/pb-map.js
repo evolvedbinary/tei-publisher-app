@@ -1,5 +1,7 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import {PbMixin} from './pb-mixin.js';
+
 import './assets/google-maps/lib/Google.js';
 import './assets/@polymer/polymer/lib/elements/dom-repeat.js';
 /**

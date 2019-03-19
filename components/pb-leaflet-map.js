@@ -1,6 +1,8 @@
 import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from './assets/@polymer/polymer/lib/utils/render-status.js';
+import { PbMixin } from "./pb-mixin.js";
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+
 /**
  * `pb-leaflet-map`
  *
