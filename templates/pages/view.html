@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
         <script src="components/assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
         <script type="module">
+            import './components/pb-common-styles.js';
             import './components/pb-page.js';
             import './components/pb-document.js';
             import './components/assets/@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
@@ -24,10 +25,33 @@
             import './components/assets/@polymer/app-layout/app-header-layout/app-header-layout.js';
             import './components/assets/@polymer/app-layout/app-header/app-header.js';
             import './components/assets/@polymer/app-layout/app-toolbar/app-toolbar.js';
+            import './components/pb-drawer.js';
             import './components/pb-load.js';
             import './components/pb-view.js';
-            import './components/pb-param.js';
+//            import './components/pb-param.js';
             import './components/pb-navigation.js';
+            import './components/assets/@polymer/paper-fab/paper-fab.js';
+
+            //the following ones are needed by menu.html that is included by templating
+            import './components/pb-media-query.js';
+            import './components/assets/@polymer/paper-menu-button/paper-menu-button.js';
+            import './components/assets/@polymer/paper-listbox/paper-listbox.js';
+            import './components/assets/@polymer/paper-item/paper-item.js';
+            import './components/pb-download.js';
+            import './components/pb-edit-xml.js';
+            import './components/pb-restricted.js';
+            import './components/pb-ajax.js';
+            import './components/pb-lang.js';
+            import './components/pb-login.js';
+            import './components/assets/@polymer/paper-dialog/paper-dialog.js';
+            import './components/assets/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
+            import './components/assets/@polymer/paper-button/paper-button.js';
+
+            //the following ones are needed by toolbar.html that is included by templating
+            import './components/assets/@polymer/paper-icon-button/paper-icon-button.js';
+            import './components/pb-zoom.js';
+            import './components/pb-progress.js';
+
         </script>
         <style>
             [unresolved] {
