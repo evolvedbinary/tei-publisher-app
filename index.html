@@ -13,7 +13,12 @@
     <title data-template="config:app-title">TEI-Publisher</title>
     <script src="components/assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
 
-    <!-- this must be loaded as usual script import and is used by paper-menu-buttion paper-dropdown etc. -->
+    <!--
+        web-animations polyfill must be loaded as usual script import on top-level (see https://polymer-library.polymer-project.org/3.0/docs/upgrade
+        under 'Post-convervion cleanup'.
+
+        IMPORTANT: it MUST NOT be loaded via module loading in the single components. This may break the whole app.
+     -->
     <script src="components/assets/web-animations-js/web-animations-next-lite.min.js"> </script>
 
     <script type="module">
