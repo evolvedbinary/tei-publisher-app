@@ -1,10 +1,10 @@
 import { PolymerElement } from './assets/@polymer/polymer/polymer-element.js';
+import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
+import { PbMixin } from './pb-mixin.js';
 import './assets/@polymer/iron-collapse/iron-collapse.js';
 import './assets/@polymer/iron-icons/iron-icons.js';
 import './assets/@polymer/iron-icon/iron-icon.js';
 import './assets/@polymer/iron-collapse/iron-collapse.js';
-import {PbMixin} from './pb-mixin.js';
-import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
 /**
  * An iron-collapse with additional trigger section and optional expand/collapse icons.
  * Mainly used for the table of contents.
