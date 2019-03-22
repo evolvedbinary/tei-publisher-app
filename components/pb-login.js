@@ -69,7 +69,7 @@ class PbLogin extends PbMixin(PolymerElement) {
             <h2>Login</h2>
             <paper-dialog-scrollable>
                 <form action="login">
-                    <paper-input name="user" label="User" value="{{user}}"></paper-input>
+                    <paper-input name="user" label="User" value="{{user}}" autofocus></paper-input>
                     <paper-input name="password" label="Password" type="password" value="{{password}}"></paper-input>
                     <input id="logout" type="hidden" name="logout">
                 </form>
