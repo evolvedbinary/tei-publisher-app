@@ -1,5 +1,5 @@
 import './assets/@polymer/polymer/polymer-element.js';
-import './pb-highlight.js';
+import { PbHighlight } from './pb-highlight.js';
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="pb-geolocation">

@@ -23,7 +23,7 @@ import { html } from './assets/@polymer/polymer/lib/utils/html-tag.js';
  * @appliesMixin PbMixin
  * @demo demo/pb-highlight.html
  */
-class PbHighlight extends PbMixin(PolymerElement) {
+export class PbHighlight extends PbMixin(PolymerElement) {
   static get template() {
     return html`
         <style>

@@ -14,7 +14,9 @@
 
         <link rel="stylesheet" type="text/css" href="resources/fonts/font.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
-        <script src="components/assets/webcomponentsjs/webcomponents-loader.js"> </script>
+        <script src="../components/assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"> </script>
+
+
         <script type="module">
             import './components/pb-common-styles.js';
             import './components/pb-page.js';
@@ -47,6 +49,8 @@
             import './components/pb-progress.js';
             import './components/pb-navigation.js';
             import './components/pb-leaflet-map.js';
+            import './components/pb-highlight.js';
+            import './components/pb-geolocation.js';
             //            import './components/pb-param.js';
         </script>
         <style>
@@ -148,5 +152,6 @@
                 </app-header-layout>
             </app-drawer-layout>
         </pb-page>
+        <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""> </script>
     </body>
 </html>
