@@ -9,6 +9,7 @@
                 grid-template-columns: var(--pb-column-widths, '1fr');
                 grid-column-gap: var(--pb-column-gap, 20px);
                 justify-content: space-between;
+                width:100%;
             }
         </style>
 
@@ -72,6 +73,17 @@
                         this.pushHistory('added panel');
                     }
                 });
+
+            }
+
+            _onclick(e){
+                console.log('grid clicked ', e);
+                console.log('grid cols ', this._columns);
+                console.log('grid styles ', window.getComputedStyle(this));
+                const styleRules = window.getComputedStyle(this);
+                console.log('grid styles ', styleRules.gridTemplateColumns);
+
+                this.updateStyles({'--pb-column-widths': '1fr 2fr 1fr'});
             }
 
             ready() {
@@ -94,6 +106,11 @@
 
                     this._update();
                 });
+
+                for(let i=0; i < this.children.length; i++){
+                    this.children[i].classList.add('child_' + i);
+                    this.children[i].addEventListener('click', e => this._onclick(e));
+                }
             }
 
             addPanel(initial) {
@@ -135,6 +152,7 @@
                 this._update();
             }
 
+
             _insertPanel(active) {
                 const clone = document.importNode(this.template.content.firstElementChild, true);
                 clone.setAttribute('active', active);
@@ -144,6 +162,7 @@
                     this.insertBefore(clone, this.firstElementChild);
                 }
                 clone.classList.add('_grid_panel');
+                clone.addEventListener('click', e => this._onclick(e));
             }
 
             _update() {
