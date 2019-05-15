@@ -1,5 +1,7 @@
 xquery version "3.1";
 
+declare namespace tei="http://www.tei-c.org/ns/1.0";
+
 import module namespace gen="http://teipublisher.com/xquery/docx-generate" at "generate-docx.xql";
 import module namespace pages="http://www.tei-c.org/tei-simple/pages" at "lib/pages.xql";
 import module namespace tpu="http://www.tei-c.org/tei-publisher/util" at "lib/util.xql";
@@ -8,7 +10,7 @@ declare function local:tei2docx($doc as document-node()) {
     let $docConfig := map:merge((tpu:parse-pi($doc, "div"), map { "view": "div" }))
     let $config := map:merge((map { "docConfig": $docConfig }, map { "type": $docConfig?type }))
     return
-        gen:generate($doc, $config)
+        gen:generate($doc//tei:text, $config)
 };
 
 
