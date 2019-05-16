@@ -4,20 +4,23 @@ module namespace gen="http://teipublisher.com/xquery/docx-generate";
 import module namespace pm-config="http://www.tei-c.org/tei-simple/pm-config" at "pm-config.xql";
 
 declare function gen:generate($doc as element(), $config as map(*)) {
-    gen:content-types(),
-    gen:properties-core(),
-    gen:properties-app(),
-    gen:relationships(),
-    gen:websettings(),
-    gen:settings(),
-    (: gen:font-table(), :)
-    gen:styles(),
-    (: gen:theme(), :)
-    gen:document($doc, $config),
-    gen:rels()
+    let $transformed := $pm-config:docx-transform($doc, map { "root": $doc }, $config?odd)
+    return (
+        gen:content-types(),
+        gen:properties-core(),
+        gen:properties-app(),
+        gen:relationships(),
+        gen:websettings(),
+        gen:settings(),
+        (: gen:font-table(), :)
+        gen:styles($transformed?styles),
+        (: gen:theme(), :)
+        gen:document($transformed?content, $config),
+        gen:rels()
+    )
 };
 
-declare function gen:document($doc as element(), $config as map(*)) {
+declare function gen:document($content as node()*, $config as map(*)) {
     <entry name="word/document.xml" type="text" method="store">
         <w:document xmlns:ve="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -29,7 +32,7 @@ declare function gen:document($doc as element(), $config as map(*)) {
         xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
         xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml">
             <w:body>
-                { $pm-config:docx-transform($doc, map { "root": $doc }, $config?odd) }
+                { $content }
             </w:body>
         </w:document>
     </entry>
@@ -192,7 +195,7 @@ declare function gen:settings() {
     </entry>
 };
 
-declare function gen:styles() {
+declare function gen:styles($styles) {
     <entry name="word/styles.xml" type="text" method="store">
         <w:styles xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
     xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
@@ -467,46 +470,7 @@ declare function gen:styles() {
                 <w:qFormat/>
                 <w:rsid w:val="007231F9"/>
             </w:style>
-            <w:style w:type="paragraph" w:styleId="Heading1">
-                <w:name w:val="heading 1"/>
-                <w:basedOn w:val="Standard"/>
-                <w:next w:val="Standard"/>
-                <w:link w:val="DefaultParagraphFont"/>
-                <w:uiPriority w:val="9"/>
-                <w:pPr>
-                    <w:keepNext/>
-                    <w:keepLines/>
-                    <w:spacing w:before="240" w:after="0"/>
-                    <w:outlineLvl w:val="0"/>
-                </w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:eastAsiaTheme="majorEastAsia" w:hAnsiTheme="majorHAnsi" w:cstheme="majorBidi"/>
-                    <w:color w:val="2F5496" w:themeColor="accent1" w:themeShade="BF"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:style>
-            <w:style w:type="paragraph" w:styleId="Heading2">
-                <w:name w:val="heading 2"/>
-                <w:basedOn w:val="Standard"/>
-                <w:next w:val="Standard"/>
-                <w:link w:val="DefaultParagraphFont"/>
-                <w:uiPriority w:val="9"/>
-                <w:unhideWhenUsed/>
-                <w:qFormat/>
-                <w:pPr>
-                    <w:keepNext/>
-                    <w:keepLines/>
-                    <w:spacing w:before="40" w:after="0"/>
-                    <w:outlineLvl w:val="1"/>
-                </w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:eastAsiaTheme="majorEastAsia" w:hAnsiTheme="majorHAnsi" w:cstheme="majorBidi"/>
-                    <w:color w:val="2F5496" w:themeColor="accent1" w:themeShade="BF"/>
-                    <w:sz w:val="26"/>
-                    <w:szCs w:val="26"/>
-                </w:rPr>
-            </w:style>
+            { $styles }
             <w:style w:type="character" w:default="1" w:styleId="DefaultParagraphFont">
                 <w:name w:val="Default Paragraph Font"/>
                 <w:uiPriority w:val="1"/>
