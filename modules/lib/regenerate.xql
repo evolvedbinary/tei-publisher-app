@@ -54,7 +54,7 @@ let $result :=
         if ($pi?output) then
             tokenize($pi?output)
         else
-            ("web", "print", "latex", "epub")
+            ("web", "print", "latex", "epub", "docx")
     return
         try {
             for $file in pmu:process-odd(

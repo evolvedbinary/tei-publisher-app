@@ -224,6 +224,16 @@ else if (matches($exist:path, "/(" || string-join($data-collections, "|") || ")/
                     <forward url="{$exist:controller}/modules/view.xql"/>
                 </error-handler>
             </dispatch>
+        else if (ends-with($exist:resource, ".docx")) then
+            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+                <forward url="{$exist:controller}/modules/lib/get-docx.xql">
+                    <add-parameter name="id" value="{$path}{$id}"/>
+                </forward>
+                <error-handler>
+                    <forward url="{$exist:controller}/error-page.html" method="get"/>
+                    <forward url="{$exist:controller}/modules/view.xql"/>
+                </error-handler>
+            </dispatch>
         else if ($mode = "plain") then
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{$exist:controller}/modules/lib/transform.xql">
