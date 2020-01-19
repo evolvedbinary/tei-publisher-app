@@ -8,12 +8,12 @@
     <msg key="pdf-latex">PDF (verze LaTeX)</msg>
     <msg key="latex-source">Zdroj TeX</msg>
     <msg key="single-page">Jenda strana</msg>
-    <msg key="epub-download">Uložik jako e.knihu (EPUB)</msg>
+    <msg key="epub-download">Uložit jako e-knihu (EPUB)</msg>
     <msg key="view-tei">Zobrazit TEI XML</msg>
     <msg key="plain">Prostý text</msg>
     <msg key="admin">Správa</msg>
     <msg key="recompile">Překompilovat ODD</msg>
-    <msg key="metadata-update">Aktualizvat rejstřík metadat o dokumentu</msg>
+    <msg key="metadata-update">Aktualizovat rejstřík metadat o dokumentu</msg>
     <msg key="edit-odd">Upravit ODD</msg>
     <msg key="edit-styles">Upravit styly</msg>
     <msg key="edit-config">Upravit nastavení</msg>
@@ -23,7 +23,7 @@
     <msg key="password">Heslo</msg>
     <msg key="search-sections">Hledat v oddílech</msg>
     <msg key="search-headings">Hledat v nadpisech</msg>
-    <msg key="upload-files">Nahrát soubory TEI XML nebo ODD do sady testovacích dokumentů. Kliněte na spodní tlačítko nebo na něj soubory přetáhněte.</msg>
+    <msg key="upload-files">Nahrát soubory TEI XML nebo ODD do sady testovacích dokumentů. Klikněte na spodní tlačítko nebo na něj soubory přetáhněte.</msg>
     <msg key="select-files">Vybrat soubory…</msg>
     <msg key="upload">Nahrát</msg>
     <msg key="uploaded-files">Nahrané soubory</msg>
@@ -45,7 +45,7 @@
     <msg key="found">Nalezeno</msg>
     <msg key="view-switch">Přepnout mezi zobrazením stránky a oddílů</msg>
     <msg key="documentation">Dokumentace</msg>
-    <msg key="app-generator">Generátor applikace</msg>
+    <msg key="app-generator">Generátor aplikace</msg>
     <msg key="presentation">Prezentace</msg>
     <msg key="examples">Příklady</msg>
     <msg key="odd-data">Soubory ODD</msg>
