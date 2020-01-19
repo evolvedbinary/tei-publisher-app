@@ -330,6 +330,30 @@ declare variable $config:dts-collections := map {
 declare variable $config:dts-page-size := 10;
 
 (:~
+  Defines all available languages for <pb-lang> Webcomponent.
+  These language will be used if $config:use-available-languages is set to true().
+  Each language should have it's own localization file.
+:)
+declare variable $config:available-languages := <pb-lang>
+<paper-item>en</paper-item>
+<paper-item>cs</paper-item>
+<paper-item>de</paper-item>
+<paper-item>el</paper-item>
+<paper-item>es</paper-item>
+<paper-item>fr</paper-item>
+<paper-item>it</paper-item>
+<paper-item>nl</paper-item>
+<paper-item>pl</paper-item>
+</pb-lang>;
+
+(:~
+ : If set to true() items from $config:available-languages will be used
+ : in <pb-lang> elements, otherwise items defined for each
+ : individual <pb-lang> will be used.
+:)
+declare variable $config:use-available-languages := true();
+
+(:~
  : Return an ID which may be used to look up a document. Change this if the xml:id
  : which uniquely identifies a document is *not* attached to the root element.
  :)

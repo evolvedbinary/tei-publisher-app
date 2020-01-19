@@ -86,14 +86,27 @@ declare function pages:pb-view($node as node(), $model as map(*), $root as xs:st
     }
 };
 
-
+(:~
+  : Generates menu items with all defined langues.
+  : If $config:use-available-languages set to true() globaly defined languages
+  : in $config:available-languages variable are used, otherwise
+  : locally defined items within <pb-lang> are used.
+  : If parameter $lang is defined this language is set and selected in the dropdown.
+:)
 declare function pages:current-language($node as node(), $model as map(*), $lang as xs:string?) {
-    let $selected := count($node/*[. = $lang]/preceding-sibling::*)
+  let $selected := if($config:use-available-languages) then
+      count($config:available-languages/*[. = $lang]/preceding-sibling::*)
+    else
+      count($node/*[. = $lang]/preceding-sibling::*)
+  let $languages := if($config:use-available-languages) then
+        $config:available-languages
+      else
+        $node
     return
         element { node-name($node) } {
             $node/@*,
             attribute selected { $selected },
-            $node/*
+            $languages/*
         }
 };
 
