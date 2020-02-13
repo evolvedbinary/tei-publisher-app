@@ -7,7 +7,7 @@
     <msg key="fo-source">Zdroj FO</msg>
     <msg key="pdf-latex">PDF (verze LaTeX)</msg>
     <msg key="latex-source">Zdroj TeX</msg>
-    <msg key="single-page">Jenda strana</msg>
+    <msg key="single-page">Jedna strana</msg>
     <msg key="epub-download">Uložit jako e-knihu (EPUB)</msg>
     <msg key="view-tei">Zobrazit TEI XML</msg>
     <msg key="plain">Prostý text</msg>
